@@ -5,7 +5,7 @@ import { Footer } from './footer';
 
 
 
-export const Layout = ({ children }: { children: ReactNode }) => {
+export const Layout = ({ children, page }: { children: ReactNode, page: string }) => {
     const [theme, setTheme] = useState('dark');
     const [isCollapse, setIsCollapse] = useState<boolean>(false);
     const [isHorizontalCollapsed, setIsHorizontalCollapsed] = useState<boolean>(false);
@@ -16,10 +16,10 @@ export const Layout = ({ children }: { children: ReactNode }) => {
                 <Header />
             </div>
             <div className={`w-full flex flex-1 h-[88vh] border border-red-500`}>
-                <SideBar isCollapse={isCollapse} />
-                <div className={`flex-grow border border-blue-950 h-full bg-slate-200 flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
-                    <p className={`border border-yellow-500 ${isHorizontalCollapsed ? 'h-1/2 w-full' : 'h-full w-1/2'}`}>hi</p>
-                    <p className={`${isHorizontalCollapsed ? 'h-1/2 w-full' : 'h-full w-1/2'}`}>hello</p>
+                <SideBar {...{ isCollapse, page }} />
+                <div className={`flex-grow border border-blue-950 h-full flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
+                    <p className={`border border-yellow-500 ${isHorizontalCollapsed ? 'h-1/3 w-full' : 'h-full w-1/2'}`}>{children}</p>
+                    <p className={`${isHorizontalCollapsed ? 'flex-grow w-full' : 'h-full w-1/2'}`}>hello</p>
                 </div>
                 <div className={`${isRightSideBarCollapsed ? 'hidden' : 'w-1/4'} border border-red-500 h-full flex gap-2`}>
                     <div className='w-12 h-full'>hi</div>

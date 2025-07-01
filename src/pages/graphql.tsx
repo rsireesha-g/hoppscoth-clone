@@ -1,10 +1,10 @@
 import React from 'react'
 import { Layout } from '../components/layout'
 
-export const Rest = () => {
+export const GraphQL = () => {
     return (
-        <Layout page='home'>
-            <button>Change Theme</button>
+        <Layout page='graphql'>
+            <button>graphql</button>
         </Layout>
     )
 }
