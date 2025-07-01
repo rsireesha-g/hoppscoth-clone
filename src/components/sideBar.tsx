@@ -15,12 +15,12 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
         <div
             className={`${isCollapse ? 'w-12' : 'w-20'} 
         border border-red-400
-        flex gap-2 flex-col
+        flex flex-col text-[10px]
         `}>
             <Link to="/"
                 className={`
-            ${page === 'home' && 'border-l-4 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer p-3 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
+            ${page === 'home' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
+             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
                 <IoLinkOutline className='w-4 h-4' />
                 {!isCollapse &&
@@ -31,8 +31,8 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             </Link>
             <Link to="/graphql"
                 className={`
-            ${page === 'graphql' && 'border-l-4 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer p-3 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
+            ${page === 'graphql' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
+             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
                 <BiLogoGraphql className='w-4 h-4' />
                 {!isCollapse &&
@@ -43,8 +43,8 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             </Link>
             <Link to="/realtime"
                 className={`
-            ${page === 'realtime' && 'border-l-4 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer p-3 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
+            ${page === 'realtime' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
+             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
                 <CiGlobe className='w-4 h-4' />
                 {!isCollapse &&
@@ -55,8 +55,8 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             </Link>
             <Link to="/settings"
                 className={`
-            ${page === 'settings' && 'border-l-4 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer p-3 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
+            ${page === 'settings' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
+             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
                 <CiSettings className='w-5 h-5' />
                 {!isCollapse &&
