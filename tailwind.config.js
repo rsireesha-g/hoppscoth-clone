@@ -12,6 +12,7 @@ module.exports = {
         primary: 'var(--primary-color)',
         secondary: 'var(--secondary-color',
         secondaryLight: 'var( --secondary-light-color)',
+        secondaryDark: 'var(--secondary-dark-color)',
         getColor: 'var(--method-get-color)',
         deleteColor: 'var(--method-delete-color)',
         primaryDark: 'var(--primary-dark-color)',

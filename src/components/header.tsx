@@ -16,7 +16,8 @@ export const Header = () => {
                 focus-visible:text-secondary overflow-hidden text-secondaryLight'
                 >   <span className='flex gap-2 items-center flex-nowrap'>
                         <CiSearch className='w-4 h-4' />
-                        Search and commands</span>
+                        <span className='text-nowrap'>Search and commands</span>
+                    </span>
                     <span className='flex gap-2 items-center'>
                         <kbd className='kbd'>Ctrl</kbd>
                         <kbd className='kbd'>K</kbd>
