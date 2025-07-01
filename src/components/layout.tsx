@@ -10,7 +10,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
     const [isCollapse, setIsCollapse] = useState<boolean>(false);
     const [isRightSideBarCollapsed, setIsRightSideBarCollapsed] = useState<boolean>(false);
     return (
-        <div className={`w-[100vw] h-[100vh] text-xs font-semibold  ${theme === 'dark' ? 'bg-black text-white' : 'bg-white text-[#222]'}`}>
+        <div className={`w-[100vw] h-[100vh] text-xs font-semibold  ${theme === 'dark' ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}>
             <div className={``}>
                 <Header />
             </div>

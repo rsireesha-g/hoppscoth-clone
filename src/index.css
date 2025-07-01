@@ -22,8 +22,72 @@ code {
   margin: 0;
 }
 
+.kbd{
+    font-size: 0.625rem;
+    background-color: var(--divider-light-color);
+    border-radius: .25rem;
+    margin-left: .5rem;
+    padding: .125rem;
+    min-width: 1rem;
+    min-height: 1rem;
+    border-width: 1px;
+    border-color: var(--divider-dark-color);
+    --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);
+    --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+}
+
 
 :root{
-  --blue:'';
-  --pink:'';
+    --primary-color: #181818;
+    --primary-light-color: #1c1c1e;
+    --primary-dark-color: #262626;
+    --primary-contrast-color: #171717;
+    --secondary-color: #a3a3a3;
+    --secondary-light-color: #737373;
+    --secondary-dark-color: #fafafa;
+    --divider-color: #1f1f1f;
+    --divider-light-color: #1f1f1f;
+    --divider-dark-color: #27272a;
+    --banner-info-color: #292524;
+    --banner-warning-color: #854d0e;
+    --banner-error-color: #991b1b;
+    --tooltip-color: #f5f5f5;
+    --popover-color: #1b1b1b;
+    --method-get-color: #10b981;
+    --method-post-color: #eab308;
+    --method-put-color: #0ea5e9;
+    --method-patch-color: #8b5cf6;
+    --method-delete-color: #f43f5e;
+    --method-head-color: #14b8a6;
+    --method-options-color: #6366f1;
+    --method-default-color: #737373;
+    --status-info-color: #3b82f6;
+    --status-success-color: #22c55e;
+    --status-redirect-color: #f59e0b;
+    --status-critical-error-color: #ef4444;
+    --status-server-error-color: #f43f5e;
+    --status-missing-data-color: #64748b;
+    --editor-theme: "merbivore_soft";
+    --editor-type-color: #a78bfa;
+    --editor-name-color: #60a5fa;
+    --editor-operator-color: #818cf8;
+    --editor-invalid-color: #f87171;
+    --editor-separator-color: #9ca3af;
+    --editor-meta-color: #9ca3af;
+    --editor-variable-color: #34d399;
+    --editor-link-color: #22d3ee;
+    --editor-process-color: #e879f9;
+    --editor-constant-color: #a78bfa;
+    --editor-keyword-color: #f472b6;
+    --accent-dark-color: #4f46e5;
+    --accent-color: #6366f1;
+    --accent-contrast-color:#fff;
+    color-scheme: dark;
+
+
+    --tw-shadow-color:#666;
+    --tw-ring-offset-shadow:#999;
+    --tw-ring-shadow:#555;
+    --tw-shadow:#333;
 }
