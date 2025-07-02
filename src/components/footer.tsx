@@ -20,7 +20,12 @@ export const Footer = ({ setIsCollapse, isCollapse, isRightSideBarCollapsed, set
     return (
         <div className='flex justify-between p-2 border border-top-[#666]'>
             <div className='flex gap-2'>
-                <VscBrowser className={`w-4 h-4 cursor-pointer ${isCollapse ? '-rotate-90' : 'rotate-90'}`} onClick={() => setIsCollapse(!isCollapse)} />
+                <VscBrowser
+                    className={`w-4 h-4 cursor-pointer 
+                    ${isCollapse ? '-rotate-90' : 'rotate-90'}
+                    `}
+                    onClick={() => setIsCollapse(!isCollapse)}
+                />
                 <img src={secureImg} alt='interceptor' className='w-4 h-4 cursor-pointer ' />
             </div>
             <div className='flex gap-2'>

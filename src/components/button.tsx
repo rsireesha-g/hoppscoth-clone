@@ -1,13 +1,16 @@
 import { ReactNode } from "react"
 import { IconType } from "react-icons"
+import { Link } from "react-router"
 
 interface buttonProp {
-    type: 'primary' | 'bordered',
+    type: 'primary' | 'bordered' | 'link',
     text: string,
-    children?: ReactNode
+    children?: ReactNode,
+    nextLink?: string,
+    extraClass?: string
 }
 
-export const Button = ({ type, text, children }: buttonProp) => {
+export const Button = ({ type, text, children, nextLink, extraClass }: buttonProp) => {
     return (
         <>
             {type === 'primary' &&
@@ -22,6 +25,13 @@ export const Button = ({ type, text, children }: buttonProp) => {
                     {children}
                     <p>{text}</p>
                 </button>
+            }
+            {
+                type === 'link' &&
+                <Link to={nextLink || '#'} className={`flex flex-row-reverse items-center justify-center gap-2 whitespace-nowrap transition focus:outline-none w-fit text-[#a1a1a1] font-semibold hover:text-secondaryDark px-4 py-2 rounded h-8 border border-dividerDark ${extraClass}`}>
+                    {children}
+                    <p>{text}</p>
+                </Link>
             }
         </>
     )
