@@ -31,6 +31,7 @@ code {
     padding: .125rem;
     min-width: 1rem;
     min-height: 1rem;
+    text-align: center;
     border-width: 1px;
     border-color: var(--divider-dark-color);
     --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);

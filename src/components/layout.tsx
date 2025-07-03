@@ -19,7 +19,7 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
             </div>
             <div className={`w-full flex flex-1 h-[88vh] border border-red-500`}>
                 <SideBar {...{ isCollapse, page }} />
-                <div className={`flex-grow border bg-[#f3f3f3] border-blue-950 h-full flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
+                <div className={`flex-grow border border-blue-950 h-full flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
                     <div className={`
                         border border-yellow-500 
                         ${isHorizontalCollapsed ? 'h-1/3 w-full' : 'h-full w-1/2'}

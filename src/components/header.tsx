@@ -8,7 +8,7 @@ import { Link } from 'react-router';
 export const Header = () => {
     return (
         <div className={`w-full p-2 grid grid-cols-5 gap-2 overflow-x-auto overflow-y-hidden border-b-[1px] border-[#302f2f]`}>
-            <Link to="/" className={`col-span-2 flex items-center justify-between space-x-2 uppercase`}>Hoppscoth</Link>
+            <Link to="/" className={`col-span-2 flex items-center justify-between space-x-2 uppercase`}>Hoppscotch</Link>
             <div className={`col-span-1 flex items-center justify-between space-x-2`}>
                 <button className='flex flex-1 cursor-text items-center justify-between self-stretch rounded bg-primaryDark 
                 px-2 transition hover:border-dividerDark hover:bg-primaryLight 
