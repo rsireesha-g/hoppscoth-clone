@@ -23,7 +23,7 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
                     <div className={`
                         border border-yellow-500 
                         ${isHorizontalCollapsed ? 'h-1/3 w-full' : 'h-full w-1/2'}
-                        ${page === 'settings' && 'w-full'}
+                        ${page === 'settings' && 'w-full h-full overflow-y-scroll'}
                         `}>
                         {children}
                     </div>

@@ -3,7 +3,7 @@ import { IconType } from "react-icons"
 import { Link } from "react-router"
 
 interface buttonProp {
-    type: 'primary' | 'bordered' | 'link',
+    type: 'primary' | 'bordered' | 'link' | 'secondary',
     text: string,
     children?: ReactNode,
     nextLink?: string,
@@ -32,6 +32,13 @@ export const Button = ({ type, text, children, nextLink, extraClass }: buttonPro
                     {children}
                     <p>{text}</p>
                 </Link>
+            }
+            {
+                type === 'secondary' &&
+                <button className={`flex flex-row-reverse items-center justify-center gap-2 whitespace-nowrap transition focus:outline-none w-fit text-[#a1a1a1] font-semibold hover:text-secondaryDark px-4 py-2 rounded h-8 border border-dividerDark ${extraClass}`}>
+                    {children}
+                    <p>{text}</p>
+                </button>
             }
         </>
     )
