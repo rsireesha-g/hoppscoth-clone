@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit"
 
 interface statesSliceProps {
     isShortCutsModalOpen: boolean,
+    isSearchModalOpen: boolean,
 }
 
 const initialState: statesSliceProps = {
-    isShortCutsModalOpen: false
+    isShortCutsModalOpen: false,
+    isSearchModalOpen: false
 }
 
 const statesSlice = createSlice({
@@ -14,11 +16,15 @@ const statesSlice = createSlice({
     reducers: {
         onShortCutsModalClick(state) {
             state.isShortCutsModalOpen = !state.isShortCutsModalOpen
+        },
+        onSearchModalClick(state) {
+            state.isSearchModalOpen = !state.isSearchModalOpen
         }
     }
 });
 
 export const {
-    onShortCutsModalClick
+    onShortCutsModalClick,
+    onSearchModalClick
 } = statesSlice.actions;
 export default statesSlice.reducer;

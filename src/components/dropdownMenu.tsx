@@ -7,7 +7,7 @@ type DropdownItem = {
     onClick?: () => void;
 };
 
-type DropdownPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+type DropdownPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'header';
 
 type DropdownMenuProps = {
     button: React.ReactNode;
@@ -30,6 +30,9 @@ const DropdownMenu = ({ button, items, position, children }: DropdownMenuProps) 
             case 'bottom-left':
                 return 'top-full left-0 mt-2';
             case 'bottom-right':
+                return 'top-full right-0 mt-2';
+            case 'header':
+                return 'top-full mt-2 -left-1/2 w-fit';
             default:
                 return 'top-full right-0 mt-2';
         }
@@ -53,7 +56,7 @@ const DropdownMenu = ({ button, items, position, children }: DropdownMenuProps) 
 
             {isOpen && (
                 <div
-                    className={`py-4 px-2  flex flex-col gap-2 absolute z-50 w-56 bg-popoverColor !max-w-[45vw] border text-secondaryLight border-dividerDark rounded-md shadow-lg ${getPositionClasses(position)}`}
+                    className={`py-4 px-2 absolute z-50  flex flex-col gap-2 w-56 bg-popoverColor !max-w-[45vw] border text-secondaryLight border-dividerDark rounded-md shadow-lg ${getPositionClasses(position)}`}
                 >
                     {items?.map((item, index) => (
                         <div

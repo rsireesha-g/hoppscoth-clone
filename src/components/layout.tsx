@@ -13,7 +13,7 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
     const [isRightSideBarCollapsed, setIsRightSideBarCollapsed] = useState<boolean>(false);
 
     return (
-        <div className={`w-[100vw] h-[100vh] text-xs font-semibold  ${theme === 'dark' ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}>
+        <div className={` w-[100vw] h-[100vh] text-xs font-semibold overflow-hidden  ${theme === 'dark' ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}>
             <div className={``}>
                 <Header />
             </div>
