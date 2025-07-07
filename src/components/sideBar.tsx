@@ -3,6 +3,7 @@ import { IoLinkOutline } from "react-icons/io5";
 import { BiLogoGraphql } from "react-icons/bi";
 import { CiGlobe, CiSettings } from "react-icons/ci";
 import { Link } from 'react-router';
+import { Tooltip } from './tooltip';
 
 type sideBarProps = {
     isCollapse: boolean,
@@ -65,6 +66,7 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
                     </p>
                 }
             </Link>
+            <Tooltip />
         </div>
     )
 }

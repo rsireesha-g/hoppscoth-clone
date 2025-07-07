@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("./common.css");
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
@@ -22,23 +23,6 @@ code {
   padding: 0;
   margin: 0;
 }
-
-.kbd{
-    font-size: 0.625rem;
-    background-color: var(--divider-light-color);
-    border-radius: .25rem;
-    margin-left: .5rem;
-    padding: .125rem;
-    min-width: 1rem;
-    min-height: 1rem;
-    text-align: center;
-    border-width: 1px;
-    border-color: var(--divider-dark-color);
-    --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);
-    --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
-}
-
 
 
 :root{
@@ -93,4 +77,5 @@ code {
     --tw-ring-offset-shadow:#999;
     --tw-ring-shadow:#555;
     --tw-shadow:#333;
+    --popover-color:#0c0a09;
 }

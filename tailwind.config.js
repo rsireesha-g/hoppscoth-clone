@@ -17,7 +17,10 @@ module.exports = {
         deleteColor: 'var(--method-delete-color)',
         primaryDark: 'var(--primary-dark-color)',
         primaryLight: 'var(--primary-light-color)',
-        dividerDark: 'var(--divider-dark-color)'
+        dividerDark: 'var(--divider-dark-color)',
+        dividerLight: 'var(--divider-light-color: #1f1f1f)',
+        popoverColor: 'var(--popover-color)',
+
       }
     },
   },
