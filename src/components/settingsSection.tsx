@@ -10,7 +10,7 @@ interface settingSectionProps {
 }
 export const SettingsSection = ({ children, description, heading, linkText, linkTo = "#" }: settingSectionProps) => {
     return (
-        <section>
+        <section key={heading}>
             <h4 className="font-semibold text-secondaryDark">{heading}</h4>
             {description && <div className="my-1 text-secondaryLight">{description}
                 {linkText && <Link to={linkTo}>{linkText}</Link>}

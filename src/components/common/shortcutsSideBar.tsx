@@ -1,9 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { AppDispatch } from '../../redux/store';
+import React, { useRef, useState } from 'react'
+import { AppDispatch, RootState } from '../../redux/store';
 import { useDispatch } from 'react-redux';
 import { onShortCutsModalClick } from '../../redux/slices/statesSlice';
 import { MdOutlineClose } from "react-icons/md";
 import { LuChevronDown } from "react-icons/lu";
+import { Modal } from '../modal';
+import { useSelector } from 'react-redux';
+import { useClickOutside } from '../../hooks/modalHooks';
 
 const shortCutsData = [
     {
@@ -52,11 +55,12 @@ const shortCutsData = [
 
 
 export const ShortcutsSideBar = () => {
-    const menuRef = useRef<HTMLDivElement>(null);
-
+    const modalRef = useRef<HTMLDivElement>(null);
 
     const dispatch = useDispatch<AppDispatch>();
+    const isShortCutsModalOpen = useSelector((state: RootState) => state.statesStatus.isShortCutsModalOpen);
     const [input, setInput] = useState('');
+
     const filteredItems = shortCutsData
         .flatMap(section =>
             section.items.map(item => ({
@@ -69,30 +73,19 @@ export const ShortcutsSideBar = () => {
         )
 
 
-    // Group by section again (optional)
     const grouped = filteredItems.reduce((acc: any, item) => {
         if (!acc[item.section]) acc[item.section] = [];
         acc[item.section].push(item);
         return acc;
     }, {});
 
-    useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-                dispatch(onShortCutsModalClick())
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
-
 
     return (
-        <div className='modal'>
-            <div className="absolute z-30 right-0 top-0 bg-primary border-l border-dividerDark w-96 h-full flex flex-col gap-2 overflow-scroll" ref={menuRef}>
+        <Modal onClose={() => dispatch(onShortCutsModalClick(false))} isOpen={isShortCutsModalOpen} >
+            <div ref={modalRef} className="absolute z-30 right-0 top-0 bg-primary border-l border-dividerDark w-96 h-full flex flex-col gap-2 overflow-scroll" >
                 <div className="flex items-center justify-between p-2 border-b border-dividerDark ">
                     <h3 className="ml-4 heading">Shortcuts</h3>
-                    <MdOutlineClose onClick={() => dispatch(onShortCutsModalClick())} className='w-4 h-4 cursor-pointer' />
+                    <MdOutlineClose onClick={() => dispatch(onShortCutsModalClick(false))} className='w-4 h-4 cursor-pointer' />
                 </div>
                 <div className="sticky top-0 z-10 flex flex-shrink-0 flex-col overflow-x-auto bg-primary">
                     <div className="relative flex px-6 py-4 border-b border-dividerDark">
@@ -128,6 +121,6 @@ export const ShortcutsSideBar = () => {
                     })}
                 </div>
             </div>
-        </div>
+        </Modal>
     )
 }

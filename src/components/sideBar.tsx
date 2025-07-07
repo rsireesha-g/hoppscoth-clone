@@ -66,7 +66,7 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
                     </p>
                 }
             </Link>
-            <Tooltip />
+            <Tooltip text='hello'>hi</Tooltip>
         </div>
     )
 }

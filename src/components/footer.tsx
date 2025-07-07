@@ -17,6 +17,7 @@ import { SettingsSection } from './settingsSection';
 import { LuGithub, LuTwitter } from 'react-icons/lu';
 import { RiAccountCircleLine, RiAccountPinCircleLine } from "react-icons/ri";
 import { GoLock } from "react-icons/go";
+import { Tooltip } from './tooltip';
 
 type footerProps = {
     setIsCollapse: (x: boolean) => void,
@@ -43,7 +44,7 @@ export const Footer = ({
 
     const menuItems = [
         { label: 'Documentation', icon: <VscBrowser size={14} className='rotate-180' />, kbd: 'D' },
-        { label: 'Keyboard Shortcuts', icon: <img src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' onClick={() => dispatch(onShortCutsModalClick())} />, kbd: 'S' },
+        { label: 'Keyboard Shortcuts', icon: <img src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' onClick={() => dispatch(onShortCutsModalClick(true))} />, kbd: 'S' },
         { label: 'Chat with us', icon: <IoChatbubbleOutline size={16} /> },
         { label: "What's new?", icon: <CiGift size={16} /> },
         { label: 'Status', icon: <TbActivityHeartbeat size={16} /> },
@@ -59,11 +60,11 @@ export const Footer = ({
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.ctrlKey && e.key.toLowerCase() === '/') {
                 e.preventDefault();
-                dispatch(onShortCutsModalClick());
+                dispatch(onShortCutsModalClick(true));
 
             }
             if (e.key === 'Escape') {
-                dispatch(onShortCutsModalClick());
+                dispatch(onShortCutsModalClick(false));
             }
         };
 
@@ -76,29 +77,33 @@ export const Footer = ({
         <>
             <div className='flex justify-between p-2 border border-top-[#666]'>
                 <div className='flex gap-2'>
-                    <VscBrowser
-                        className={`w-4 h-4 cursor-pointer 
+                    <Tooltip text='Collapse sidebar' position='top-left'>
+                        <VscBrowser
+                            className={`w-4 h-4 cursor-pointer 
                     ${isCollapse ? '-rotate-90' : 'rotate-90'}
                     `}
-                        onClick={() => setIsCollapse(!isCollapse)}
-                    />
-                    <DropdownMenu
-                        position='top-left'
-                        button={
-                            <img src={secureImg} alt='interceptor' className='w-4 h-4 cursor-pointer ' />
-                        }
-                    >
-                        <SettingsSection
-                            heading='Interceptor'
-                            description='Middleware between application and APIs'
-                        >    <div className='flex flex-col w-fit px-2'>
+                            onClick={() => setIsCollapse(!isCollapse)}
+                        />
+                    </Tooltip>
+                    <Tooltip text='interceptor' position='top'>
+                        <DropdownMenu
+                            position='top-left'
+                            button={
+                                <img src={secureImg} alt='interceptor' className='w-4 h-4 cursor-pointer ' />
+                            }
+                        >
+                            <SettingsSection
+                                heading='Interceptor'
+                                description='Middleware between application and APIs'
+                            >    <div className='flex flex-col w-fit px-2'>
 
-                                {['Browser', 'Proxy', 'Agent', 'Browser extension']?.map((item: string) => (
-                                    <RadioButton text={item} selected={interceptorSelected} setSelected={setInterceptorSelected} />
-                                ))}
-                            </div>
-                        </SettingsSection>
-                    </DropdownMenu>
+                                    {['Browser', 'Proxy', 'Agent', 'Browser extension']?.map((item: string) => (
+                                        <RadioButton text={item} selected={interceptorSelected} setSelected={setInterceptorSelected} />
+                                    ))}
+                                </div>
+                            </SettingsSection>
+                        </DropdownMenu>
+                    </Tooltip>
                 </div>
                 <div className='flex gap-2'>
                     <DropdownMenu
@@ -111,7 +116,7 @@ export const Footer = ({
                         }
                         items={menuItems}
                     />
-                    <img src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' onClick={() => dispatch(onShortCutsModalClick())} />
+                    <img src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' onClick={() => dispatch(onShortCutsModalClick(true))} />
                     <IoShareSocialOutline className='w-4 h-4 cursor-pointer text-secondaryDark' />
                     <BsLayoutSplit className='w-4 h-4 cursor-pointer  text-secondaryDark'
                         onClick={() => setIsHorizontalCollapsed(!isHorizontalCollapsed)}

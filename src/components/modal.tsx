@@ -1,7 +1,24 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { useClickOutside } from '../hooks/modalHooks';
 
-export const Modal = () => {
+interface ModalProps {
+    children: React.ReactNode;
+    onClose: () => void;
+    className?: string;
+    isOpen: boolean
+}
+
+
+export const Modal = ({ children, onClose, className, isOpen }: ModalProps) => {
+    const modalRef = useRef<any>(null);
+
+    useClickOutside(modalRef, onClose, isOpen);
+
     return (
-        <div>Modal</div>
+        <div className={`modal ${className}`}>
+            <div ref={modalRef}>
+                {children}
+            </div>
+        </div>
     )
 }

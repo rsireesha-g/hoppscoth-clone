@@ -38,9 +38,9 @@
     gap:0.5rem;
     width:500px;
     min-height:2rem;
-    max-height:60vh;
+    max-height:80vh;
     background-color: var(--popover-color); 
-    max-width:45vw !important;
+    max-width:60vw !important;
     border:1px solid var(--divider-dark-color);
     color:var(--secondaryLight);
     border-radius: 6px;

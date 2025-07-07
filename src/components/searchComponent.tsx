@@ -1,29 +1,26 @@
 import React, { useEffect, useRef } from 'react'
-import { onSearchModalClick } from '../redux/slices/statesSlice';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../redux/store';
+import { AppDispatch, RootState } from '../redux/store';
 import { IoIosArrowRoundDown, IoIosArrowRoundUp } from "react-icons/io";
 import { TbArrowBack } from 'react-icons/tb';
+import { Modal } from './modal';
+import { useSelector } from 'react-redux';
+import { onSearchModalClick } from '../redux/slices/statesSlice';
 
 export const SearchComponent = () => {
     const searchRef = useRef<HTMLDivElement>(null);
     const dispatch = useDispatch<AppDispatch>();
+    const isSearchModalOpen = useSelector((state: RootState) => state.statesStatus.isSearchModalOpen);
 
-    useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
-                dispatch(onSearchModalClick());
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+
+
+
     return (
-        <div className='modal'>
-            <div className="innerModal overflow-y-hidden p-2 top-16 md:mb-8 w-[500px] min-w-fit min-h-fit" ref={searchRef}>
+        <Modal onClose={() => dispatch(onSearchModalClick(false))} isOpen={isSearchModalOpen}>
+            <div className="innerModal overflow-y-hidden p-2 top-16 md:mb-8 w-[500px] min-w-fit min-h-fit left-1/3" ref={searchRef}>
                 <div className="flex max-h-[60vh] flex-col">
                     <div className=" text-secondaryLight hover:text-secondaryDark bg-none border-0 p-2">
-                        <input className='w-full p-1 bg-transparent focus:border-0' type='text' placeholder='Type a command or search...' />
+                        <input className='w-full p-2 bg-transparent focus:border-0' type='text' placeholder='Type a command or search...' />
                     </div>
                     <div className="flex gap-2 justify-between align-middle text-secondaryLight border-t border-dividerDark pt-3 pb-1">
                         <div className="text-[10px] flex">
@@ -40,6 +37,6 @@ export const SearchComponent = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </Modal>
     )
 }
