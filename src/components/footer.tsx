@@ -77,7 +77,7 @@ export const Footer = ({
         <>
             <div className='flex justify-between p-2 border border-top-[#666]'>
                 <div className='flex gap-2'>
-                    <Tooltip text='Collapse sidebar' position='top-left'>
+                    <Tooltip text='Collapse sidebar' position='top-left' extraClassName='-mb-0 left-1/2 -bottom-1'>
                         <VscBrowser
                             className={`w-4 h-4 cursor-pointer 
                     ${isCollapse ? '-rotate-90' : 'rotate-90'}
@@ -85,7 +85,7 @@ export const Footer = ({
                             onClick={() => setIsCollapse(!isCollapse)}
                         />
                     </Tooltip>
-                    <Tooltip text='interceptor' position='top'>
+                    <Tooltip text='interceptor' position='top-left' extraClassName=''>
                         <DropdownMenu
                             position='top-left'
                             button={
@@ -116,15 +116,23 @@ export const Footer = ({
                         }
                         items={menuItems}
                     />
-                    <img src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' onClick={() => dispatch(onShortCutsModalClick(true))} />
-                    <IoShareSocialOutline className='w-4 h-4 cursor-pointer text-secondaryDark' />
-                    <BsLayoutSplit className='w-4 h-4 cursor-pointer  text-secondaryDark'
-                        onClick={() => setIsHorizontalCollapsed(!isHorizontalCollapsed)}
-                    />
-                    <TbLayoutSidebarLeftCollapse
-                        onClick={() => setIsRightSideBarCollapsed(!isRightSideBarCollapsed)}
-                        className={`w-5 h-5 mt-[-0.15rem] cursor-pointer  text-secondaryDark cover ${isRightSideBarCollapsed ? 'rotate-180' : 'rotate-0'}`}
-                    />
+                    <Tooltip position='top-left' text='Shortcuts' kbd={['Ctrl', '/']} extraClassName=' -ml-2 bg-red-500'>
+                        <img src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' onClick={() => dispatch(onShortCutsModalClick(true))} />
+                    </Tooltip>
+                    <Tooltip position='top-right' text='share'>
+                        <IoShareSocialOutline className='w-4 h-4 cursor-pointer text-secondaryDark' />
+                    </Tooltip>
+                    <Tooltip text='Horizontal split' position='top-right'>
+                        <BsLayoutSplit className='w-4 h-4 cursor-pointer  text-secondaryDark'
+                            onClick={() => setIsHorizontalCollapsed(!isHorizontalCollapsed)}
+                        />
+                    </Tooltip>
+                    <Tooltip text='collapse sidebar' position='top-right'>
+                        <TbLayoutSidebarLeftCollapse
+                            onClick={() => setIsRightSideBarCollapsed(!isRightSideBarCollapsed)}
+                            className={`w-5 h-5 mt-[-0.15rem] cursor-pointer  text-secondaryDark cover ${isRightSideBarCollapsed ? 'rotate-180' : 'rotate-0'}`}
+                        />
+                    </Tooltip>
                 </div>
             </div >
             {

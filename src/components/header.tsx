@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Button } from './button'
 import { LuCloudUpload, LuDownload } from "react-icons/lu";
 import { HiOutlineSupport } from "react-icons/hi";
@@ -32,6 +32,7 @@ export const Header = () => {
     );
 
     console.log(isLoginModalOpen ? isLoggedIn ? 'first' : 'hi' : 'last')
+    useEffect(() => { dispatch(isAuth()) }, []);
 
     return (
         <>
