@@ -5,6 +5,11 @@ import { Link } from 'react-router'
 import { SlideButton } from '../components/slideButton';
 import { Button } from '../components/button';
 import { SettingsSection } from '../components/settingsSection';
+import DropdownMenu from '../components/dropdownMenu';
+import { LuLanguages } from "react-icons/lu";
+import { IoIosDesktop } from 'react-icons/io';
+import { CiCloud, CiDark, CiLight } from 'react-icons/ci';
+import { MdDarkMode } from 'react-icons/md';
 
 export type ExperimentKey = 'Telemetry' | 'Expand navigation' | 'Sidebar on left' | 'AI Experiments' | 'Experimental scripting sandbox' | 'Verify Host' | 'Verify Peer' | 'Proxy';
 
@@ -21,6 +26,42 @@ export const Settings = () => {
         'Proxy': false
     });
 
+    const [activeColor, setColor] = useState('Indigo')
+
+    const globalLanguages = [
+        { label: 'English' },
+        { label: 'Mandarin Chinese' },
+        { label: 'Spanish' },
+        { label: 'Arabic' },
+        { label: 'Hindi' },
+        { label: 'Bengali' },
+        { label: 'Portuguese' },
+        { label: 'Russian' },
+        { label: 'Japanese' },
+        { label: 'German' },
+        { label: 'French' },
+        { label: 'Urdu' },
+        { label: 'Indonesian' },
+        { label: 'Turkish' },
+        { label: 'Vietnamese' },
+        { label: 'Korean' },
+        { label: 'Italian' },
+        { label: 'Persian (Farsi)' },
+        { label: 'Polish' },
+        { label: 'Ukrainian' },
+        { label: 'Thai' },
+        { label: 'Dutch' },
+        { label: 'Swahili' },
+        { label: 'Tamil' },
+        { label: 'Telugu' },
+        { label: 'Malayalam' },
+        { label: 'Punjabi' },
+        { label: 'Marathi' },
+        { label: 'Gujarati' },
+        { label: 'Hebrew' }
+    ];
+
+
     const [interceptorValues, setInterceptorValues] = useState('Browser');
 
     const handleExperimentsValue = (item: ExperimentKey) => {
@@ -36,7 +77,18 @@ export const Settings = () => {
                     <p className="text-secondaryLight my-1">General settings used in the application</p>
                 </div>
                 <div className="space-y-8 p-8 col-span-2">
-                    <SettingsSection heading='Language' />
+                    <SettingsSection heading='Language' >
+                        <DropdownMenu position='bottom-left' items={globalLanguages}
+                            button={
+
+                                <Button type='secondary' text='English' extraClass=' !flex-row-reverse' >
+                                    <LuLanguages size={16} />
+                                </Button>
+                            }
+                        >
+
+                        </DropdownMenu>
+                    </SettingsSection>
 
                     <SettingsSection heading='Query Parameters Encoding' description='Configure encoding for query parameters in requests'>
                         <div className='flex flex-col w-fit'>
@@ -67,9 +119,23 @@ export const Settings = () => {
                         <div className="my-1 text-secondaryLight">
                             Request Naming Style
                         </div>
-                        <Button type='secondary' text='Descriptive With Spaces'>
-                            'hi'
-                        </Button>
+                        <DropdownMenu position='top-right'
+
+                            items={[
+                                { label: 'Descriptive With Spaces' },
+                                { label: 'Camel Case (camelCase)' },
+                                { label: 'Snake Case (snake_case)' },
+                                { label: 'Pascal Case (PascalCase)' },
+                                { label: 'Custom' }
+                            ]}
+                            button={
+                                <Button type='secondary' text='Descriptive With Spaces'
+                                    extraClass=' !flex-row-reverse w-full justify-start' >
+                                </Button>
+                            }
+                        >
+
+                        </DropdownMenu>
                         <SlideButton
                             selected={experimentsValue?.['Experimental scripting sandbox']}
                             setSelected={handleExperimentsValue}
@@ -86,8 +152,25 @@ export const Settings = () => {
                     <p className="text-secondaryLight my-1">Customize your application theme.</p>
                 </div>
                 <div className="space-y-8 p-8 col-span-2">
-                    <SettingsSection heading='Background' description='System()'>backgrounds</SettingsSection>
-                    <SettingsSection heading='Accent color' description='Indigo'>colors</SettingsSection>
+                    <SettingsSection heading='Background' description='Black'>
+                        <div className="flex gap-2">
+                            <IoIosDesktop size={16} />
+                            <CiLight size={18} />
+                            <CiCloud size={18} />
+                            <CiDark size={18} />
+                        </div>
+                    </SettingsSection>
+                    <SettingsSection heading='Accent color' description={activeColor}>
+                        <div className="flex gap-2">
+                            {['green', 'teal', 'blue', 'indigo', 'purple', 'yellow', 'orange', 'red', 'pink']
+                                ?.map((color: string) => (
+                                    <div className={`w-4 h-4 border rounded-full flex justify-center align-middle`} style={{ borderColor: `${color}` }}
+                                        onClick={() => setColor(color)}>
+                                        {activeColor === color && <div className='w-1 h-1 text-center rounded-full' style={{ backgroundColor: `${color}` }}></div>}
+                                    </div>
+                                ))}
+                        </div>
+                    </SettingsSection>
                 </div>
             </div>
             <div className="md:grid md:grid-cols-3 md:gap-4">
@@ -110,7 +193,8 @@ export const Settings = () => {
                         linkText='Proxy privacy policy'
                         linkTo='#'
                     >
-                        proxy url nasda
+                        proxy url
+                        <Button text='https://proxy.hoppscotch.io/' type='secondary' extraClass='w-full mt-2' />
                     </SettingsSection>
                     <SettingsSection heading='Agent'
                         description=''

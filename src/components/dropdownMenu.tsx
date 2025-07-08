@@ -28,7 +28,7 @@ const DropdownMenu = ({ button, items, position, children, childrenPosition = 'b
             case 'top-left':
                 return 'bottom-full -left-1/2 mb-2';
             case 'top-right':
-                return 'bottom-full right-0 mb-2';
+                return 'bottom-full right-1/2 mb-2';
             case 'bottom-left':
                 return 'top-full left-0 mt-2';
             case 'bottom-right':
@@ -52,7 +52,7 @@ const DropdownMenu = ({ button, items, position, children, childrenPosition = 'b
 
             {isOpen && (
                 <div
-                    className={`py-4 px-2 absolute z-50  flex flex-col gap-2 w-56 bg-popoverColor !max-w-[45vw] border text-secondaryLight border-dividerDark rounded-md shadow-lg ${getPositionClasses(position)}`}
+                    className={`py-4 px-2 absolute z-50  flex flex-col gap-2 w-56 bg-popoverColor !max-w-[45vw] border text-secondaryLight border-dividerDark rounded-md shadow-lg max-h-[60vh] overflow-y-scroll ${getPositionClasses(position)}`}
                 >
                     {childrenPosition === 'top' && children}
 
