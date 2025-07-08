@@ -8,17 +8,18 @@ type DropdownItem = {
     onClick?: () => void;
 };
 
-type DropdownPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'header';
+type DropdownPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'header' | 'header-right';
 
 type DropdownMenuProps = {
     button: React.ReactNode;
     items?: DropdownItem[];
     position?: DropdownPosition;
-    children?: ReactNode
+    children?: ReactNode;
+    childrenPosition?: 'top' | 'bottom'
 };
 
 
-const DropdownMenu = ({ button, items, position, children }: DropdownMenuProps) => {
+const DropdownMenu = ({ button, items, position, children, childrenPosition = 'bottom' }: DropdownMenuProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<any>(null);
 
@@ -34,6 +35,8 @@ const DropdownMenu = ({ button, items, position, children }: DropdownMenuProps) 
                 return 'top-full right-0 mt-2';
             case 'header':
                 return 'top-full mt-2 -left-1/2 w-fit';
+            case 'header-right':
+                return 'top-full right-1 mt-2 w-fit';
             default:
                 return 'top-full right-0 mt-2';
         }
@@ -51,6 +54,8 @@ const DropdownMenu = ({ button, items, position, children }: DropdownMenuProps) 
                 <div
                     className={`py-4 px-2 absolute z-50  flex flex-col gap-2 w-56 bg-popoverColor !max-w-[45vw] border text-secondaryLight border-dividerDark rounded-md shadow-lg ${getPositionClasses(position)}`}
                 >
+                    {childrenPosition === 'top' && children}
+
                     {items?.map((item, index) => (
                         <div
                             key={index}
@@ -65,7 +70,7 @@ const DropdownMenu = ({ button, items, position, children }: DropdownMenuProps) 
                             {item?.kbd && <kbd className='kbd'>{item?.kbd}</kbd>}
                         </div>
                     ))}
-                    {children}
+                    {childrenPosition === 'bottom' && children}
                 </div>
             )}
         </div>

@@ -2,21 +2,28 @@ import React, { useEffect, useRef } from 'react'
 import { Button } from './button'
 import { LuCloudUpload, LuDownload } from "react-icons/lu";
 import { HiOutlineSupport } from "react-icons/hi";
-import { CiSearch } from "react-icons/ci";
+import { CiSearch, CiSettings } from "react-icons/ci";
 import { Link } from 'react-router';
 import DropdownMenu from './dropdownMenu';
 import { FaApple, FaLinux, FaWindows } from "react-icons/fa";
 import { CiGlobe } from "react-icons/ci";
 import { HiOutlineCommandLine } from "react-icons/hi2";
 import { useDispatch } from 'react-redux';
-import { isAuth, onLoginModalClick, onSearchModalClick } from '../redux/slices/statesSlice';
+import { isAuth, onLoginModalClick, onLogout, onSearchModalClick } from '../redux/slices/statesSlice';
 import { useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store';
 import { SearchComponent } from './searchComponent';
 import { Login } from './login';
 import { Tooltip } from './tooltip';
+import { CgProfile } from "react-icons/cg";
+import { MdOutlineAccountCircle } from 'react-icons/md';
+import { FaArrowRightFromBracket } from 'react-icons/fa6';
 
 export const Header = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { isLoggedIn, isLoginModalOpen, isSearchModalOpen, email } = useSelector(
+        (state: RootState) => state.statesStatus
+    );
 
     const downloadItems = [
         { label: 'macOS', icon: <FaApple size={16} /> },
@@ -26,10 +33,18 @@ export const Header = () => {
         { label: 'CLI', icon: <HiOutlineCommandLine size={16} /> }
     ];
 
-    const dispatch = useDispatch<AppDispatch>();
-    const { isLoggedIn, isLoginModalOpen, isSearchModalOpen } = useSelector(
-        (state: RootState) => state.statesStatus
-    );
+    const handleLogout = () => {
+        dispatch(onLogout())
+    }
+
+    const profileItems = [
+        { label: 'Profile', icon: <CgProfile size={16} />, kbd: 'P' },
+        { label: 'Settings', icon: <CiSettings size={16} />, kbd: 'S' },
+        { label: 'Logout', icon: <FaArrowRightFromBracket size={16} />, kbd: 'L', onclick: { handleLogout } },
+    ];
+
+
+
 
     console.log(isLoginModalOpen ? isLoggedIn ? 'first' : 'hi' : 'last')
     useEffect(() => { dispatch(isAuth()) }, []);
@@ -83,6 +98,28 @@ export const Header = () => {
                         </div>
                         :
                         <div className={`flex items-center gap-2 space-x-2`}>
+                            <Tooltip text='Invite' position='bottom'>
+                                <MdOutlineAccountCircle size={24} />
+                            </Tooltip>
+                            <Tooltip text='My personal workspace' position='bottom'>
+                                <Button extraClass='!text-accent !border-accent' type='bordered' text='My personal workspace' onClick={() => dispatch(isAuth())}>
+                                    <MdOutlineAccountCircle className='w-4 h-4' />
+                                </Button>
+                            </Tooltip>
+
+                            <DropdownMenu
+                                button={
+                                    <CgProfile size={24} />
+                                }
+                                items={profileItems}
+                                position='header-right'
+                                childrenPosition='top'
+                            >
+                                <div className="border-b border-b-dividerDark pb-2">
+                                    <p className="">{email && email?.split("@")?.[0]}</p>
+                                    <p className="text-[10px] text-secondary">{email}</p>
+                                </div>
+                            </DropdownMenu>
 
                         </div>
                     }

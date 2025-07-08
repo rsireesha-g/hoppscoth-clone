@@ -4,14 +4,16 @@ interface statesSliceProps {
     isShortCutsModalOpen: boolean,
     isSearchModalOpen: boolean,
     isLoggedIn: boolean,
-    isLoginModalOpen: boolean
+    isLoginModalOpen: boolean,
+    email: string
 }
 
 const initialState: statesSliceProps = {
     isShortCutsModalOpen: false,
     isSearchModalOpen: false,
     isLoggedIn: false,
-    isLoginModalOpen: false
+    isLoginModalOpen: false,
+    email: ''
 }
 
 const statesSlice = createSlice({
@@ -26,7 +28,8 @@ const statesSlice = createSlice({
         },
         onLogout(state) {
             localStorage.removeItem('email');
-            state.isLoggedIn = false
+            state.isLoggedIn = false;
+            state.email = ''
         },
         onLogin(state) {
             state.isLoggedIn = true
@@ -37,6 +40,7 @@ const statesSlice = createSlice({
             if (email) {
                 console.log(' insi')
                 state.isLoggedIn = true;
+                state.email = email;
 
             } else {
                 console.log('out')

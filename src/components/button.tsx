@@ -23,8 +23,8 @@ export const Button = ({ type, text, children, nextLink, extraClass, onClick }: 
                 </button>
             }
             {type === 'bordered' &&
-                <button className="flex items-center justify-center gap-2 whitespace-nowrap transition focus:outline-none focus-visible:bg-emerald-600/20 bg-emerald-500/10 text-getColor 
-                 hover:bg-emerald-600/20  px-4 py-2 rounded h-8 border border-getColor  "
+                <button className={`flex items-center justify-center gap-2 whitespace-nowrap transition focus:outline-none focus-visible:bg-emerald-600/20 bg-emerald-500/10 text-getColor 
+                 hover:bg-emerald-600/20  px-4 py-2 rounded h-8 border border-getColor  ${extraClass}`}
                     onClick={handleClick}>
                     {children}
                     <p>{text}</p>
