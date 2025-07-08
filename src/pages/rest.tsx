@@ -17,21 +17,11 @@ import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
 import { Button } from '../components/button';
 import { AiOutlineFolderAdd, AiOutlineReload, AiOutlineSave } from "react-icons/ai";
 import { IoShareSocialOutline } from 'react-icons/io5'
+import { authMethods } from '../contanst'
 
 export const Rest = () => {
     const [selectedTab, setSelectedTab] = useState('parameters')
-    const authMethods = [
-        "Inherit",
-        "None",
-        "Basic Auth",
-        "Digest Auth",
-        "Bearer",
-        "OAuth 2.0",
-        "API Key",
-        "AWS Signature",
-        "HAWK",
-        "JWT"
-    ];
+
     const [selectedAuthMethod, setSelectedAuthMethod] = useState('Inherit');
     const handleHttpMethodSelect = (label: string) => {
         setSelectedHttpMethod(httpMethods?.filter((x: any) => x.label === label)?.[0])
