@@ -16,11 +16,12 @@ type DropdownMenuProps = {
     items?: DropdownItem[];
     position?: DropdownPosition;
     children?: ReactNode;
-    childrenPosition?: 'top' | 'bottom'
+    childrenPosition?: 'top' | 'bottom',
+    extraClass?: string
 };
 
 
-const DropdownMenu = ({ button, items, position, children, childrenPosition = 'bottom' }: DropdownMenuProps) => {
+const DropdownMenu = ({ button, items, position, extraClass = '', children, childrenPosition = 'bottom' }: DropdownMenuProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<any>(null);
 
@@ -53,7 +54,10 @@ const DropdownMenu = ({ button, items, position, children, childrenPosition = 'b
 
             {isOpen && (
                 <div
-                    className={`py-4 px-2 absolute z-50  flex flex-col gap-2 w-56 bg-popoverColor !max-w-[45vw] border text-secondaryLight border-dividerDark rounded-md shadow-lg max-h-[60vh] overflow-y-scroll ${getPositionClasses(position)}`}
+                    className={`py-4 px-2 visible absolute z-[9999]  flex flex-col gap-2 w-56 bg-popoverColor !max-w-[45vw] border text-secondaryLight 
+                        border-dividerDark rounded-md shadow-lg max-h-[60vh] overflow-y-scroll 
+                        ${getPositionClasses(position)} 
+                        ${extraClass}`}
                 >
                     {childrenPosition === 'top' && children}
 

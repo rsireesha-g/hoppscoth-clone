@@ -5,7 +5,8 @@ interface statesSliceProps {
     isSearchModalOpen: boolean,
     isLoggedIn: boolean,
     isLoginModalOpen: boolean,
-    email: string
+    email: string,
+    environments: any
 }
 
 const initialState: statesSliceProps = {
@@ -13,7 +14,8 @@ const initialState: statesSliceProps = {
     isSearchModalOpen: false,
     isLoggedIn: false,
     isLoginModalOpen: false,
-    email: ''
+    email: '',
+    environments: null
 }
 
 const statesSlice = createSlice({

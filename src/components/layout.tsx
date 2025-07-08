@@ -13,9 +13,9 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
     const [isRightSideBarCollapsed, setIsRightSideBarCollapsed] = useState<boolean>(false);
 
     return (
-        <div className={`w-screen h-screen text-xs font-semibold overflow-hidden ${theme === 'dark' ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}>
+        <div className={`w-screen h-screen text-xs font-semibold  ${theme === 'dark' ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}>
             <Header />
-            <div className="w-full flex h-[88vh]">
+            <div className="w-full flex h-[88vh] overflow-visible relative z-0">
                 <SideBar {...{ isCollapse, page }} />
 
                 <PanelGroup direction="horizontal" className="flex-1">
@@ -24,7 +24,7 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
                             <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1">
                                 <Panel defaultSize={isHorizontalCollapsed ? 70 : 50} minSize={isHorizontalCollapsed ? 70 : 40}>
                                     <div
-                                        className={`border border-yellow-500 h-full w-full overflow-y-auto ${page === 'settings' ? 'overflow-y-scroll' : ''
+                                        className={`border border-yellow-500 h-full w-full overflow-visible relative ${page === 'settings' ? 'overflow-y-scroll' : ''
                                             }`}
                                     >
                                         {children}

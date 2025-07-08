@@ -6,7 +6,7 @@ import { LuDelete } from 'react-icons/lu'
 import { BsChevronDown, BsPersonAdd, BsSave, BsSave2Fill } from 'react-icons/bs'
 import { IoIosAdd } from 'react-icons/io'
 import { MdOutlineDeleteForever, MdOutlineDeleteOutline } from 'react-icons/md'
-import { FaCode, FaFileCode, FaRegEdit } from 'react-icons/fa'
+import { FaCode, FaFileCode, FaRegEdit, FaRegEye } from 'react-icons/fa'
 import { Tooltip } from '../components/tooltip';
 import { TiTickOutline } from "react-icons/ti";
 import { Link } from 'react-router'
@@ -16,10 +16,13 @@ import { BiChevronDown } from 'react-icons/bi'
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
 import { Button } from '../components/button';
 import { AiOutlineFolderAdd, AiOutlineReload, AiOutlineSave } from "react-icons/ai";
-import { IoShareSocialOutline } from 'react-icons/io5'
+import { IoLayersOutline, IoShareSocialOutline } from 'react-icons/io5'
 import { authMethods } from '../contanst'
+import { useSelector } from 'react-redux'
+import { RootState } from '../redux/store'
 
 export const Rest = () => {
+    const { environments } = useSelector((state: RootState) => state.statesStatus)
     const [selectedTab, setSelectedTab] = useState('parameters')
 
     const [selectedAuthMethod, setSelectedAuthMethod] = useState('Inherit');
@@ -42,10 +45,80 @@ export const Rest = () => {
 
     return (
         <Layout page='home'>
+            <div className='flex gap-2 justify-between align-middle p-2'>
+                <div className="flex-grow my-2 flex align-middle items-center">
+                    <div className="flex">
+                        <Button type='secondary' extraClass='border-0'
+                            text={selectedHttpMethod?.label}
+                            textColor={selectedHttpMethod?.color}
+                        >
+                            <p>Untitled</p>
+                        </Button>
+                    </div>
+                    <IoIosAdd size={20} className='cursor-pointer' />
+                </div>
+                <div className="flex gap-2 align-middle items-center">
+                    <DropdownMenu position='bottom-right' extraClass='!min-w-[350px] overflow-x-hidden'
+                        button={
+                            <Button type='secondary' extraClass='!flex-row border-0'
+                                text='Select environment'
+                                chevronExists={true}
+                            >
+                                <IoLayersOutline size={16} />
+                            </Button>
+                        }
+                    >
+                        <input type='text' placeholder='Search'
+                            className=' border border-dividerDark p-2 text-secondaryDark bg-transparent'
+                        />
+                        <div className="flex flex-col justify-between w-full">
+                            <div className="flex justify-between p-2">
+                                <p>No environment</p>
+                                <TiTickOutline className='text-accentDark' size={16} />
+                            </div>
+                            <div className="flex justify-between w-full bg-primary text-secondaryLight">
+                                <div className='cursor-pointer min-w-fit  p-2 border-b-2 border-b-accentDark text-secondaryDark'>Personal Environments</div>
+                                <div className='cursor-not-allowed min-w-fit  p-2'>Workspace Environments</div>
+                            </div>
+                            <div className="flex justify-center p-2">
+                                {environments ? 'Exists' : 'Empty'}
+                            </div>
+                        </div>
+
+                    </DropdownMenu>
+                    <DropdownMenu position='bottom-right' extraClass='!min-w-[350px] overflow-x-hidden'
+                        button={<FaRegEye size={16} />}
+                    >
+                        <Button type='secondary'
+                            text='Global variables'
+                            extraClass='w-full  justify-between'
+                        >
+                            <FaRegEdit size={16} />
+                        </Button>
+                        <div className="flex flex-col justify-between w-full">
+                            <div className="flex gap-2 justify-between p-2 text-[10px]">
+                                <p className='flex-grow'>No environment</p>
+                                <p>Initial value</p>
+                                <p>Current value</p>
+                            </div>
+                            <p className='p-2 pb-4'>No variables</p>
+                            <Button type='secondary' extraClass='cursor-not-allowed w-full justify-between bg-primary'
+                                text='Environment variables'
+                            >
+                                <FaRegEdit size={16} />
+                            </Button>
+                            <div className="flex justify-center p-2">
+                                {environments ? 'Exists' : 'Empty'}
+                            </div>
+                        </div>
+                    </DropdownMenu>
+                </div>
+            </div>
             <div className="flex justify-between gap-2 p-2">
-                <div className="">
+                <div className="overflow-visible relative">
                     <DropdownMenu position='bottom-left' button={
-                        <Button type='secondary' text={selectedHttpMethod?.label} chevronExists={true} extraClass={`!flex-row`} textColor={selectedHttpMethod?.color} />
+                        <Button type='secondary' text={selectedHttpMethod?.label} chevronExists={true}
+                            extraClass={`!flex-row`} textColor={selectedHttpMethod?.color} />
                     }
                         items={httpMethods}
                     ></DropdownMenu>
