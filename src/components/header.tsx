@@ -18,6 +18,7 @@ import { Tooltip } from './tooltip';
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineAccountCircle } from 'react-icons/md';
 import { FaArrowRightFromBracket } from 'react-icons/fa6';
+import { BsPerson, BsPersonAdd } from 'react-icons/bs';
 
 export const Header = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -99,11 +100,11 @@ export const Header = () => {
                         :
                         <div className={`flex items-center gap-2 space-x-2`}>
                             <Tooltip text='Invite' position='bottom'>
-                                <MdOutlineAccountCircle size={24} />
+                                <BsPersonAdd size={24} />
                             </Tooltip>
                             <Tooltip text='My personal workspace' position='bottom'>
                                 <Button extraClass='!text-accent !border-accent' type='bordered' text='My personal workspace' onClick={() => dispatch(isAuth())}>
-                                    <MdOutlineAccountCircle className='w-4 h-4' />
+                                    <BsPerson className='w-4 h-4' />
                                 </Button>
                             </Tooltip>
 

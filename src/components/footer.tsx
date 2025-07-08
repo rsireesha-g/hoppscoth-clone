@@ -123,7 +123,7 @@ export const Footer = ({
                         <IoShareSocialOutline className='w-4 h-4 cursor-pointer text-secondaryDark' />
                     </Tooltip>
                     <Tooltip text='Horizontal split' position='top-right'>
-                        <BsLayoutSplit className='w-4 h-4 cursor-pointer  text-secondaryDark'
+                        <BsLayoutSplit className={`w-4 h-4 cursor-pointer  text-secondaryDark  ${isHorizontalCollapsed ? 'rotate-90' : 'rotate-0'}`}
                             onClick={() => setIsHorizontalCollapsed(!isHorizontalCollapsed)}
                         />
                     </Tooltip>

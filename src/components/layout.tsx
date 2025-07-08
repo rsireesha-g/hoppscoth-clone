@@ -1,10 +1,10 @@
+
 import { ReactNode, useState } from 'react'
 import { Header } from './header';
 import { SideBar } from './sideBar';
 import { Footer } from './footer';
 import { ShortcutsComponent } from './shortcutsComponent';
-
-
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 
 export const Layout = ({ children, page }: { children: ReactNode, page: string }) => {
     const [theme, setTheme] = useState('dark');
@@ -13,37 +13,59 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
     const [isRightSideBarCollapsed, setIsRightSideBarCollapsed] = useState<boolean>(false);
 
     return (
-        <div className={` w-[100vw] max-w-[100vw] h-[100vh] text-xs font-semibold overflow-hidden  ${theme === 'dark' ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}>
-            <div className={``}>
-                <Header />
-            </div>
-            <div className={`w-full flex flex-1 h-[88vh] border border-red-500`}>
+        <div className={`w-screen h-screen text-xs font-semibold overflow-hidden ${theme === 'dark' ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}>
+            <Header />
+            <div className="w-full flex h-[88vh]">
                 <SideBar {...{ isCollapse, page }} />
-                <div className={`flex-grow border border-blue-950 h-full flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
-                    <div className={`
-                        border border-yellow-500 
-                        ${isHorizontalCollapsed ? 'h-1/3 w-full' : 'h-full w-1/2'}
-                        ${page === 'settings' && 'w-full h-full overflow-y-scroll'}
-                        `}>
-                        {children}
-                    </div>
-                    {(page !== 'settings') &&
-                        <ShortcutsComponent {...{ isHorizontalCollapsed }} />
-                    }
-                </div>
-                {(page === 'home' || page === 'graphql') &&
-                    <div className={`${isRightSideBarCollapsed ? 'hidden' : 'w-1/4'} border border-red-500 h-full flex gap-2`}>
-                        <div className='w-12 h-full'>hi</div>
-                        <div>sgadjwgh</div>
-                    </div>
-                }
-            </div>
-            <div className={``}>
-                <Footer
-                    {...{ setIsCollapse, isCollapse, isRightSideBarCollapsed, setIsRightSideBarCollapsed, isHorizontalCollapsed, setIsHorizontalCollapsed }}
-                />
+
+                <PanelGroup direction="horizontal" className="flex-1">
+                    <Panel defaultSize={isRightSideBarCollapsed ? 100 : 70} minSize={isRightSideBarCollapsed ? 100 : 20}>
+                        <div className={`w-full h-full flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
+                            <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1">
+                                <Panel defaultSize={60} minSize={20}>
+                                    <div
+                                        className={`border border-yellow-500 h-full w-full overflow-y-auto ${page === 'settings' ? 'overflow-y-scroll' : ''
+                                            }`}
+                                    >
+                                        {children}
+                                    </div>
+                                </Panel>
+                                <PanelResizeHandle
+                                    className={`${isHorizontalCollapsed ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize'
+                                        } bg-gray-600 hover:bg-gray-500`}
+                                />
+                                <Panel defaultSize={40} minSize={10}>
+                                    {page !== 'settings' && <ShortcutsComponent {...{ isHorizontalCollapsed }} />}
+                                </Panel>
+                            </PanelGroup>
+                        </div>
+                    </Panel>
+
+                    {!isRightSideBarCollapsed && (
+                        <PanelResizeHandle className="w-1 bg-gray-600 hover:bg-gray-500 cursor-col-resize" />
+                    )}
+
+                    {(page === 'home' || page === 'graphql') && !isRightSideBarCollapsed && (
+                        <Panel defaultSize={30} minSize={10}>
+                            <div className="w-full h-full border border-red-500 flex gap-2">
+                                <div className='w-12 h-full'>hi</div>
+                                <div>sgadjwgh</div>
+                            </div>
+                        </Panel>
+                    )}
+                </PanelGroup>
             </div>
 
+            <Footer
+                {...{
+                    setIsCollapse,
+                    isCollapse,
+                    isRightSideBarCollapsed,
+                    setIsRightSideBarCollapsed,
+                    isHorizontalCollapsed,
+                    setIsHorizontalCollapsed,
+                }}
+            />
         </div>
-    )
-}
+    );
+};

@@ -36,14 +36,11 @@ const statesSlice = createSlice({
         },
         isAuth(state) {
             const email = localStorage.getItem("email");
-            console.log(email)
             if (email) {
-                console.log(' insi')
                 state.isLoggedIn = true;
                 state.email = email;
 
             } else {
-                console.log('out')
                 state.isLoggedIn = false;
                 state.isLoginModalOpen = true
             }

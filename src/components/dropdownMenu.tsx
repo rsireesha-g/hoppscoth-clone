@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect, ReactNode } from 'react';
 import { useClickOutside } from '../hooks/modalHooks';
 
-type DropdownItem = {
+export type DropdownItem = {
     label: string;
     icon?: React.ReactNode;
     kbd?: string;
-    onClick?: () => void;
+    onClick?: (x?: string) => void;
+    color?: string
 };
 
 type DropdownPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'header' | 'header-right';
@@ -66,7 +67,7 @@ const DropdownMenu = ({ button, items, position, children, childrenPosition = 'b
                             className="flex items-center text-xs gap-2 px-4 py-1 text-secondary hover:bg-primaryDark  hover:text-secondaryDark cursor-pointer"
                         >
                             {item.icon && <span>{item.icon}</span>}
-                            <span className='flex-grow truncate max-w-[16rem]'>{item.label}</span>
+                            <span className={`flex-grow truncate max-w-[16rem] text-${item.color}-500`} style={{ color: item.color }}>{item.label}</span>
                             {item?.kbd && <kbd className='kbd'>{item?.kbd}</kbd>}
                         </div>
                     ))}

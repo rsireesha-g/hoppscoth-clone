@@ -81,7 +81,7 @@ export const Settings = () => {
                         <DropdownMenu position='bottom-left' items={globalLanguages}
                             button={
 
-                                <Button type='secondary' text='English' extraClass=' !flex-row-reverse' >
+                                <Button type='secondary' chevronExists={true} text='English' extraClass=' !flex-row-reverse' >
                                     <LuLanguages size={16} />
                                 </Button>
                             }
@@ -130,7 +130,8 @@ export const Settings = () => {
                             ]}
                             button={
                                 <Button type='secondary' text='Descriptive With Spaces'
-                                    extraClass=' !flex-row-reverse w-full justify-start' >
+                                    extraClass=' !flex-row-reverse w-full justify-start'
+                                    chevronExists={true} >
                                 </Button>
                             }
                         >

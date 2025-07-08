@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import { IconType } from "react-icons"
+import { BsChevronDown } from "react-icons/bs"
 import { Link } from "react-router"
 
 interface buttonProp {
@@ -8,18 +9,24 @@ interface buttonProp {
     children?: ReactNode,
     nextLink?: string,
     extraClass?: string,
-    onClick?: () => void
+    onClick?: () => void,
+    chevronExists?: boolean,
+    textColor?: string
 }
 
-export const Button = ({ type, text, children, nextLink, extraClass, onClick }: buttonProp) => {
+export const Button = ({ type, text, children, nextLink, extraClass, chevronExists = false, onClick, textColor = '' }: buttonProp) => {
     const handleClick = onClick ?? (() => console.log(''));
     return (
         <>
             {type === 'primary' &&
                 <button className={`
-                    relative inline-flex items-center justify-center whitespace-nowrap transition focus:outline-none focus-visible:bg-accentDark bg-accent text-accentContrast hover:bg-accentDark px-4 py-2 rounded h-8 
-                `} onClick={handleClick}>
-                    <p>{text}</p>
+                    relative inline-flex gap-2 items-center justify-center whitespace-nowrap transition focus:outline-none focus-visible:bg-accentDark bg-accent text-accentContrast hover:bg-accentDark px-4 py-2 rounded h-8 
+                ${extraClass}
+                `} onClick={handleClick}
+                >
+                    <p style={{ color: `${textColor ? textColor : ''}` }}>{text}</p>
+                    {children}
+                    {chevronExists && <BsChevronDown size={12} />}
                 </button>
             }
             {type === 'bordered' &&
@@ -28,6 +35,8 @@ export const Button = ({ type, text, children, nextLink, extraClass, onClick }: 
                     onClick={handleClick}>
                     {children}
                     <p>{text}</p>
+                    {chevronExists && <BsChevronDown size={12} />}
+
                 </button>
             }
             {
@@ -37,6 +46,8 @@ export const Button = ({ type, text, children, nextLink, extraClass, onClick }: 
                     onClick={handleClick}>
                     {children}
                     <p>{text}</p>
+                    {chevronExists && <BsChevronDown size={12} />}
+
                 </Link>
             }
             {
@@ -45,7 +56,9 @@ export const Button = ({ type, text, children, nextLink, extraClass, onClick }: 
                 text-[#a1a1a1] font-semibold hover:text-secondaryDark px-4 py-2 rounded h-8 border border-dividerDark ${extraClass}`}
                     onClick={handleClick}>
                     {children}
-                    <p>{text}</p>
+                    <p style={{ color: `${textColor ? `${textColor}!important` : ''}` }}>{text}</p>
+                    {chevronExists && <BsChevronDown size={12} />}
+
                 </button>
             }
         </>
