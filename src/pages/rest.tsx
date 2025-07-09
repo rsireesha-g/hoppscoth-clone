@@ -1,25 +1,18 @@
 import React, { useState } from 'react'
 import { Layout } from '../components/layout'
-import { InputWithDropdown } from '../components/inputWithDropdown'
-import { CiCircleQuestion } from 'react-icons/ci'
-import { LuDelete } from 'react-icons/lu'
-import { BsChevronDown, BsPersonAdd, BsSave, BsSave2Fill } from 'react-icons/bs'
+import { BsChevronDown } from 'react-icons/bs'
 import { IoIosAdd } from 'react-icons/io'
-import { MdOutlineDeleteForever, MdOutlineDeleteOutline } from 'react-icons/md'
 import { FaCode, FaFileCode, FaRegEdit, FaRegEye } from 'react-icons/fa'
-import { Tooltip } from '../components/tooltip';
 import { TiTickOutline } from "react-icons/ti";
-import { Link } from 'react-router'
-import DropdownMenu, { DropdownItem } from '../components/dropdownMenu'
-import { RadioButton } from '../components/radioButton'
-import { BiChevronDown } from 'react-icons/bi'
-import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
+import DropdownMenu from '../components/dropdownMenu'
 import { Button } from '../components/button';
 import { AiOutlineFolderAdd, AiOutlineReload, AiOutlineSave } from "react-icons/ai";
 import { IoLayersOutline, IoShareSocialOutline } from 'react-icons/io5'
-import { authMethods } from '../contanst'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
+import { QueryParams } from '../components/httpMethodComponents/queryParams'
+import { AuthorizationTab } from '../components/httpMethodComponents/authorizationTab'
+import { RequestScriptTab } from '../components/httpMethodComponents/requestScript'
 
 export const Rest = () => {
     const { environments } = useSelector((state: RootState) => state.statesStatus)
@@ -43,6 +36,22 @@ export const Rest = () => {
     ];
     const [selectedHttpMethod, setSelectedHttpMethod] = useState({ label: 'GET', color: 'var(--method-get-color)' });
 
+    const renderByTab = () => {
+        switch (selectedTab) {
+            case 'parameters':
+            case 'headers':
+                return <QueryParams />;
+            case 'body':
+                return ''; // or <BodyTab /> if needed
+            case 'authorization':
+                return <AuthorizationTab {...{ selectedAuthMethod, setSelectedAuthMethod }} />;
+            case 'pre-request script':
+            case 'post-request script':
+                return <RequestScriptTab {...{ selectedTab }} />;
+            default:
+                return <QueryParams />;
+        }
+    };
     return (
         <Layout page='home'>
             <div className='flex gap-2 justify-between align-middle p-2'>
@@ -180,6 +189,7 @@ export const Rest = () => {
                         </DropdownMenu>
                     </div>
                 </div>
+
             </div >
             <div>
                 <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(6,auto)' }}>
@@ -191,133 +201,7 @@ export const Rest = () => {
                         >{title}</div>
                     ))}
                 </div>
-                {(selectedTab === 'parameters' || selectedTab === 'headers') &&
-                    <div>
-                        {/* top */}
-                        <div className="flex gap-2  justify-between p-2 border-y border-y-dividerDark">
-                            <div className="text-secondaryLight">Query Parameters</div>
-                            <div className="flex gap-2 align-middle text-[#e1e0e0]">
-                                <Tooltip position='top-left' text='Wiki'>
-                                    <CiCircleQuestion size={16} />
-                                </Tooltip>
-                                <Tooltip position='top-left' text='Clear All'>
-
-                                    <MdOutlineDeleteForever size={16} />
-                                </Tooltip>
-                                <Tooltip position='top-left' text='Bulk Edit'>
-                                    <FaRegEdit size={16} />
-                                </Tooltip>
-                                <Tooltip position='top-left' text='Add New'>
-                                    <IoIosAdd size={20} />
-                                </Tooltip>
-                            </div>
-                        </div>
-                        {/* grid */}
-                        <div className="w-full flex gap-0 align-middle text-secondaryLight justify-end border-b border-b-dividerDark">
-                            <div className="p-2 w-8"></div>
-                            <div className="flex-gow-1 w-[20%] p-2">Key</div>
-                            <div className="flex-gow-2 w-1/4 p-2">Values</div>
-                            <div className="w-[45%] p-2">Description</div>
-                            <div className="p-2 w-fit ">
-                                <Tooltip position='top-right' text='Remove'>
-                                    <TiTickOutline className='text-green-500' size={16} />
-                                </Tooltip>
-                            </div>
-                            <div className="p-2 w-fit ">
-                                <Tooltip position='top-right' text='Remove'>
-                                    <MdOutlineDeleteOutline className='text-deleteColor' size={16} />
-                                </Tooltip>
-                            </div>
-                        </div>
-                    </div>
-                }
-                {(selectedTab === "pre-request script" || selectedTab === "post-request script") &&
-                    <div>
-                        {/* top */}
-                        <div className="flex gap-2  justify-between p-2 border-y border-y-dividerDark">
-                            <div className="text-secondaryLight">JavaScript Code</div>
-                            <div className="flex gap-2 align-middle text-[#e1e0e0]">
-                                <Tooltip position='top-left' text='Wiki'>
-                                    <CiCircleQuestion size={16} />
-                                </Tooltip>
-                                <Tooltip position='top-left' text='Clear All'>
-                                    <MdOutlineDeleteForever size={16} />
-                                </Tooltip>
-                                <Tooltip position='top-left' text='Bulk Edit'>
-                                    <FaRegEdit size={16} />
-                                </Tooltip>
-                                <Tooltip position='top-left' text='Add New'>
-                                    <IoIosAdd size={20} />
-                                </Tooltip>
-                            </div>
-                        </div>
-                        {/* grid */}
-                        <div className="w-full flex gap-0 align-middle text-secondaryLight border-b border-b-dividerDark">
-                            <div className="flex-gow-1 w-10 p-2">1</div>
-                            <div className="flex-gow-2 w-1/2 p-2 border-x border-x-dividerDark">JavaScript code</div>
-                            <div className="w-1/3 p-2">
-                                <p className='text-secondaryLight mb-1'>
-                                    {selectedTab === 'pre-request script' ?
-                                        'Pre-request scrips are written in JavaScript, and are run before the request is sent.'
-                                        :
-                                        'Post-request scrips are written in JavaScript, and are run after the request is received.'
-                                    }
-                                </p>
-                                <Link
-                                    className='text-secondaryLight hover:text-secondaryDark'
-                                    to="https://docs.hoppscotch.io/documentation/getting-started/rest/pre-request-scripts">Read documentation</Link>
-                            </div>
-                        </div>
-                    </div>
-                }
-                {selectedTab === 'authorization' &&
-                    <div>
-                        <div className="flex gap-2  justify-between p-2 border-y border-y-dividerDark">
-                            <div className="text-secondaryLight flex gap-4 ">
-                                <p>Authorization</p>
-                                <DropdownMenu position='bottom-left' button={
-                                    <p className='flex align-middle gap-1'>{selectedAuthMethod}
-                                        <BiChevronDown size={16} />
-                                    </p>
-                                }>
-                                    {authMethods?.map((method: string) => (
-                                        <RadioButton text={method} selected={selectedAuthMethod} setSelected={setSelectedAuthMethod} />
-                                    ))
-
-                                    }
-                                </DropdownMenu>
-                            </div>
-                            <div className="flex gap-2 align-middle text-[#e1e0e0]">
-                                <Tooltip position='top-left' text='Wiki'>
-                                    <CiCircleQuestion size={16} />
-                                </Tooltip>
-                                <Tooltip position='top-left' text='Clear All'>
-                                    <MdOutlineDeleteForever size={16} />
-                                </Tooltip>
-                                <Tooltip position='top-left' text='Bulk Edit'>
-                                    <FaRegEdit size={16} />
-                                </Tooltip>
-                                <Tooltip position='top-left' text='Add New'>
-                                    <IoIosAdd size={20} />
-                                </Tooltip>
-                            </div>
-                        </div>
-                        <div className="w-full flex gap-0 align-middle text-secondaryLight border-b border-b-dividerDark">
-                            <div className="flex-gow w-[66%] p-2 border-x border-x-dividerDark">Please save this request in amy collection to inherit the authorization</div>
-                            <div className="w-1/3 p-2">
-                                <p className='text-secondaryLight mb-1'>
-                                    The authorization header will be automatically generated when you send the request.
-                                </p>
-                                <Link
-                                    className='text-accent hover:text-accentDark flex gap-2 align-middle'
-                                    to="https://docs.hoppscotch.io/documentation/features/authorization">
-                                    <p>Learn how</p>
-                                    <FaArrowUpRightFromSquare size={12} />
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                }
+                {renderByTab()}
             </div>
         </Layout >
     )
