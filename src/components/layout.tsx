@@ -35,9 +35,11 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
                                     className={`${isHorizontalCollapsed ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize'
                                         } bg-gray-600 hover:bg-gray-500`}
                                 />
-                                <Panel defaultSize={40} minSize={30}>
-                                    {page !== 'settings' && <ShortcutsComponent {...{ isHorizontalCollapsed }} />}
-                                </Panel>
+                                {page !== 'settings' &&
+                                    <Panel defaultSize={40} minSize={30}>
+                                        <ShortcutsComponent {...{ isHorizontalCollapsed }} />
+                                    </Panel>
+                                }
                             </PanelGroup>
                         </div>
                     </Panel>
@@ -46,14 +48,6 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
                         <PanelResizeHandle className="w-1 bg-gray-600 hover:bg-gray-500 cursor-col-resize" />
                     )}
 
-                    {/* {(page === 'home' || page === 'graphql') && !isRightSideBarCollapsed && (
-                        <Panel defaultSize={50} minSize={20}>
-                            <div className="w-full h-full border border-red-500 flex gap-2">
-                                <div className='w-12 h-full'>hi</div>
-                                <div>sgadjwgh</div>
-                            </div>
-                        </Panel>
-                    )} */}
                     {!isRightSideBarCollapsed &&
 
                         <Panel defaultSize={30} minSize={20}>

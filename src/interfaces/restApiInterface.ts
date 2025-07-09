@@ -4,6 +4,11 @@ export type KeyValueDescription = {
     description: string;
 };
 
+export type VariablesObj = {
+    variable: string,
+    value: string
+}
+
 export type MethodData = {
     method: string;
     parameters: KeyValueDescription[];
@@ -12,4 +17,17 @@ export type MethodData = {
     authorization: string,
     preRequestScript: string,
     postRequestScript: string,
+    variables: VariablesObj[]
 };
+
+export type EnvVariablesObj = {
+    variable: string,
+    initialValue: string,
+    currentValue: string
+}
+
+export type EnvironmentData = {
+    variables: EnvVariablesObj[],
+    secrets: EnvVariablesObj[]
+};
+

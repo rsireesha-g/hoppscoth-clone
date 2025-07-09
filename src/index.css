@@ -30,7 +30,7 @@ code {
 
 input,
 textarea {
-  @apply border-transparent outline-none focus:border-none focus:outline-none hover:border-none;
+  @apply bg-transparent p-2 border-transparent outline-none focus:border-none focus:outline-none hover:border-none;
 }
 
 /* *::-webkit-scrollbar {
@@ -112,4 +112,6 @@ textarea {
     --tw-ring-shadow:#555;
     --tw-shadow:#333;
     --popover-color:#0c0a09;
+
+    
 }

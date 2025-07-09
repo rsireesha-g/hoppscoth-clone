@@ -13,10 +13,11 @@ import { RootState } from '../redux/store'
 import { QueryParams } from '../components/restPageComponents/httpMethodComponents/queryParams'
 import { AuthorizationTab } from '../components/restPageComponents/httpMethodComponents/authorizationTab'
 import { RequestScriptTab } from '../components/restPageComponents/httpMethodComponents/requestScript'
-import { KeyValueDescription } from '../interfaces/restApiInterface';
+import { KeyValueDescription, VariablesObj } from '../interfaces/restApiInterface';
+import { Variables } from '../components/restPageComponents/httpMethodComponents/variables'
 
 const paramsInitialState: Array<KeyValueDescription> = [{ key: '', value: '', description: '' }];
-
+const variablesInitialState: Array<VariablesObj> = [{ variable: '', value: '' }]
 
 export const Rest = () => {
     const { environments } = useSelector((state: RootState) => state.statesStatus)
@@ -41,13 +42,12 @@ export const Rest = () => {
     const [selectedHttpMethod, setSelectedHttpMethod] = useState({ label: 'GET', color: 'var(--method-get-color)' });
     const [parameters, setParameters] = useState<Array<KeyValueDescription>>(paramsInitialState);
     const [headers, setHeaders] = useState<Array<KeyValueDescription>>(paramsInitialState);
-
+    const [variables, setVariables] = useState<Array<VariablesObj>>(variablesInitialState);
 
     const renderByTab = () => {
         switch (selectedTab) {
-            case 'parameters':
-            case 'headers':
-                return <QueryParams data={parameters} setData={setParameters} initialState={paramsInitialState} />;
+            case 'variables':
+                return <Variables {...{ data: variables, setData: setVariables, initialState: variablesInitialState }} />;
             case 'body':
                 return '';
             case 'authorization':
@@ -199,10 +199,10 @@ export const Rest = () => {
 
             </div >
             <div>
-                <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(6,auto)' }}>
-                    {["parameters", "body", "headers", "authorization", "pre-request script", "post-request script"]?.map((title: string) => (
+                <div className="flex gap-2 overflow-x-auto" >
+                    {["parameters", "body", "headers", "authorization", "pre-request script", "post-request script", "variables"]?.map((title: string) => (
                         <div key={title}
-                            className={`cursor-pointer text-center capitalize text-secondaryLight hover:text-secondaryDark p-2 
+                            className={`min-w-fit cursor-pointer text-center capitalize text-secondaryLight hover:text-secondaryDark p-2 
                             ${selectedTab === title ? 'border-b-2 border-b-accent !text-secondaryDark' : ''}`}
                             onClick={() => setSelectedTab(title)}
                         >{title}</div>

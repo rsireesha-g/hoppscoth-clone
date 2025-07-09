@@ -4,7 +4,7 @@ import { ReactNode, useState } from "react";
 interface TooltipProps {
     text?: string;
     children?: ReactNode;
-    position?: "top" | "bottom" | "left" | "right" | "top-left" | "top-right";
+    position?: "top" | "bottom" | "left" | "right" | "top-left" | "top-right" | "side-left" | "side-right";
     extraClassName?: string,
     kbd?: Array<string>
 }
@@ -26,6 +26,10 @@ export const Tooltip = ({ text = 'hi hello', kbd = [], position = 'bottom', chil
                 return "left-full -ml-4 bottom-7 flex-row";
             case "top-right":
                 return 'right-full flex-row bottom-7 right-1/3';
+            case "side-left": return 'left-full';
+            case "side-right":
+                return 'left-8 ';
+
             default:
                 return "bottom-full mb-2 flex-col";
         }
@@ -46,6 +50,9 @@ export const Tooltip = ({ text = 'hi hello', kbd = [], position = 'bottom', chil
                 return `${base} -mt-1 left-1`;
             case "top-right":
                 return `${base} right-1 -mt-1`;
+            case "side-left":
+            case "side-right":
+                return `${base} top-2 -ml-1`;
             default:
                 return `${base} -mt-1`;
         }

@@ -23,11 +23,18 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             ${page === 'home' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
              cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
-                <IoLinkOutline className='w-4 h-4' />
-                {!isCollapse &&
-                    <p>
-                        REST
-                    </p>
+
+                {isCollapse ?
+                    <Tooltip position='side-right' text='Rest'>
+                        <IoLinkOutline size={16} />
+                    </Tooltip>
+                    :
+                    <>
+                        <IoLinkOutline size={16} />
+                        <p>
+                            REST
+                        </p>
+                    </>
                 }
             </Link>
             <Link to="/graphql"
@@ -35,23 +42,36 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             ${page === 'graphql' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
              cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
-                <BiLogoGraphql className='w-4 h-4' />
-                {!isCollapse &&
-                    <p>
-                        GraphQL
-                    </p>
+
+                {isCollapse ?
+                    <Tooltip position='side-right' text='GraphQL'>
+                        <BiLogoGraphql className='w-4 h-4' />
+                    </Tooltip>
+                    :
+                    <>
+                        <BiLogoGraphql className='w-4 h-4' />
+                        <p>
+                            GraphQL
+                        </p>
+                    </>
                 }
+
             </Link>
             <Link to="/realtime"
                 className={`
             ${page === 'realtime' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
              cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
-                <CiGlobe className='w-4 h-4' />
-                {!isCollapse &&
-                    <p>
-                        Realtime
-                    </p>
+                {isCollapse ?
+                    <Tooltip position='side-right' text='Realtime'>
+                        <CiGlobe className='w-4 h-4' />
+                    </Tooltip>
+                    :
+                    <><CiGlobe className='w-4 h-4' />
+                        <p>
+                            Realtime
+                        </p>
+                    </>
                 }
             </Link>
             <Link to="/settings"
@@ -59,11 +79,17 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             ${page === 'settings' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
              cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
-                <CiSettings className='w-5 h-5' />
-                {!isCollapse &&
-                    <p>
-                        Settings
-                    </p>
+                {isCollapse ?
+                    <Tooltip position='side-right' text='Settings'>
+                        <CiSettings className='w-5 h-5' />
+                    </Tooltip>
+                    :
+                    <>
+                        <CiSettings className='w-5 h-5' />
+                        <p>
+                            Settings
+                        </p>
+                    </>
                 }
             </Link>
         </div>

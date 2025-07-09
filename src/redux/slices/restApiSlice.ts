@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { MethodData } from "../../interfaces/restApiInterface";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { EnvironmentData, MethodData } from "../../interfaces/restApiInterface";
 
 
 const methodData: MethodData[] = [
@@ -10,7 +10,8 @@ const methodData: MethodData[] = [
         body: '',
         authorization: '',
         preRequestScript: '',
-        postRequestScript: ''
+        postRequestScript: '',
+        variables: [{ variable: '', value: '' }]
     },
     {
         method: 'POST',
@@ -19,12 +20,23 @@ const methodData: MethodData[] = [
         body: '',
         authorization: '',
         preRequestScript: '',
-        postRequestScript: ''
+        postRequestScript: '',
+        variables: [{ variable: '', value: '' }]
     }
 ];
 
+
+
+const environmentData: EnvironmentData[] = [
+    {
+        variables: [{ variable: '', initialValue: '', currentValue: '' }],
+        secrets: [{ variable: '', initialValue: '', currentValue: '' }]
+    }
+]
+
 const initialState = {
-    methodData
+    methodData,
+    environmentData
 }
 
 
@@ -32,12 +44,20 @@ const restApiSlice = createSlice({
     name: 'restApiSlice',
     initialState,
     reducers: {
+        onSaveEnvironmentVariablesAndSecrets(state, action: PayloadAction<EnvironmentData>) {
+            const { variables, secrets } = action.payload;
 
+            state.environmentData.push({
+                variables: [...variables],
+                secrets: [...secrets]
+            });
+            console.log(state.environmentData)
+        }
     }
 });
 
 export const {
-
+    onSaveEnvironmentVariablesAndSecrets
 } = restApiSlice.actions;
 
 export default restApiSlice.reducer;
