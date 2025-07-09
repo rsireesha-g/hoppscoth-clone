@@ -30,7 +30,7 @@ code {
 
 input,
 textarea {
-  @apply border-none outline-none focus:border-none focus:outline-none hover:border-none;
+  @apply border-transparent outline-none focus:border-none focus:outline-none hover:border-none;
 }
 
 /* *::-webkit-scrollbar {

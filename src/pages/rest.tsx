@@ -131,16 +131,16 @@ export const Rest = () => {
                 </div>
             </div>
             <div className="flex justify-between gap-2 p-2">
-                <div className="overflow-visible relative">
+                <div className="overflow-visible relative border border-dividerDark w-full flex gap-2 justify-start align-middle">
                     <DropdownMenu position='bottom-left' button={
                         <Button type='secondary' text={selectedHttpMethod?.label} chevronExists={true}
-                            extraClass={`!flex-row`} textColor={selectedHttpMethod?.color} />
+                            extraClass={`!flex-row border-0`} textColor={selectedHttpMethod?.color} />
                     }
                         items={httpMethods}
                     ></DropdownMenu>
                     <input type='text' placeholder='Untitled'
                         defaultValue={'https://echo.hoppscotch.io'}
-                        className=' border border-dividerDark p-2 text-secondaryDark bg-transparent' />
+                        className='p-2 text-secondaryDark bg-transparent flex-grow' />
 
                 </div>
                 <div className='flex justify-center gap-4'>
