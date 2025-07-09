@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Tooltip } from '../tooltip'
+import { Tooltip } from '../../tooltip'
 import { CiCircleQuestion } from 'react-icons/ci'
 import { MdOutlineDeleteForever, MdOutlineDeleteOutline, MdOutlineWrapText } from 'react-icons/md'
 import { FaRegEdit } from 'react-icons/fa'
 import { IoIosAdd } from 'react-icons/io'
 import { TiTickOutline } from 'react-icons/ti'
-import { KeyValueDescription } from '../../interfaces/restApiInterface'
+import { KeyValueDescription } from '../../../interfaces/restApiInterface'
 import { Link } from 'react-router'
 
 

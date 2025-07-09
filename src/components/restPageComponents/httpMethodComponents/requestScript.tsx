@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Tooltip } from '../tooltip'
+import { Tooltip } from '../../tooltip'
 import { CiCircleQuestion } from 'react-icons/ci'
 import { MdOutlineDeleteForever } from 'react-icons/md'
 import { FaRegEdit } from 'react-icons/fa'
@@ -66,14 +66,14 @@ export const RequestScriptTab = ({ selectedTab }: any) => {
                 </div>
             </div>
             {/* grid */}
-            <div className="w-full flex gap-0 align-middle text-secondaryLight border-b border-b-dividerDark overflow-y-scroll ">
+            <div className="w-full flex gap-0 align-middle text-secondaryLight border-b border-b-dividerDark ">
                 <div className="flex-gow-1 w-10 p-2">1</div>
-                <div className="flex-gow-2 w-1/2 p-2 border-x border-x-dividerDark">
+                <div className="flex-gow-2 w-full p-2 border-x border-x-dividerDark">
                     <textarea placeholder='JavaScript Code' value={selectedScript?.join("\n")}
                         className='w-full h-full bg-transparent p-2 text-accentDark break-normal'
                     />
                 </div>
-                <div className="w-1/3 p-2 flex gap-4 flex-col justify-start h-[200px]">
+                <div className="w-[40%] p-2 flex gap-4 flex-col justify-start h-[200px] overflow-y-scroll ">
                     <p className='text-secondaryLight'>
                         {selectedTab === 'pre-request script' ?
                             'Pre-request scrips are written in JavaScript, and are run before the request is sent.'

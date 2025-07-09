@@ -5,6 +5,7 @@ import { SideBar } from './sideBar';
 import { Footer } from './footer';
 import { ShortcutsComponent } from './shortcutsComponent';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import { RestPageSideBar } from './restPageComponents/sideBar/sideBar';
 
 export const Layout = ({ children, page }: { children: ReactNode, page: string }) => {
     const [theme, setTheme] = useState('dark');
@@ -19,10 +20,10 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
                 <SideBar {...{ isCollapse, page }} />
 
                 <PanelGroup direction="horizontal" className="flex-1">
-                    <Panel defaultSize={isRightSideBarCollapsed ? 100 : 70} minSize={isRightSideBarCollapsed ? 100 : 60}>
+                    <Panel defaultSize={70} minSize={60}>
                         <div className={`w-full h-full flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
                             <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1">
-                                <Panel defaultSize={isHorizontalCollapsed ? 70 : 50} minSize={isHorizontalCollapsed ? 70 : 40}>
+                                <Panel defaultSize={60} minSize={50}>
                                     <div
                                         className={`border border-yellow-500 h-full w-full overflow-visible relative ${page === 'settings' ? 'overflow-y-scroll' : ''
                                             }`}
@@ -34,7 +35,7 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
                                     className={`${isHorizontalCollapsed ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize'
                                         } bg-gray-600 hover:bg-gray-500`}
                                 />
-                                <Panel defaultSize={isHorizontalCollapsed ? 25 : 45} minSize={isHorizontalCollapsed ? 25 : 30}>
+                                <Panel defaultSize={40} minSize={30}>
                                     {page !== 'settings' && <ShortcutsComponent {...{ isHorizontalCollapsed }} />}
                                 </Panel>
                             </PanelGroup>
@@ -45,14 +46,21 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
                         <PanelResizeHandle className="w-1 bg-gray-600 hover:bg-gray-500 cursor-col-resize" />
                     )}
 
-                    {(page === 'home' || page === 'graphql') && !isRightSideBarCollapsed && (
+                    {/* {(page === 'home' || page === 'graphql') && !isRightSideBarCollapsed && (
                         <Panel defaultSize={50} minSize={20}>
                             <div className="w-full h-full border border-red-500 flex gap-2">
                                 <div className='w-12 h-full'>hi</div>
                                 <div>sgadjwgh</div>
                             </div>
                         </Panel>
-                    )}
+                    )} */}
+                    {!isRightSideBarCollapsed &&
+
+                        <Panel defaultSize={30} minSize={20}>
+                            {page === 'home' && <RestPageSideBar />}
+                            {page === 'graphql' && 'home'}
+                        </Panel>
+                    }
                 </PanelGroup>
             </div>
 

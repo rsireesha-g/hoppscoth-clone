@@ -10,9 +10,9 @@ import { AiOutlineFolderAdd, AiOutlineReload, AiOutlineSave } from "react-icons/
 import { IoLayersOutline, IoShareSocialOutline } from 'react-icons/io5'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
-import { QueryParams } from '../components/httpMethodComponents/queryParams'
-import { AuthorizationTab } from '../components/httpMethodComponents/authorizationTab'
-import { RequestScriptTab } from '../components/httpMethodComponents/requestScript'
+import { QueryParams } from '../components/restPageComponents/httpMethodComponents/queryParams'
+import { AuthorizationTab } from '../components/restPageComponents/httpMethodComponents/authorizationTab'
+import { RequestScriptTab } from '../components/restPageComponents/httpMethodComponents/requestScript'
 import { KeyValueDescription } from '../interfaces/restApiInterface';
 
 const paramsInitialState: Array<KeyValueDescription> = [{ key: '', value: '', description: '' }];

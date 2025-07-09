@@ -1,14 +1,14 @@
 import React from 'react'
-import { Tooltip } from '../tooltip'
+import { Tooltip } from '../../tooltip'
 import { CiCircleQuestion } from 'react-icons/ci'
 import { MdOutlineDeleteForever } from 'react-icons/md'
 import { FaRegEdit } from 'react-icons/fa'
 import { IoIosAdd } from 'react-icons/io'
 import { Link } from 'react-router'
-import DropdownMenu from '../dropdownMenu'
+import DropdownMenu from '../../dropdownMenu'
 import { BiChevronDown } from 'react-icons/bi'
-import { RadioButton } from '../radioButton'
-import { authMethods } from '../../contanst'
+import { RadioButton } from '../../radioButton'
+import { authMethods } from '../../../contanst'
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
 
 export const AuthorizationTab = ({
