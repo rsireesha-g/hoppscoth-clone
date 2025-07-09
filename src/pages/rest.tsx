@@ -13,6 +13,10 @@ import { RootState } from '../redux/store'
 import { QueryParams } from '../components/httpMethodComponents/queryParams'
 import { AuthorizationTab } from '../components/httpMethodComponents/authorizationTab'
 import { RequestScriptTab } from '../components/httpMethodComponents/requestScript'
+import { KeyValueDescription } from '../interfaces/restApiInterface';
+
+const paramsInitialState: Array<KeyValueDescription> = [{ key: '', value: '', description: '' }];
+
 
 export const Rest = () => {
     const { environments } = useSelector((state: RootState) => state.statesStatus)
@@ -35,21 +39,24 @@ export const Rest = () => {
         { label: 'CUSTOM', color: 'var(--method-default-color)', onClick: () => handleHttpMethodSelect('CUSTOM') }
     ];
     const [selectedHttpMethod, setSelectedHttpMethod] = useState({ label: 'GET', color: 'var(--method-get-color)' });
+    const [parameters, setParameters] = useState<Array<KeyValueDescription>>(paramsInitialState);
+    const [headers, setHeaders] = useState<Array<KeyValueDescription>>(paramsInitialState);
+
 
     const renderByTab = () => {
         switch (selectedTab) {
             case 'parameters':
             case 'headers':
-                return <QueryParams />;
+                return <QueryParams data={parameters} setData={setParameters} initialState={paramsInitialState} />;
             case 'body':
-                return ''; // or <BodyTab /> if needed
+                return '';
             case 'authorization':
                 return <AuthorizationTab {...{ selectedAuthMethod, setSelectedAuthMethod }} />;
             case 'pre-request script':
             case 'post-request script':
                 return <RequestScriptTab {...{ selectedTab }} />;
             default:
-                return <QueryParams />;
+                return <QueryParams {...{ data: headers, setData: setHeaders, initialState: paramsInitialState }} />;
         }
     };
     return (

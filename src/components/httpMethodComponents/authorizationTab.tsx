@@ -22,7 +22,7 @@ export const AuthorizationTab = ({
                     <p>Authorization</p>
                     <DropdownMenu position='bottom-left' button={
                         <p className='flex align-middle gap-1'>{selectedAuthMethod}
-                            <BiChevronDown size={16} />
+                            <BiChevronDown size={16} className='cursor-pointer' />
                         </p>
                     }>
                         {authMethods?.map((method: string) => (
@@ -34,16 +34,18 @@ export const AuthorizationTab = ({
                 </div>
                 <div className="flex gap-2 align-middle text-[#e1e0e0]">
                     <Tooltip position='top-left' text='Wiki'>
-                        <CiCircleQuestion size={16} />
+                        <Link target='_blank' to="https://docs.hoppscotch.io/documentation/features/authorization" >
+                            <CiCircleQuestion size={16} className='cursor-pointer' />
+                        </Link>
                     </Tooltip>
                     <Tooltip position='top-left' text='Clear All'>
-                        <MdOutlineDeleteForever size={16} />
+                        <MdOutlineDeleteForever size={16} className='cursor-pointer' />
                     </Tooltip>
                     <Tooltip position='top-left' text='Bulk Edit'>
-                        <FaRegEdit size={16} />
+                        <FaRegEdit size={16} className='cursor-pointer' />
                     </Tooltip>
                     <Tooltip position='top-left' text='Add New'>
-                        <IoIosAdd size={20} />
+                        <IoIosAdd size={20} className='cursor-pointer' />
                     </Tooltip>
                 </div>
             </div>
@@ -54,10 +56,11 @@ export const AuthorizationTab = ({
                         The authorization header will be automatically generated when you send the request.
                     </p>
                     <Link
+                        target="_blank"
                         className='text-accent hover:text-accentDark flex gap-2 align-middle'
                         to="https://docs.hoppscotch.io/documentation/features/authorization">
                         <p>Learn how</p>
-                        <FaArrowUpRightFromSquare size={12} />
+                        <FaArrowUpRightFromSquare size={12} className='cursor-pointer' />
                     </Link>
                 </div>
             </div>

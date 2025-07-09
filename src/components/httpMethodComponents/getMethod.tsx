@@ -11,9 +11,9 @@ export const GetMethodComponent = ({
 
     const renderBodyComponent = () => {
         switch (selectedTab) {
-            case 'parameters': return <QueryParams />;
+            // case 'parameters': return <QueryParams />;
             case 'body': return '';
-            case 'headers': return <QueryParams />;
+            // case 'headers': return <QueryParams />;
             case 'authorization': return <AuthorizationTab {...{ selectedAuthMethod, setSelectedAuthMethod }} />;
             case 'pre-request script': return <RequestScriptTab {...{ selectedTab }} />;
             case 'post-request script': return <RequestScriptTab {...{ selectedTab }} />;

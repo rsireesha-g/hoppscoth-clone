@@ -5,7 +5,7 @@ interface statesSliceProps {
     isSearchModalOpen: boolean,
     isLoggedIn: boolean,
     isLoginModalOpen: boolean,
-    email: string,
+    email: string | null,
     environments: any
 }
 
@@ -14,7 +14,7 @@ const initialState: statesSliceProps = {
     isSearchModalOpen: false,
     isLoggedIn: false,
     isLoginModalOpen: false,
-    email: '',
+    email: localStorage.getItem("email"),
     environments: null
 }
 
@@ -34,21 +34,22 @@ const statesSlice = createSlice({
             state.email = ''
         },
         onLogin(state) {
-            state.isLoggedIn = true
+            state.isLoggedIn = true;
+            state.email = localStorage.getItem('email');
         },
         isAuth(state) {
-            const email = localStorage.getItem("email");
-            if (email) {
+            if (state.email) {
                 state.isLoggedIn = true;
-                state.email = email;
-
             } else {
                 state.isLoggedIn = false;
-                state.isLoginModalOpen = true
             }
         },
         onLoginModalClick(state, action: PayloadAction<boolean>) {
-            state.isLoginModalOpen = action.payload;
+            if (state.email) {
+                state.isLoggedIn = true;
+            } else {
+                state.isLoginModalOpen = action.payload;
+            }
         }
     }
 });

@@ -50,7 +50,9 @@ export const RequestScriptTab = ({ selectedTab }: any) => {
                 <div className="text-secondaryLight">JavaScript Code</div>
                 <div className="flex gap-2 align-middle text-[#e1e0e0]">
                     <Tooltip position='top-left' text='Wiki'>
-                        <CiCircleQuestion size={16} className='cursor-pointer' />
+                        <Link target='_blank' to={`${selectedTab === 'pre-request script' ? 'https://docs.hoppscotch.io/documentation/getting-started/rest/pre-request-scripts' : 'https://docs.hoppscotch.io/documentation/getting-started/rest/tests'}`} >
+                            <CiCircleQuestion size={16} className='cursor-pointer' />
+                        </Link>
                     </Tooltip>
                     <Tooltip position='top-left' text='Clear All'>
                         <MdOutlineDeleteForever size={16} className='cursor-pointer' onClick={() => setSelectedScript([])} />
@@ -80,6 +82,7 @@ export const RequestScriptTab = ({ selectedTab }: any) => {
                         }
                     </p>
                     <Link
+                        target="_blank"
                         className='text-secondaryLight hover:text-secondaryDark'
                         to="https://docs.hoppscotch.io/documentation/getting-started/rest/pre-request-scripts"
                     >Read documentation</Link>

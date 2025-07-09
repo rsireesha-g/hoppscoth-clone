@@ -41,7 +41,7 @@ export const Button = ({ type, text, children, nextLink, extraClass, chevronExis
             }
             {
                 type === 'link' &&
-                <Link to={nextLink || '#'} className={`flex flex-row-reverse items-center justify-center gap-2 whitespace-nowrap transition 
+                <Link to={nextLink || '#'} target="_blank" className={`flex flex-row-reverse items-center justify-center gap-2 whitespace-nowrap transition 
                 focus:outline-none w-fit text-[#a1a1a1] font-semibold hover:text-secondaryDark px-4 py-2 rounded h-8 border border-dividerDark ${extraClass}`}
                     onClick={handleClick}>
                     {children}

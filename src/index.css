@@ -23,6 +23,39 @@ code {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+    /* scrollbar-width: none;      
+  -ms-overflow-style: none;       */
+
+}
+
+input,
+textarea {
+  @apply border-none outline-none focus:border-none focus:outline-none hover:border-none;
+}
+
+/* *::-webkit-scrollbar {
+  display: none;                
+} */
+
+
+::-webkit-scrollbar {
+  width: 4px;              
+  height: 4px;              
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-dark-color);      
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;   
+  border-radius: 4px;
+  border: 2px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark-color);      
 }
 
 

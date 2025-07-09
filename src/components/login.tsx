@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
-import { LuGithub } from 'react-icons/lu'
+import React, { useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { FaGithubSquare } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import googleSvg from "../assests/icons/google.svg"
 import microsoftsvg from "../assests/icons/microsoft.svg";
 import emailsvg from "../assests/icons/email.svg";
@@ -13,16 +11,19 @@ import { useSelector } from 'react-redux';
 import { onLogin, onLoginModalClick } from '../redux/slices/statesSlice';
 import { Button } from './button';
 import { IoIosArrowDropleft } from 'react-icons/io';
+import { Modal } from './modal';
 
 export const Login = () => {
     const dispatch = useDispatch<AppDispatch>();
     const [step, setStep] = useState(1);
     const [email, setEmail] = useState("");
+    const modalRef = useRef<HTMLDivElement>(null);
+    const isLoginModalOpen = useSelector((state: RootState) => state.statesStatus.isLoginModalOpen);
 
 
     return (
-        <div className='modal'>
-            <div className="innerModal top-12">
+        <Modal onClose={() => dispatch(onLoginModalClick(false))} isOpen={isLoginModalOpen} >
+            <div className="innerModal top-12 left-[35%]" ref={modalRef}>
                 <div className="flex items-center justify-between p-2 ">
                     <h3 className="ml-4 heading text-center flex-grow">Login to Hoppscotch</h3>
                     <MdOutlineClose
@@ -60,7 +61,7 @@ export const Login = () => {
                         </div>
 
                         <div className="bottom text-[10px] p-2 pb-0 text-secondaryLight">
-                            By signing in, you are agreeing to our  <Link to="https://docs.hoppscotch.io/support/terms" className='text-accentDark'>Terms of Services</Link> and <Link to="https://docs.hoppscotch.io/support/privacy" className='text-accentDark'>Privacy Policy</Link>
+                            By signing in, you are agreeing to our  <Link target="_blank" to="https://docs.hoppscotch.io/support/terms" className='text-accentDark'>Terms of Services</Link> and <Link target="_blank" to="https://docs.hoppscotch.io/support/privacy" className='text-accentDark'>Privacy Policy</Link>
                         </div>
                     </div>
                     :
@@ -86,6 +87,6 @@ export const Login = () => {
                     </div>
                 }
             </div>
-        </div>
+        </Modal>
     )
 }

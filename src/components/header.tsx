@@ -44,10 +44,6 @@ export const Header = () => {
         { label: 'Logout', icon: <FaArrowRightFromBracket size={16} />, kbd: 'L', onclick: { handleLogout } },
     ];
 
-
-
-
-    console.log(isLoginModalOpen ? isLoggedIn ? 'first' : 'hi' : 'last')
     useEffect(() => { dispatch(isAuth()) }, []);
 
     return (
@@ -91,11 +87,11 @@ export const Header = () => {
                         <div className={`flex items-center gap-2 space-x-2`}>
 
                             <Tooltip text='My work space' position='bottom'>
-                                <Button type='bordered' text='My workspace' onClick={() => dispatch(isAuth())}>
+                                <Button type='bordered' text='My workspace' onClick={() => dispatch(onLoginModalClick(isLoggedIn ? false : true))}>
                                     <LuCloudUpload className='w-4 h-4' />
                                 </Button>
                             </Tooltip>
-                            <Button type='primary' text='Login' onClick={() => dispatch(isAuth())} />
+                            <Button type='primary' text='Login' onClick={() => dispatch(onLoginModalClick(isLoggedIn ? false : true))} />
                         </div>
                         :
                         <div className={`flex items-center gap-2 space-x-2`}>
