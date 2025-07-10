@@ -27,6 +27,7 @@ export type EnvVariablesObj = {
 }
 
 export type EnvironmentData = {
+    label: string,
     variables: EnvVariablesObj[],
     secrets: EnvVariablesObj[]
 };

@@ -29,6 +29,7 @@ const methodData: MethodData[] = [
 
 const environmentData: EnvironmentData[] = [
     {
+        label: '',
         variables: [{ variable: '', initialValue: '', currentValue: '' }],
         secrets: [{ variable: '', initialValue: '', currentValue: '' }]
     }
@@ -45,13 +46,30 @@ const restApiSlice = createSlice({
     initialState,
     reducers: {
         onSaveEnvironmentVariablesAndSecrets(state, action: PayloadAction<EnvironmentData>) {
-            const { variables, secrets } = action.payload;
+            const payload = action.payload;
 
-            state.environmentData.push({
-                variables: [...variables],
-                secrets: [...secrets]
-            });
-            console.log(state.environmentData)
+            // Find the index of the existing label
+            const index = state.environmentData.findIndex(
+                (env) => env.label === payload.label
+            );
+
+            if (index !== -1) {
+                // Label exists → update
+                state.environmentData[index] = {
+                    ...state.environmentData[index],
+                    variables: [...payload.variables],
+                    secrets: [...payload.secrets]
+                };
+            } else {
+                // Label not found → add new
+                state.environmentData.push({
+                    label: payload.label,
+                    variables: [...payload.variables],
+                    secrets: [...payload.secrets]
+                });
+            }
+
+            console.log("Updated environmentData:", state.environmentData);
         }
     }
 });

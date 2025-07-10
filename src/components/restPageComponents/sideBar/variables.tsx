@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { Tooltip } from '../../tooltip'
 import { CiCircleQuestion } from 'react-icons/ci'
 import { MdOutlineDeleteForever, MdOutlineDeleteOutline, MdOutlineWrapText } from 'react-icons/md'
-import { FaRegEdit, FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 import { IoIosAdd } from 'react-icons/io'
-import { TiTickOutline } from 'react-icons/ti'
 import { Link } from 'react-router'
 import { PiDotsThreeVerticalBold } from 'react-icons/pi'
 import DropdownMenu from '../../dropdownMenu'
 import { BsBoxArrowInLeft, BsBoxArrowInRight } from 'react-icons/bs'
 import { EnvVariablesObj } from '../../../interfaces/restApiInterface'
+import { Button } from '../../button'
+import { IoAdd } from 'react-icons/io5'
+import emptyImg from "../../../assests/images/environment.png"
 
 
 
@@ -19,12 +21,14 @@ interface variableProps {
     setData: any,
     initialState: Array<EnvVariablesObj>,
     secrets: Array<EnvVariablesObj>,
-    setSecrets: any
+    setSecrets: any,
+    label: string
 }
 
-export const Variables = ({ data, setData, initialState, secrets, setSecrets }: variableProps) => {
+export const Variables = ({ data, setData, initialState, secrets, setSecrets, label }: variableProps) => {
     const [selectedTab, setSelectedTab] = useState('variables');
     const [showSecret, setShowSecret] = useState({ initial: false, current: false });
+    const [isAddNew, setIsAddNew] = useState(false);
 
     const handleAddRow = () => {
         let newRow: EnvVariablesObj = { variable: '', initialValue: '', currentValue: '' }
@@ -129,89 +133,102 @@ export const Variables = ({ data, setData, initialState, secrets, setSecrets }: 
             </div>
             {/* grid */}
 
-            {selectedTab === 'variables' ?
-                data?.map((param: EnvVariablesObj, ind: number) => (
-                    <div className="w-full flex gap-0 align-middle text-secondaryLight justify-end  border border-dividerDark" key={ind}>
-                        <div className="p-1 w-8 border-r border-r-dividerDark"></div>
-                        <div className="flex-gow-1 w-1/2 p-1 border-r border-r-dividerDark">
-                            <input type='text' placeholder={`Variable ${ind + 1}`} className='bg-transparent p-2 w-full' name='key' value={param?.variable} onChange={(e) => handleChange(ind, "variable", e.target.value)} />
+            {(label === 'Global' || isAddNew) ?
+                (selectedTab === 'variables' ?
+                    data?.map((param: EnvVariablesObj, ind: number) => (
+                        <div className="w-full flex gap-0 align-middle text-secondaryLight justify-end  border border-dividerDark" key={ind}>
+                            <div className="p-1 w-8 border-r border-r-dividerDark"></div>
+                            <div className="flex-gow-1 w-1/2 p-1 border-r border-r-dividerDark">
+                                <input type='text' placeholder={`Variable ${ind + 1}`} className='bg-transparent p-2 w-full' name='key' value={param?.variable} onChange={(e) => handleChange(ind, "variable", e.target.value)} />
+                            </div>
+                            <div className="flex-gow-2 w-1/2 p-1 flex justify-between border-r border-r-dividerDark">
+                                <input type='text' placeholder={`Initial Value ${ind + 1}`} className='bg-transparent p-2 w-full' name='value' value={param?.initialValue} onChange={(e) => handleChange(ind, "initialValue", e.target.value)} />
+                                <Tooltip text='Replace with current' position='top-right'>
+                                    <BsBoxArrowInLeft size={16} className='cursor-pointer ml-1' onClick={handleReplaceInitialWithCurr} />
+                                </Tooltip>                    </div>
+                            <div className="flex-gow-2 w-1/2 p-1 flex justify-between  border-r border-r-dividerDark">
+                                <input
+                                    type='text'
+                                    placeholder={`Current Value ${ind + 1}`} className='bg-transparent p-2 w-full' name='value'
+                                    value={param?.currentValue}
+                                    onChange={(e) => handleChange(ind, "currentValue", e.target.value)}
+                                />
+                                <Tooltip text='Replace with initial' position='top-right'>
+                                    <BsBoxArrowInRight size={16} className='cursor-pointer ml-1' onClick={handleReplaceCurrWithInitial} />
+                                </Tooltip>
+                            </div>
+                            <div className="p-3 w-fit ">
+                                <Tooltip position='top-right' text='Remove'>
+                                    <MdOutlineDeleteOutline className='text-deleteColor cursor-pointer' size={16} onClick={() => handleDeleteRow(ind)} />
+                                </Tooltip>
+                            </div>
                         </div>
-                        <div className="flex-gow-2 w-1/2 p-1 flex justify-between border-r border-r-dividerDark">
-                            <input type='text' placeholder={`Initial Value ${ind + 1}`} className='bg-transparent p-2 w-full' name='value' value={param?.initialValue} onChange={(e) => handleChange(ind, "initialValue", e.target.value)} />
-                            <Tooltip text='Replace with current' position='top-right'>
-                                <BsBoxArrowInLeft size={16} className='cursor-pointer ml-1' onClick={handleReplaceInitialWithCurr} />
-                            </Tooltip>                    </div>
-                        <div className="flex-gow-2 w-1/2 p-1 flex justify-between  border-r border-r-dividerDark">
-                            <input
-                                type='text'
-                                placeholder={`Current Value ${ind + 1}`} className='bg-transparent p-2 w-full' name='value'
-                                value={param?.currentValue}
-                                onChange={(e) => handleChange(ind, "currentValue", e.target.value)}
-                            />
-                            <Tooltip text='Replace with initial' position='top-right'>
-                                <BsBoxArrowInRight size={16} className='cursor-pointer ml-1' onClick={handleReplaceCurrWithInitial} />
-                            </Tooltip>
-                        </div>
-                        <div className="p-3 w-fit ">
-                            <Tooltip position='top-right' text='Remove'>
-                                <MdOutlineDeleteOutline className='text-deleteColor cursor-pointer' size={16} onClick={() => handleDeleteRow(ind)} />
-                            </Tooltip>
-                        </div>
-                    </div>
-                ))
-                : secrets?.map((param: EnvVariablesObj, ind: number) => (
-                    <div className="w-full flex gap-0 align-middle text-secondaryLight justify-end  border border-dividerDark" key={ind}>
-                        <div className="p-1 w-8 border-r border-r-dividerDark"></div>
-                        <div className="flex-gow-1 w-1/2 p-1 border-r border-r-dividerDark">
-                            <input type='text' placeholder={`Variable ${ind + 1}`} className='bg-transparent p-2 w-full' name='key' value={param?.variable} onChange={(e) => handleChange(ind, "variable", e.target.value)} />
-                        </div>
-                        <div className="flex-gow-2 w-1/2 p-1 flex justify-between border-r border-r-dividerDark">
-                            <input type={`${(!showSecret?.initial) ? 'password' : 'text'}`} placeholder={`Initial Value ${ind + 1}`} className='bg-transparent p-2 w-full' name='value' value={param?.initialValue} onChange={(e) => handleChange(ind, "initialValue", e.target.value)} />
+                    ))
+                    : secrets?.map((param: EnvVariablesObj, ind: number) => (
+                        <div className="w-full flex gap-0 align-middle text-secondaryLight justify-end  border border-dividerDark" key={ind}>
+                            <div className="p-1 w-8 border-r border-r-dividerDark"></div>
+                            <div className="flex-gow-1 w-1/2 p-1 border-r border-r-dividerDark">
+                                <input type='text' placeholder={`Variable ${ind + 1}`} className='bg-transparent p-2 w-full' name='key' value={param?.variable} onChange={(e) => handleChange(ind, "variable", e.target.value)} />
+                            </div>
+                            <div className="flex-gow-2 w-1/2 p-1 flex justify-between border-r border-r-dividerDark">
+                                <input type={`${(!showSecret?.initial) ? 'password' : 'text'}`} placeholder={`Initial Value ${ind + 1}`} className='bg-transparent p-2 w-full' name='value' value={param?.initialValue} onChange={(e) => handleChange(ind, "initialValue", e.target.value)} />
 
-                            <Tooltip text={`${showSecret?.initial ? 'Hide Secret' : 'Show Secret'}`} position='top-right'>
-                                {showSecret?.initial ?
-                                    <FaRegEyeSlash size={16} className={`cursor-pointer`}
-                                        onClick={() => setShowSecret({ ...showSecret, initial: !showSecret?.initial })}
-                                    /> :
-                                    <FaRegEye size={16} className={`cursor-pointer`}
-                                        onClick={() => setShowSecret({ ...showSecret, initial: !showSecret?.initial })}
-                                    />
-                                }
-                            </Tooltip>
+                                <Tooltip text={`${showSecret?.initial ? 'Hide Secret' : 'Show Secret'}`} position='top-right'>
+                                    {showSecret?.initial ?
+                                        <FaRegEyeSlash size={16} className={`cursor-pointer`}
+                                            onClick={() => setShowSecret({ ...showSecret, initial: !showSecret?.initial })}
+                                        /> :
+                                        <FaRegEye size={16} className={`cursor-pointer`}
+                                            onClick={() => setShowSecret({ ...showSecret, initial: !showSecret?.initial })}
+                                        />
+                                    }
+                                </Tooltip>
 
-                            <Tooltip text='Replace with current' position='top-right'>
-                                <BsBoxArrowInLeft size={16} className='cursor-pointer ml-1' onClick={handleReplaceInitialWithCurr} />
-                            </Tooltip>                    </div>
-                        <div className="flex-gow-2 w-1/2 p-1 flex justify-between  border-r border-r-dividerDark">
-                            <input
-                                type={`${(!showSecret?.current) ? 'password' : 'text'}`}
-                                placeholder={`Current Value ${ind + 1}`} className='bg-transparent p-2 w-full' name='value'
-                                value={param?.currentValue}
-                                onChange={(e) => handleChange(ind, "currentValue", e.target.value)}
-                            />
+                                <Tooltip text='Replace with current' position='top-right'>
+                                    <BsBoxArrowInLeft size={16} className='cursor-pointer ml-1' onClick={handleReplaceInitialWithCurr} />
+                                </Tooltip>                    </div>
+                            <div className="flex-gow-2 w-1/2 p-1 flex justify-between  border-r border-r-dividerDark">
+                                <input
+                                    type={`${(!showSecret?.current) ? 'password' : 'text'}`}
+                                    placeholder={`Current Value ${ind + 1}`} className='bg-transparent p-2 w-full' name='value'
+                                    value={param?.currentValue}
+                                    onChange={(e) => handleChange(ind, "currentValue", e.target.value)}
+                                />
 
-                            <Tooltip text={`${showSecret?.current ? 'Hide Secret' : 'Show Secret'}`} position='top-right'>
-                                {showSecret?.current ?
-                                    <FaRegEyeSlash size={16} className={`cursor-pointer`}
-                                        onClick={() => setShowSecret({ ...showSecret, current: !showSecret?.current })}
-                                    /> :
-                                    <FaRegEye size={16} className={`cursor-pointer`}
-                                        onClick={() => setShowSecret({ ...showSecret, current: !showSecret?.current })}
-                                    />
-                                }
-                            </Tooltip>
+                                <Tooltip text={`${showSecret?.current ? 'Hide Secret' : 'Show Secret'}`} position='top-right'>
+                                    {showSecret?.current ?
+                                        <FaRegEyeSlash size={16} className={`cursor-pointer`}
+                                            onClick={() => setShowSecret({ ...showSecret, current: !showSecret?.current })}
+                                        /> :
+                                        <FaRegEye size={16} className={`cursor-pointer`}
+                                            onClick={() => setShowSecret({ ...showSecret, current: !showSecret?.current })}
+                                        />
+                                    }
+                                </Tooltip>
 
-                            <Tooltip text='Replace with initial' position='top-right'>
-                                <BsBoxArrowInRight size={16} className='cursor-pointer ml-1' onClick={handleReplaceCurrWithInitial} />
-                            </Tooltip>
+                                <Tooltip text='Replace with initial' position='top-right'>
+                                    <BsBoxArrowInRight size={16} className='cursor-pointer ml-1' onClick={handleReplaceCurrWithInitial} />
+                                </Tooltip>
+                            </div>
+                            <div className="p-3 w-fit ">
+                                <Tooltip position='top-right' text='Remove'>
+                                    <MdOutlineDeleteOutline className='text-deleteColor cursor-pointer' size={16} onClick={() => handleDeleteRow(ind)} />
+                                </Tooltip>
+                            </div>
                         </div>
-                        <div className="p-3 w-fit ">
-                            <Tooltip position='top-right' text='Remove'>
-                                <MdOutlineDeleteOutline className='text-deleteColor cursor-pointer' size={16} onClick={() => handleDeleteRow(ind)} />
-                            </Tooltip>
-                        </div>
-                    </div>
-                ))}
+                    ))
+                )
+                :
+                <div className='flex flex-col gap-2 align-middle items-center text-sec'>
+                    <img alt='empty collections ' width={70} height={70} src={emptyImg} />
+                    <p className="text-[10px]">Environments are empty</p>
+                    <Button type='secondary' text='Add new' extraClass='!flex-row' onClick={() => {
+                        setIsAddNew(true);
+                    }}>
+                        <IoAdd size={16} />
+                    </Button>
+                </div>
+            }
 
         </div >
     )
