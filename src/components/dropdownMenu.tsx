@@ -21,7 +21,7 @@ type DropdownMenuProps = {
 };
 
 
-const DropdownMenu = ({ button, items, position, extraClass = '', children, childrenPosition = 'bottom' }: DropdownMenuProps) => {
+const DropdownMenu = ({ button, items = [], position, extraClass = '', children, childrenPosition = 'bottom' }: DropdownMenuProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<any>(null);
 
@@ -59,10 +59,11 @@ const DropdownMenu = ({ button, items, position, extraClass = '', children, chil
                         ${getPositionClasses(position)} 
                         ${extraClass}`}
                 >
-                    {childrenPosition === 'top' &&
+                    {childrenPosition === 'top' ?
                         typeof children === 'function'
-                        ? children({ closeDropdown: () => setIsOpen(false) })
-                        : children}
+                            ? children({ closeDropdown: () => setIsOpen(false) })
+                            : children : ''
+                    }
 
                     {items?.map((item, index) => (
                         <div
@@ -78,10 +79,11 @@ const DropdownMenu = ({ button, items, position, extraClass = '', children, chil
                             {item?.kbd && <kbd className='kbd'>{item?.kbd}</kbd>}
                         </div>
                     ))}
-                    {childrenPosition === 'bottom' &&
+                    {childrenPosition === 'bottom' ?
                         typeof children === 'function'
-                        ? children({ closeDropdown: () => setIsOpen(false) })
-                        : children}
+                            ? children({ closeDropdown: () => setIsOpen(false) })
+                            : children : ''
+                    }
                 </div>
             )}
         </div>

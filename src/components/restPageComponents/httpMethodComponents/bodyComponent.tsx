@@ -32,6 +32,7 @@ export const BodyComponent = ({ onOverRide }: any) => {
                             chevronExists={true}
                         />
                     }
+                    items={[]}
 
                 >{({ closeDropdown }: any) => (
                     <>

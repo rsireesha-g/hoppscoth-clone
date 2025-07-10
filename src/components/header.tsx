@@ -110,7 +110,7 @@ export const Header = () => {
                                 }
                                 items={profileItems}
                                 position='header-right'
-                                childrenPosition='top'
+                                childrenPosition="top"
                             >
                                 <div className="border-b border-b-dividerDark pb-2">
                                     <p className="">{email && email?.split("@")?.[0]}</p>

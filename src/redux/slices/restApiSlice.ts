@@ -27,12 +27,18 @@ const environmentData: EnvironmentData[] = [
     }
 ];
 
-const selectedEnvironment: string = 'Global'
+const selectedEnvironment: string = 'Global';
+
+type collectionType = {
+    label: string, tabIndexes: number[]
+}[]
+const collections: collectionType = [{ label: '', tabIndexes: [] }]
 
 const initialState = {
     methodData,
     environmentData,
-    selectedEnvironment
+    selectedEnvironment,
+    collections
 }
 
 
@@ -74,6 +80,18 @@ const restApiSlice = createSlice({
             let remainingEnv = state.environmentData?.filter((x) => x.label !== action.payload);
             state.environmentData = remainingEnv;
             console.log(remainingEnv)
+        },
+        onCreateCollection(state, action: PayloadAction<string>) {
+            const isExists = state.collections?.find((x) => x.label === action.payload)
+            if (isExists) {
+                alert("Collection already exists")
+            }
+            else {
+                state.collections.push({
+                    label: action.payload,
+                    tabIndexes: []
+                })
+            }
         }
     }
 });
@@ -81,7 +99,8 @@ const restApiSlice = createSlice({
 export const {
     onSaveEnvironmentVariablesAndSecrets,
     onSelectEnvironmentLabel,
-    onDeleteEnvironment
+    onDeleteEnvironment,
+    onCreateCollection
 } = restApiSlice.actions;
 
 export default restApiSlice.reducer;
