@@ -4,24 +4,16 @@ import { EnvironmentData, MethodData } from "../../interfaces/restApiInterface";
 
 const methodData: MethodData[] = [
     {
-        method: 'GET',
+        method: '',
+        title: '',
         parameters: [{ key: '', value: '', description: '' }],
         headers: [{ key: '', value: '', description: '' }],
         body: '',
         authorization: '',
         preRequestScript: '',
         postRequestScript: '',
-        variables: [{ variable: '', value: '' }]
-    },
-    {
-        method: 'POST',
-        parameters: [{ key: '', value: '', description: '' }],
-        headers: [{ key: '', value: '', description: '' }],
-        body: '',
-        authorization: '',
-        preRequestScript: '',
-        postRequestScript: '',
-        variables: [{ variable: '', value: '' }]
+        variables: [{ variable: '', value: '' }],
+        index: -1
     }
 ];
 

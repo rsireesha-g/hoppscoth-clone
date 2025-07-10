@@ -1,5 +1,4 @@
 import React from 'react'
-import { QueryParams } from './queryParams'
 import { RequestScriptTab } from './requestScript'
 import { AuthorizationTab } from './authorizationTab'
 

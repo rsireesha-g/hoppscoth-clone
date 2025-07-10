@@ -3,7 +3,6 @@ import { Layout } from '../components/layout'
 import { BsChevronDown } from 'react-icons/bs'
 import { IoIosAdd, IoMdCheckmark, IoMdCheckmarkCircleOutline } from 'react-icons/io'
 import { FaCode, FaFileCode, FaRegEdit, FaRegEye } from 'react-icons/fa'
-import { TiTickOutline } from "react-icons/ti";
 import DropdownMenu from '../components/dropdownMenu'
 import { Button } from '../components/button';
 import { AiOutlineFolderAdd, AiOutlineReload, AiOutlineSave } from "react-icons/ai";
@@ -20,7 +19,7 @@ import { EmptyDataComponent } from '../components/common/emptyDataComponent'
 import { onSelectEnvironmentLabel } from '../redux/slices/restApiSlice'
 import { useDispatch } from 'react-redux'
 import { EditEnvironmentModal } from '../components/restPageComponents/sideBar/editEnvironmentModal'
-import { env } from 'process'
+import { BodyComponent } from '../components/restPageComponents/httpMethodComponents/bodyComponent'
 
 const paramsInitialState: Array<KeyValueDescription> = [{ key: '', value: '', description: '' }];
 const variablesInitialState: Array<VariablesObj> = [{ variable: '', value: '' }]
@@ -67,7 +66,7 @@ export const Rest = () => {
             case 'variables':
                 return <Variables {...{ data: variables, setData: setVariables, initialState: variablesInitialState }} />;
             case 'body':
-                return '';
+                return <BodyComponent {...{ onOverRide: setSelectedTab }} />;
             case 'authorization':
                 return <AuthorizationTab {...{ selectedAuthMethod, setSelectedAuthMethod }} />;
             case 'pre-request script':

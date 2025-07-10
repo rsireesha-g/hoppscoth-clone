@@ -25,11 +25,15 @@ export const AuthorizationTab = ({
                             <BiChevronDown size={16} className='cursor-pointer' />
                         </p>
                     }>
+                        {/* {({ closeDropdown }: any) => (
+                        <> */}
                         {authMethods?.map((method: string) => (
+                            // <div onClick={() => closeDropdown()}>
                             <RadioButton text={method} selected={selectedAuthMethod} setSelected={setSelectedAuthMethod} />
-                        ))
-
-                        }
+                            // </div>
+                        ))}
+                        {/* </>
+                    )} */}
                     </DropdownMenu>
                 </div>
                 <div className="flex gap-2 align-middle text-[#e1e0e0]">
@@ -48,7 +52,7 @@ export const AuthorizationTab = ({
                         <IoIosAdd size={20} className='cursor-pointer' />
                     </Tooltip>
                 </div>
-            </div>
+            </div >
             <div className="w-full flex gap-0 align-middle text-secondaryLight border-b border-b-dividerDark">
                 <div className="flex-gow w-[66%] p-2 border-x border-x-dividerDark">Please save this request in amy collection to inherit the authorization</div>
                 <div className="w-1/3 p-2">
@@ -64,6 +68,6 @@ export const AuthorizationTab = ({
                     </Link>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

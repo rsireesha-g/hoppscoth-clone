@@ -11,6 +11,8 @@ export type VariablesObj = {
 
 export type MethodData = {
     method: string;
+    index: number;
+    title: string;
     parameters: KeyValueDescription[];
     headers: KeyValueDescription[];
     body: string,
