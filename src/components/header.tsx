@@ -53,7 +53,7 @@ export const Header = () => {
 
     return (
         <>
-            <div className={`relative w-full p-2 grid grid-cols-5 gap-2  border-b-[1px] border-[#302f2f]`}>
+            <div className={`relative w-screen p-2 grid grid-cols-5 gap-2  border-b-[1px] border-[#302f2f]`}>
                 <Link to="/" className={`col-span-2 flex items-center justify-between space-x-2 uppercase`}>Hoppscotch</Link>
                 <div className={`col-span-1 flex items-center justify-between space-x-2`}>
                     <button className='p-1 flex flex-1 cursor-text items-center justify-between self-stretch rounded bg-primaryDark 
@@ -85,15 +85,18 @@ export const Header = () => {
                             position='header'
                         />
                         <Tooltip text='Options' position='bottom'>
-                            <HiOutlineSupport className='w-4 h-4' onClick={() => setIsSupportModalOpen(true)} />
+                            <HiOutlineSupport className='w-4 h-4 cursor-pointer' onClick={() => setIsSupportModalOpen(true)} />
                         </Tooltip>
                     </div>
                     {!isLoggedIn ?
                         <div className={`flex items-center gap-2 space-x-2`}>
 
                             <Tooltip text='My work space' position='bottom'>
-                                <Button type='bordered' text='My workspace' onClick={() => dispatch(onLoginModalClick(isLoggedIn ? false : true))}>
+                                <Button type='bordered' text='My workspace' extraClass='md:flex hidden' onClick={() => dispatch(onLoginModalClick(isLoggedIn ? false : true))}>
                                     <LuCloudUpload className='w-4 h-4' />
+                                </Button>
+                                <Button type='bordered' text='' extraClass='md:hidden' onClick={() => dispatch(onLoginModalClick(isLoggedIn ? false : true))}>
+                                    <LuCloudUpload className='w-4 h-4 ' />
                                 </Button>
                             </Tooltip>
                             <Button type='primary' text='Login' onClick={() => dispatch(onLoginModalClick(isLoggedIn ? false : true))} />
@@ -101,14 +104,20 @@ export const Header = () => {
                         :
                         <div className={`flex items-center gap-2 space-x-2`}>
                             <Tooltip text='Invite' position='bottom'>
-                                <BsPersonAdd size={20} />
+                                <BsPersonAdd size={30} className='cursor-pointer border rounded-md border-getColor text-getColor p-1' />
                             </Tooltip>
                             <DropdownMenu
                                 position='bottom-right'
                                 button={
                                     <Tooltip text="Change workspace" position='bottom'>
-                                        <Button extraClass='!text-accent !border-accent text-xs !p-1'
+                                        <Button extraClass='md:flex hidden !text-accent !border-accent text-xs !p-1.5 gap-2 !h-fit'
                                             type='bordered' text='Personal workspace'
+                                            chevronExists={true}
+                                            onClick={() => dispatch(isAuth())}>
+                                            <BsPerson className='w-4 h-4' />
+                                        </Button>
+                                        <Button extraClass='md:hidden !text-accent !border-accent text-xs !p-1.5 gap-2 !h-fit'
+                                            type='bordered' text=''
                                             chevronExists={true}
                                             onClick={() => dispatch(isAuth())}>
                                             <BsPerson className='w-4 h-4' />

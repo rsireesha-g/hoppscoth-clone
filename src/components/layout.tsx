@@ -6,12 +6,21 @@ import { Footer } from './footer';
 import { ShortcutsComponent } from './shortcutsComponent';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { RestPageSideBar } from './restPageComponents/sideBar/sideBar';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../redux/store';
+import { ShortcutsSideBar } from './common/shortcutsSideBar';
+import { ChatBot } from './common/chatBot';
+import { MdOutlineClose } from 'react-icons/md';
+import { onChartBotModalClick } from '../redux/slices/statesSlice';
 
 export const Layout = ({ children, page }: { children: ReactNode, page: string }) => {
     const [theme, setTheme] = useState('dark');
     const [isCollapse, setIsCollapse] = useState<boolean>(false);
     const [isHorizontalCollapsed, setIsHorizontalCollapsed] = useState<boolean>(false);
     const [isRightSideBarCollapsed, setIsRightSideBarCollapsed] = useState<boolean>(false);
+    const { isShortCutsModalOpen, isChatBotModalOpen } = useSelector((state: RootState) => state.statesStatus);
+    const dispatch = useDispatch<AppDispatch>();
 
     return (
         <div className={`w-screen h-screen text-xs font-semibold  ${theme === 'dark' ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}>
@@ -47,7 +56,7 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
 
                     {!isRightSideBarCollapsed && (page === "home" || page === 'graphql') &&
                         <>
-                            <PanelResizeHandle className="w-1 bg-gray-600 hover:bg-gray-500 cursor-col-resize" />
+                            <PanelResizeHandle className="w-1 bg-gray-600 md:visible hover:bg-gray-500 cursor-col-resize" />
                             <Panel defaultSize={30} minSize={20}>
                                 {page === 'home' && <RestPageSideBar />}
                                 {page === 'graphql' && 'home'}
@@ -67,6 +76,22 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
                     setIsHorizontalCollapsed,
                 }}
             />
+            {isShortCutsModalOpen && <ShortcutsSideBar />}
+            {isChatBotModalOpen &&
+                <div className="modal">
+                    <div className="w-64 innerModal bottom-10 right-2 bg-secondaryDark text-primaryDark">
+                        <div className='flex justify-between'>
+                            <div>
+                                Welcome to chat bot!
+                            </div>
+                            <MdOutlineClose
+                                size={20}
+                                onClick={() => dispatch(onChartBotModalClick(false))}
+                                className='cursor-pointer text-primaryDark' />
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     );
 };

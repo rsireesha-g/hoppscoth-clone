@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { ShortcutsSideBar } from './shortcutsSideBar';
 import { useDispatch } from 'react-redux';
-import { onShortCutsModalClick } from '../../redux/slices/statesSlice';
+import { onChartBotModalClick, onShortCutsModalClick } from '../../redux/slices/statesSlice';
 import { Link } from 'react-router'
 
 type dataObj = {
@@ -42,7 +42,7 @@ export const Support = ({ handleClose }: any) => {
     const dispatch = useDispatch<AppDispatch>();
 
     const data: Array<dataObj> = [
-        { label: 'Chat with us', description: 'Questions? Chat with us!', icon: <BsChat size={14} className='rotate-180' />, onClick: () => ('') },
+        { label: 'Chat with us', description: 'Questions? Chat with us!', icon: <BsChat size={14} className='rotate-180' />, onClick: () => dispatch(onChartBotModalClick(true)) },
         { label: 'Documentation', description: 'Read more about Hoppscotch', icon: <VscBrowser size={14} className='rotate-180' />, url: 'https://docs.hoppscotch.io/' },
         { label: 'Keyboard shortcuts', description: 'Browse app faster', icon: <img src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' />, onClick: () => dispatch(onShortCutsModalClick(true)) },
         {
@@ -89,7 +89,7 @@ export const Support = ({ handleClose }: any) => {
 
                 </div>
             </div>
-            {isShortCutsModalOpen && <ShortcutsSideBar />}
+            {/* {isShortCutsModalOpen && <ShortcutsSideBar />} */}
         </>
     )
 }
