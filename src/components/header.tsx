@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button } from './button'
 import { LuCloudUpload, LuDownload } from "react-icons/lu";
 import { HiOutlineSupport } from "react-icons/hi";
 import { CiSearch, CiSettings } from "react-icons/ci";
 import { Link } from 'react-router';
 import DropdownMenu from './dropdownMenu';
-import { FaApple, FaLinux, FaWindows } from "react-icons/fa";
+import { FaApple, FaCheck, FaLinux, FaWindows } from "react-icons/fa";
 import { CiGlobe } from "react-icons/ci";
 import { HiOutlineCommandLine } from "react-icons/hi2";
 import { useDispatch } from 'react-redux';
@@ -19,9 +19,12 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlineAccountCircle } from 'react-icons/md';
 import { FaArrowRightFromBracket } from 'react-icons/fa6';
 import { BsPerson, BsPersonAdd } from 'react-icons/bs';
+import emptyImage from "../assests/images/workspace.png"
+import { CreateWorkspace } from './common/createWorkspace';
 
 export const Header = () => {
     const dispatch = useDispatch<AppDispatch>();
+    const [createNewWorkspace, setCreateNewWorkspace] = useState(false);
     const { isLoggedIn, isLoginModalOpen, isSearchModalOpen, email } = useSelector(
         (state: RootState) => state.statesStatus
     );
@@ -96,17 +99,40 @@ export const Header = () => {
                         :
                         <div className={`flex items-center gap-2 space-x-2`}>
                             <Tooltip text='Invite' position='bottom'>
-                                <BsPersonAdd size={24} />
+                                <BsPersonAdd size={20} />
                             </Tooltip>
-                            <Tooltip text='My personal workspace' position='bottom'>
-                                <Button extraClass='!text-accent !border-accent' type='bordered' text='My personal workspace' onClick={() => dispatch(isAuth())}>
-                                    <BsPerson className='w-4 h-4' />
-                                </Button>
-                            </Tooltip>
+                            <DropdownMenu
+                                position='bottom-right'
+                                button={
+                                    <Tooltip text="Change workspace" position='bottom'>
+                                        <Button extraClass='!text-accent !border-accent text-xs !p-1'
+                                            type='bordered' text='Personal workspace'
+                                            chevronExists={true}
+                                            onClick={() => dispatch(isAuth())}>
+                                            <BsPerson className='w-4 h-4' />
+                                        </Button>
+                                    </Tooltip>
+                                }
+                            >
+                                <div className="flex flex-col gap-2 justify-center">
+                                    <div className="flex gap-2 justify-between hover:bg-primaryDark p-2">
+                                        <BsPerson size={16} />
+                                        <p className='text-[10px]'>Personal Workspace</p>
+                                        <FaCheck className='text-accentDark' size={16} />
+                                    </div>
+                                    <div className="flex text-secondaryLight hover:text-secondaryDark border-y border-y-dividerDark flex-col gap-2 justify-center align-middle items-center p-4">
+                                        <img src={emptyImage} width={70} height={70} alt="no workspace" />
+                                        <p className="text-[10px] font-normal">You don't belong to any workspaces</p>
+                                        <Button type='secondary' text='+ Create new workspace' extraClass='!flex-row'
+                                            onClick={() => setCreateNewWorkspace(true)} />
+                                    </div>
+                                    <Button type='primary' text='Create an organization' />
+                                </div>
+                            </DropdownMenu>
 
                             <DropdownMenu
                                 button={
-                                    <CgProfile size={24} />
+                                    <CgProfile size={20} />
                                 }
                                 items={profileItems}
                                 position='header-right'
@@ -124,6 +150,7 @@ export const Header = () => {
             </div>
             {isSearchModalOpen && <SearchComponent />}
             {isLoginModalOpen ? !isLoggedIn && <Login /> : ''}
+            {createNewWorkspace && <CreateWorkspace handleClose={() => setCreateNewWorkspace(false)} />}
         </>
     )
 }
