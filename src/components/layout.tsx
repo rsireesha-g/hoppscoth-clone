@@ -44,16 +44,15 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
                         </div>
                     </Panel>
 
-                    {!isRightSideBarCollapsed && (
-                        <PanelResizeHandle className="w-1 bg-gray-600 hover:bg-gray-500 cursor-col-resize" />
-                    )}
 
-                    {!isRightSideBarCollapsed &&
-
-                        <Panel defaultSize={30} minSize={20}>
-                            {page === 'home' && <RestPageSideBar />}
-                            {page === 'graphql' && 'home'}
-                        </Panel>
+                    {!isRightSideBarCollapsed && (page === "home" || page === 'graphql') &&
+                        <>
+                            <PanelResizeHandle className="w-1 bg-gray-600 hover:bg-gray-500 cursor-col-resize" />
+                            <Panel defaultSize={30} minSize={20}>
+                                {page === 'home' && <RestPageSideBar />}
+                                {page === 'graphql' && 'home'}
+                            </Panel>
+                        </>
                     }
                 </PanelGroup>
             </div>

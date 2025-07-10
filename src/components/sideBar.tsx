@@ -14,7 +14,7 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
 
     return (
         <div
-            className={`${isCollapse ? 'w-12' : 'w-20'} 
+            className={`${!isCollapse ? 'w-12' : 'w-20'} 
         border border-red-400
         flex flex-col text-[10px]
         `}>
@@ -24,7 +24,7 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
              cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
 
-                {isCollapse ?
+                {!isCollapse ?
                     <Tooltip position='side-right' text='Rest'>
                         <IoLinkOutline size={16} />
                     </Tooltip>
@@ -43,7 +43,7 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
              cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
 
-                {isCollapse ?
+                {!isCollapse ?
                     <Tooltip position='side-right' text='GraphQL'>
                         <BiLogoGraphql className='w-4 h-4' />
                     </Tooltip>
@@ -62,7 +62,7 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             ${page === 'realtime' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
              cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
-                {isCollapse ?
+                {!isCollapse ?
                     <Tooltip position='side-right' text='Realtime'>
                         <CiGlobe className='w-4 h-4' />
                     </Tooltip>
@@ -79,7 +79,7 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             ${page === 'settings' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
              cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
             `}>
-                {isCollapse ?
+                {!isCollapse ?
                     <Tooltip position='side-right' text='Settings'>
                         <CiSettings className='w-5 h-5' />
                     </Tooltip>

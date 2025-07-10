@@ -21,10 +21,12 @@ import { FaArrowRightFromBracket } from 'react-icons/fa6';
 import { BsPerson, BsPersonAdd } from 'react-icons/bs';
 import emptyImage from "../assests/images/workspace.png"
 import { CreateWorkspace } from './common/createWorkspace';
+import { Support } from './common/support';
 
 export const Header = () => {
     const dispatch = useDispatch<AppDispatch>();
     const [createNewWorkspace, setCreateNewWorkspace] = useState(false);
+    const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
     const { isLoggedIn, isLoginModalOpen, isSearchModalOpen, email } = useSelector(
         (state: RootState) => state.statesStatus
     );
@@ -83,7 +85,7 @@ export const Header = () => {
                             position='header'
                         />
                         <Tooltip text='Options' position='bottom'>
-                            <HiOutlineSupport className='w-4 h-4' />
+                            <HiOutlineSupport className='w-4 h-4' onClick={() => setIsSupportModalOpen(true)} />
                         </Tooltip>
                     </div>
                     {!isLoggedIn ?
@@ -151,6 +153,7 @@ export const Header = () => {
             {isSearchModalOpen && <SearchComponent />}
             {isLoginModalOpen ? !isLoggedIn && <Login /> : ''}
             {createNewWorkspace && <CreateWorkspace handleClose={() => setCreateNewWorkspace(false)} />}
+            {isSupportModalOpen && <Support handleClose={() => setIsSupportModalOpen(false)} />}
         </>
     )
 }
