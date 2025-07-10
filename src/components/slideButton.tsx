@@ -13,7 +13,7 @@ export const SlideButton = ({ text, selected, setSelected }: radioButtonProps) =
         <label className='flex gap-2 py-2 items-center
                 hover:text-secondaryDark 
             focus:outline-none focus-visible::bg-primaryDark focus-visible:text-secondaryDark 
-            hover:bg-transparent text-secondaryLight '>
+            hover:bg-transparent text-secondary '>
             <input
                 type="checkbox"
                 className="peer hidden"

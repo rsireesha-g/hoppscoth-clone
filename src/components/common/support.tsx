@@ -28,7 +28,7 @@ const Card = (item: dataObj) => {
             <div className='text-accentDark'>{item?.icon}</div>
             <div className="flex-grow flex align-middle justify-between items-center gap-2">
                 <div className='flex flex-col gap-2 flex-grow'>
-                    <p className="text-secondaryLight">{item?.label}</p>
+                    <p className="text-secondary">{item?.label}</p>
                     <p className="text-[10px] text-stone-600">{item?.description}</p>
                 </div>
                 <BsChevronRight size={10} />

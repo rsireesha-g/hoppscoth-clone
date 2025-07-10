@@ -34,7 +34,7 @@ export const Login = () => {
                 {step === 1 ?
                     <div className='overflow-y-auto'>
 
-                        <div className="flex flex-col gap-2 justify-start border-y-dividerDark border-y p-4 text-secondaryLight hover:text-secondary">
+                        <div className="flex flex-col gap-2 justify-start border-y-dividerDark border-y p-4 text-secondary hover:text-secondary">
                             <div className="flex gap-3 p-2 align-middle justify-start hover:bg-primary hover:text-secondaryDark cursor-not-allowed">
                                 <FaGithubSquare size={16} />
                                 <p>Continue with Github</p>
@@ -60,14 +60,14 @@ export const Login = () => {
                             </div>
                         </div>
 
-                        <div className="bottom text-[10px] p-2 pb-0 text-secondaryLight">
+                        <div className="bottom text-[10px] p-2 pb-0 text-secondary">
                             By signing in, you are agreeing to our  <Link target="_blank" to="https://docs.hoppscotch.io/support/terms" className='text-accentDark'>Terms of Services</Link> and <Link target="_blank" to="https://docs.hoppscotch.io/support/privacy" className='text-accentDark'>Privacy Policy</Link>
                         </div>
                     </div>
                     :
                     <div>
-                        <div className="flex flex-col gap-2 justify-start border-y-dividerDark border-y p-4 text-secondaryLight">
-                            <div className="relative text-secondaryLight hover:text-secondaryDark bg-none border-0 flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 justify-start border-y-dividerDark border-y p-4 text-secondary">
+                            <div className="relative text-secondary hover:text-secondaryDark bg-none border-0 flex flex-col gap-2">
                                 {email !== '' && <p className='absolute z-20 -top-2 left-2 text-[10px]'>Email</p>}
                                 <input className='w-full p-2 bg-transparent border-dividerDark border'
                                     type='email' required placeholder='Email'
@@ -81,7 +81,7 @@ export const Login = () => {
                                 }} />
                             </div>
                         </div>
-                        <div className="bottom text-xs p-2 pb-0 text-secondaryLight"
+                        <div className="bottom text-xs p-2 pb-0 text-secondary"
                             onClick={() => setStep(1)}
                         ><IoIosArrowDropleft size={16} className='pr-4' /> All sign in options</div>
                     </div>

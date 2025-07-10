@@ -67,7 +67,7 @@ export const Tooltip = ({ text = 'hi hello', kbd = [], position = 'bottom', chil
             {children}
             {show && (
                 <div className={`absolute z-50 items-center ${getPositionClasses()} ${extraClassName}`}>
-                    <div className="text-[10px] text-secondaryLight hover:text-secondaryDark bg-white text-black px-3 py-1 rounded shadow-md whitespace-nowrap flex flex-wrap gap-1">
+                    <div className="text-[10px] text-secondary hover:text-secondaryDark bg-white text-black px-3 py-1 rounded shadow-md whitespace-nowrap flex flex-wrap gap-1">
                         {text}
                         {kbd && kbd?.map((keys: string) => (
                             <kbd className="kbd bg-transparent" key={keys}>{keys}</kbd>

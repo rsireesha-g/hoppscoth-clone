@@ -74,7 +74,7 @@ export const Settings = () => {
             <div className="md:grid md:grid-cols-3 md:gap-4">
                 <div className="md:col-span-1 p-8">
                     <h3 className="font-[700] text-[1.125rem] text-secondaryDark " style={{ lineHeight: '1.75rem' }}>General</h3>
-                    <p className="text-secondaryLight my-1">General settings used in the application</p>
+                    <p className="text-secondary my-1">General settings used in the application</p>
                 </div>
                 <div className="space-y-8 p-8 col-span-2">
                     <SettingsSection heading='Language' >
@@ -116,7 +116,7 @@ export const Settings = () => {
                                     key={item}
                                 />))}
                         </div>
-                        <div className="my-1 text-secondaryLight">
+                        <div className="my-1 text-secondary">
                             Request Naming Style
                         </div>
                         <DropdownMenu position='top-right'
@@ -150,7 +150,7 @@ export const Settings = () => {
             <div className="md:grid md:grid-cols-3 md:gap-4">
                 <div className="md:col-span-1 p-8">
                     <h3 className="font-[700] text-[1.125rem] text-secondaryDark " style={{ lineHeight: '1.75rem' }}>Theme</h3>
-                    <p className="text-secondaryLight my-1">Customize your application theme.</p>
+                    <p className="text-secondary my-1">Customize your application theme.</p>
                 </div>
                 <div className="space-y-8 p-8 col-span-2">
                     <SettingsSection heading='Background' description='Black'>
@@ -177,7 +177,7 @@ export const Settings = () => {
             <div className="md:grid md:grid-cols-3 md:gap-4">
                 <div className="md:col-span-1 p-8">
                     <h3 className="font-[700] text-[1.125rem] text-secondaryDark " style={{ lineHeight: '1.75rem' }}>Interceptor</h3>
-                    <p className="text-secondaryLight my-1">Middleware between application and APIs.</p>
+                    <p className="text-secondary my-1">Middleware between application and APIs.</p>
                 </div>
                 <div className="space-y-8 p-8 col-span-2">
                     <SettingsSection heading='Interceptor' description=''>

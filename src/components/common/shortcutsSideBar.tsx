@@ -102,13 +102,13 @@ export const ShortcutsSideBar = () => {
                     {Object.entries(grouped)?.map(([section, items]: any) => {
                         console.log(section, items)
                         return (<details className='flex flex-col' open>
-                            <summary className='flex min-w-0 flex-1 cursor-pointer items-center px-6 py-4 font-semibold text-secondaryDark transition hover:text-secondaryLight focus:outline-none'>
+                            <summary className='flex min-w-0 flex-1 cursor-pointer items-center px-6 py-4 font-semibold text-secondaryDark transition hover:text-secondary focus:outline-none'>
                                 <LuChevronDown className='w-4 h-4 mr-2' />
                                 {section}
                             </summary>
                             <div className="flex flex-col space-y-2 px-6 pb-4">
                                 {items?.map((item: any) => (
-                                    <div className="flex items-center py-1  text-secondaryLight">
+                                    <div className="flex items-center py-1  text-secondary">
 
                                         <span className="mr-4 flex flex-1">{item?.label}</span>
                                         {item?.kbd?.map((k: string) => (

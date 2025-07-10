@@ -69,7 +69,7 @@ export const Variables = ({ data, setData, initialState }: variableProps) => {
         <div>
             {/* top */}
             <div className="flex gap-2  justify-between p-2 border-y border-y-dividerDark px-4">
-                <div className="text-secondaryLight">Request Variables</div>
+                <div className="text-secondary">Request Variables</div>
                 <div className="flex gap-2 align-middle text-[#e1e0e0]">
                     <Tooltip position='top-left' text='Wiki'>
                         <Link to="https://docs.hoppscotch.io/documentation/features/rest-api-testing" target='_blank' >
@@ -97,7 +97,7 @@ export const Variables = ({ data, setData, initialState }: variableProps) => {
                 !isBulkEdit ?
                     <>
                         {data?.map((param: VariablesObj, ind: number) => (
-                            <div className="w-full flex gap-0 align-middle text-secondaryLight justify-end border-b border-b-dividerDark" key={ind}>
+                            <div className="w-full flex gap-0 align-middle text-secondary justify-end border-b border-b-dividerDark" key={ind}>
                                 <div className="p-1 w-8 border-r border-r-dividerDark"></div>
                                 <div className="flex-gow-1 w-1/2 p-1 border-r border-r-dividerDark">
                                     <input type='text' placeholder={`Variable ${ind + 1}`} className='bg-transparent p-2 w-full' name='key' value={param?.variable} onChange={(e) => handleChange(ind, "variable", e.target.value)} />
@@ -121,7 +121,7 @@ export const Variables = ({ data, setData, initialState }: variableProps) => {
                     :
                     <div className=" border-b border-b-dividerDark p-2">
                         {data?.map((param: VariablesObj, ind: number) => (
-                            <div key={ind} className='w-full flex gap-0 items-center align-middle text-secondaryLight justify-end'>
+                            <div key={ind} className='w-full flex gap-0 items-center align-middle text-secondary justify-end'>
                                 {param?.variable !== '' &&
                                     <>
                                         <div className="p-2 py- w-8 border-r border-r-dividerDark">{ind + 1}</div>

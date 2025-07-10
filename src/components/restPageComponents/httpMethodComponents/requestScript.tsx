@@ -47,7 +47,7 @@ export const RequestScriptTab = ({ selectedTab }: any) => {
         <div>
             {/* top */}
             <div className="flex gap-2  justify-between p-2 border-y border-y-dividerDark">
-                <div className="text-secondaryLight">JavaScript Code</div>
+                <div className="text-secondary">JavaScript Code</div>
                 <div className="flex gap-2 align-middle text-[#e1e0e0]">
                     <Tooltip position='top-left' text='Wiki'>
                         <Link target='_blank' to={`${selectedTab === 'pre-request script' ? 'https://docs.hoppscotch.io/documentation/getting-started/rest/pre-request-scripts' : 'https://docs.hoppscotch.io/documentation/getting-started/rest/tests'}`} >
@@ -66,7 +66,7 @@ export const RequestScriptTab = ({ selectedTab }: any) => {
                 </div>
             </div>
             {/* grid */}
-            <div className="w-full flex gap-0 align-middle text-secondaryLight border-b border-b-dividerDark ">
+            <div className="w-full flex gap-0 align-middle text-secondary border-b border-b-dividerDark ">
                 <div className="flex-gow-1 w-10 p-2">1</div>
                 <div className="flex-gow-2 w-full p-2 border-x border-x-dividerDark">
                     <textarea placeholder='JavaScript Code' value={selectedScript?.join("\n")}
@@ -74,7 +74,7 @@ export const RequestScriptTab = ({ selectedTab }: any) => {
                     />
                 </div>
                 <div className="w-[40%] p-2 flex gap-4 flex-col justify-start h-[200px] overflow-y-scroll ">
-                    <p className='text-secondaryLight'>
+                    <p className='text-secondary'>
                         {selectedTab === 'pre-request script' ?
                             'Pre-request scrips are written in JavaScript, and are run before the request is sent.'
                             :
@@ -83,7 +83,7 @@ export const RequestScriptTab = ({ selectedTab }: any) => {
                     </p>
                     <Link
                         target="_blank"
-                        className='text-secondaryLight hover:text-secondaryDark'
+                        className='text-secondary hover:text-secondaryDark'
                         to="https://docs.hoppscotch.io/documentation/getting-started/rest/pre-request-scripts"
                     >Read documentation</Link>
                     {selectedTab === 'pre-request script' ?

@@ -21,7 +21,7 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             <Link to="/"
                 className={`
             ${page === 'home' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
+             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondary flex gap-2 flex-col
             `}>
 
                 {!isCollapse ?
@@ -40,7 +40,7 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             <Link to="/graphql"
                 className={`
             ${page === 'graphql' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
+             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondary flex gap-2 flex-col
             `}>
 
                 {!isCollapse ?
@@ -57,10 +57,10 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
                 }
 
             </Link>
-            <Link to="/realtime"
+            <Link to="/realtime/websocket"
                 className={`
             ${page === 'realtime' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
+             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondary flex gap-2 flex-col
             `}>
                 {!isCollapse ?
                     <Tooltip position='side-right' text='Realtime'>
@@ -77,7 +77,7 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             <Link to="/settings"
                 className={`
             ${page === 'settings' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondaryLight flex gap-2 flex-col
+             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondary flex gap-2 flex-col
             `}>
                 {!isCollapse ?
                     <Tooltip position='side-right' text='Settings'>

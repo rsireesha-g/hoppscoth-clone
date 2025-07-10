@@ -97,11 +97,11 @@ export const Variables = ({ data, setData, initialState, secrets, setSecrets, la
         <div>
             {/* top */}
             <div className="flex  justify-between p-2  border border-dividerDark px-4">
-                <div className="text-secondaryLight flex gap-4 justify-start align-middle">
+                <div className="text-secondary flex gap-4 justify-start align-middle">
                     <div onClick={() => setSelectedTab('variables')}
-                        className={`${selectedTab === 'variables' && 'border-b-2 border-b-accentDark text-secondaryDark'} cursor-pointer text-secondaryLight`}>Variables</div>
+                        className={`${selectedTab === 'variables' && 'border-b-2 border-b-accentDark text-secondaryDark'} cursor-pointer text-secondary`}>Variables</div>
                     <div onClick={() => setSelectedTab('secrets')}
-                        className={`${selectedTab === 'secrets' && 'border-b-2 border-b-accentDark text-secondaryDark'} cursor-pointer text-secondaryLight`}>Secret</div>
+                        className={`${selectedTab === 'secrets' && 'border-b-2 border-b-accentDark text-secondaryDark'} cursor-pointer text-secondary`}>Secret</div>
                 </div>
                 <div className="flex gap-2 align-middle text-[#e1e0e0]">
                     <Tooltip position='top-left' text='Wiki'>
@@ -134,7 +134,7 @@ export const Variables = ({ data, setData, initialState, secrets, setSecrets, la
             {(label === 'Global' || isAddNew) ?
                 (selectedTab === 'variables' ?
                     data?.map((param: EnvVariablesObj, ind: number) => (
-                        <div className="w-full flex gap-0 align-middle text-secondaryLight justify-end  border border-dividerDark" key={ind}>
+                        <div className="w-full flex gap-0 align-middle text-secondary justify-end  border border-dividerDark" key={ind}>
                             <div className="p-1 w-8 border-r border-r-dividerDark"></div>
                             <div className="flex-gow-1 w-1/2 p-1 border-r border-r-dividerDark">
                                 <input type='text' placeholder={`Variable ${ind + 1}`} className='bg-transparent p-2 w-full' name='key' value={param?.variable} onChange={(e) => handleChange(ind, "variable", e.target.value)} />
@@ -163,7 +163,7 @@ export const Variables = ({ data, setData, initialState, secrets, setSecrets, la
                         </div>
                     ))
                     : secrets?.map((param: EnvVariablesObj, ind: number) => (
-                        <div className="w-full flex gap-0 align-middle text-secondaryLight justify-end  border border-dividerDark" key={ind}>
+                        <div className="w-full flex gap-0 align-middle text-secondary justify-end  border border-dividerDark" key={ind}>
                             <div className="p-1 w-8 border-r border-r-dividerDark"></div>
                             <div className="flex-gow-1 w-1/2 p-1 border-r border-r-dividerDark">
                                 <input type='text' placeholder={`Variable ${ind + 1}`} className='bg-transparent p-2 w-full' name='key' value={param?.variable} onChange={(e) => handleChange(ind, "variable", e.target.value)} />

@@ -112,7 +112,7 @@ export const Rest = () => {
                                 <p>No environment</p>
                                 <IoMdCheckmarkCircleOutline className='text-accentDark' size={16} />
                             </div>
-                            <div className="flex justify-between w-full bg-primary text-secondaryLight">
+                            <div className="flex justify-between w-full bg-primary text-secondary">
                                 <div className='cursor-pointer min-w-fit  p-2 border-b-2 border-b-accentDark text-secondaryDark'>Personal Environments</div>
                                 <div className='cursor-not-allowed min-w-fit  p-2'>Workspace Environments</div>
                             </div>
@@ -275,7 +275,7 @@ export const Rest = () => {
                 <div className="flex gap-2 overflow-x-auto" >
                     {["parameters", "body", "headers", "authorization", "pre-request script", "post-request script", "variables"]?.map((title: string) => (
                         <div key={title}
-                            className={`min-w-fit cursor-pointer text-center capitalize text-secondaryLight hover:text-secondaryDark p-2 
+                            className={`min-w-fit cursor-pointer text-center capitalize text-secondary hover:text-secondaryDark p-2 
                             ${selectedTab === title ? 'border-b-2 border-b-accent !text-secondaryDark' : ''}`}
                             onClick={() => setSelectedTab(title)}
                         >{title}</div>

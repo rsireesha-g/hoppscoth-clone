@@ -54,7 +54,7 @@ const EnvironmentTab = ({ isHovered, setIsHovered, setIsEditModalOpen, isEditMod
 
     return (
         <>
-            <div className="flex justify-between align-middle gap-2 w-full border-b border-b-dividerDark p-2 text-secondaryLight hover:text-secondaryDark"
+            <div className="flex justify-between align-middle gap-2 w-full border-b border-b-dividerDark p-2 text-secondary hover:text-secondaryDark"
                 onMouseOver={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={(e) => { e.stopPropagation(); dispatch(onSelectEnvironmentLabel(label)) }}
@@ -146,7 +146,7 @@ export const Environment = () => {
                         </Tooltip>
                     </div>
                 </div>
-                <div className="p-2 text-secondaryLight">
+                <div className="p-2 text-secondary">
                     {search === '' ?
                         environmentData?.length === 0 ?
                             <EmptyDataComponent imageUrl={emptyImg} mainText='Environments are empty' description='Import or create a environment'>

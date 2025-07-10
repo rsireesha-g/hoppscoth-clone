@@ -12,7 +12,7 @@ export const EmptyDataComponent = ({ imageUrl, mainText, description, children }
         <div className='flex flex-col gap-2 align-middle items-center'>
             <img alt='empty collections ' width={70} height={70} src={imageUrl} />
             <p className="text-[10px]">{mainText}</p>
-            <p className="text-xs" >{description}</p>
+            <p className="text-xs text-secondaryLight" >{description}</p>
             {children}
         </div>
     )

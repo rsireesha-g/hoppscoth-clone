@@ -53,7 +53,7 @@ export const Collections = () => {
                         </Tooltip>
                     </div>
                 </div>
-                <div className="p-2 text-secondaryLight">
+                <div className="p-2 text-secondary">
                     {search === '' ?
                         collections?.length === 0 ?
 
@@ -72,14 +72,14 @@ export const Collections = () => {
 
                             <div className='flex flex-col gap-2 justify-start'>
                                 {collections?.map((res) => (
-                                    <p className="text-xs text-secondaryLight hover:text-secondaryDark">{res?.label}</p>
+                                    <p className="text-xs text-secondary hover:text-secondaryDark">{res?.label}</p>
                                 ))}
                             </div>
                         :
                         searchedResults?.length !== 0 ?
                             <div className='flex flex-col gap-2 justify-start'>
                                 {searchedResults?.map((res) => (
-                                    <p className="text-xs text-secondaryLight hover:text-secondaryDark">{res}</p>
+                                    <p className="text-xs text-secondary hover:text-secondaryDark">{res}</p>
                                 ))}
                             </div>
                             :

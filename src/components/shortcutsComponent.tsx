@@ -15,22 +15,22 @@ export const ShortcutsComponent = ({
         <div className={`${isHorizontalCollapsed ? 'flex-grow w-full h-full' : 'h-full w-full'} 
         border border-blue-700  p-4`}>
             <div className=' grid grid-cols-1 gap-2 text-secondaryLight w-fit m-auto'>
-                <div className='flex gap-2 align-middle justify-end hover:text-secondary'>
+                <div className='flex gap-2 align-middle justify-end hover:text-secondaryLight'>
                     <p className=''>Send Request</p>
                     <kbd className='kbd'>Ctrl</kbd>
                     <kbd className='kbd'><TbArrowBack className='w-3 h-3' /></kbd>
                 </div>
-                <div className='flex gap-2 align-middle justify-end hover:text-secondary'>
+                <div className='flex gap-2 align-middle justify-end hover:text-secondaryLight'>
                     <p className='' >Keyboard shortcuts</p>
                     <kbd className='kbd'>Ctrl</kbd>
                     <kbd className='kbd'>/</kbd>
                 </div>
-                <div className='flex gap-2 align-middle justify-end hover:text-secondary'>
+                <div className='flex gap-2 align-middle justify-end hover:text-secondaryLight'>
                     <p className=''>Search & command menu</p>
                     <kbd className='kbd'>Ctrl</kbd>
                     <kbd className='kbd'>K</kbd>
                 </div>
-                <div className='flex gap-2 align-middle justify-end hover:text-secondary'>
+                <div className='flex gap-2 align-middle justify-end hover:text-secondaryLight'>
                     <p className=''>Help menu</p>
                     <kbd className='kbd'>Ctrl</kbd>
                     <kbd className='kbd'>?</kbd>

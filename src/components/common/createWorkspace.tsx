@@ -50,7 +50,7 @@ export const CreateWorkspace = ({ handleClose }: any) => {
                                 className='cursor-pointer' />
                         </div >
 
-                        <div className='flex flex-col gap-2 justify-center items-start w-full text-secondaryLight  py-4 border-t border-t-dividerDark '>
+                        <div className='flex flex-col gap-2 justify-center items-start w-full text-secondary  py-4 border-t border-t-dividerDark '>
                             <Button type='secondary' text='+ Create new workspace' onClick={() => setCreateNew(true)} />
                             <div className='m-auto'>
                                 <EmptyDataComponent imageUrl={emptyImage} mainText='You do not belong to any organization' />

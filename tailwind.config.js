@@ -10,7 +10,7 @@ module.exports = {
         accentDark: 'var(--accent-dark-color)',
         accentContrast: 'var(--accent-contrast-color)',
         primary: 'var(--primary-color)',
-        secondary: 'var(--secondary-color',
+        secondary: 'var(--secondary-color)',
         secondaryLight: 'var( --secondary-light-color)',
         secondaryDark: 'var(--secondary-dark-color)',
         getColor: 'var(--method-get-color)',

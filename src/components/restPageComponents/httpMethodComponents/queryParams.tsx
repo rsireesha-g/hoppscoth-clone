@@ -67,7 +67,7 @@ export const QueryParams = ({ data, setData, initialState }: queryParamProps) =>
         <div>
             {/* top */}
             <div className="flex gap-2  justify-between p-2 border-y border-y-dividerDark px-4">
-                <div className="text-secondaryLight">Query data</div>
+                <div className="text-secondary">Query data</div>
                 <div className="flex gap-2 align-middle text-[#e1e0e0]">
                     <Tooltip position='top-left' text='Wiki'>
                         <Link to="https://docs.hoppscotch.io/documentation/features/rest-api-testing" target='_blank' >
@@ -95,7 +95,7 @@ export const QueryParams = ({ data, setData, initialState }: queryParamProps) =>
                 !isBulkEdit ?
                     <>
                         {data?.map((param: KeyValueDescription, ind: number) => (
-                            <div className="w-full flex gap-0 align-middle text-secondaryLight justify-end border-b border-b-dividerDark" key={ind}>
+                            <div className="w-full flex gap-0 align-middle text-secondary justify-end border-b border-b-dividerDark" key={ind}>
                                 <div className="p-1 w-8 border-r border-r-dividerDark"></div>
                                 <div className="flex-gow-1 w-[20%] p-1 border-r border-r-dividerDark">
                                     <input type='text' placeholder='Key' className='bg-transparent p-2 w-full' name='key' value={param?.key} onChange={(e) => handleChange(ind, "key", e.target.value)} />
@@ -122,7 +122,7 @@ export const QueryParams = ({ data, setData, initialState }: queryParamProps) =>
                     :
                     <div className=" border-b border-b-dividerDark p-2">
                         {data?.map((param: KeyValueDescription, ind: number) => (
-                            <div key={ind} className='w-full flex gap-0 items-center align-middle text-secondaryLight justify-end'>
+                            <div key={ind} className='w-full flex gap-0 items-center align-middle text-secondary justify-end'>
                                 {param?.key !== '' &&
                                     <>
                                         <div className="p-2 py- w-8 border-r border-r-dividerDark">{ind + 1}</div>

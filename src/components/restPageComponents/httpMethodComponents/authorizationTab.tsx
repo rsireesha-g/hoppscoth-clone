@@ -18,7 +18,7 @@ export const AuthorizationTab = ({
     return (
         <div>
             <div className="flex gap-2  justify-between p-2 border-y border-y-dividerDark">
-                <div className="text-secondaryLight flex gap-4 ">
+                <div className="text-secondary flex gap-4 ">
                     <p>Authorization</p>
                     <DropdownMenu position='bottom-left' button={
                         <p className='flex align-middle gap-1'>{selectedAuthMethod}
@@ -53,10 +53,10 @@ export const AuthorizationTab = ({
                     </Tooltip>
                 </div>
             </div >
-            <div className="w-full flex gap-0 align-middle text-secondaryLight border-b border-b-dividerDark">
+            <div className="w-full flex gap-0 align-middle text-secondary border-b border-b-dividerDark">
                 <div className="flex-gow w-[66%] p-2 border-x border-x-dividerDark">Please save this request in amy collection to inherit the authorization</div>
                 <div className="w-1/3 p-2">
-                    <p className='text-secondaryLight mb-1'>
+                    <p className='text-secondary mb-1'>
                         The authorization header will be automatically generated when you send the request.
                     </p>
                     <Link

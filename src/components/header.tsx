@@ -59,7 +59,7 @@ export const Header = () => {
                     <button className='p-1 flex flex-1 cursor-text items-center justify-between self-stretch rounded bg-primaryDark 
                 px-2 transition hover:border-dividerDark hover:bg-primaryLight 
                 hover:text-secondary focus-visible:border-dividerDark focus-visible:bg-primaryLight 
-                focus-visible:text-secondary overflow-hidden text-secondaryLight'
+                focus-visible:text-secondary overflow-hidden text-secondary'
 
                         onClick={() => dispatch(onSearchModalClick(true))}
                     >
@@ -131,7 +131,7 @@ export const Header = () => {
                                         <p className='text-[10px]'>Personal Workspace</p>
                                         <FaCheck className='text-accentDark' size={16} />
                                     </div>
-                                    <div className="flex text-secondaryLight hover:text-secondaryDark border-y border-y-dividerDark flex-col gap-2 justify-center align-middle items-center p-4">
+                                    <div className="flex text-secondary hover:text-secondaryDark border-y border-y-dividerDark flex-col gap-2 justify-center align-middle items-center p-4">
                                         <img src={emptyImage} width={70} height={70} alt="no workspace" />
                                         <p className="text-[10px] font-normal">You don't belong to any workspaces</p>
                                         <Button type='secondary' text='+ Create new workspace' extraClass='!flex-row'

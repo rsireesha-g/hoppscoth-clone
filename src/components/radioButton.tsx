@@ -12,7 +12,7 @@ export const RadioButton = ({ text, selected, setSelected }: radioButtonProps) =
             className='flex gap-2 align-middle py-2 items-center
             rounded transition hover:text-secondaryDark
             focus:outline-none focus-visible::bg-primaryDark focus-visible:text-secondaryDark
-            hover:bg-transparent text-secondaryLight'
+            hover:bg-transparent text-secondary'
         >
 
 

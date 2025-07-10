@@ -13,7 +13,7 @@ export const ConfirmationModal = ({ text, handleDelete, handleCancel }: any) => 
                         onClick={handleCancel}
                         className='cursor-pointer' />
                 </div >
-                <div className="border-y border-y-dividerDark text-secondaryLight p-4">{text}</div>
+                <div className="border-y border-y-dividerDark text-secondary p-4">{text}</div>
                 <div className="flex">
                     <Button type='primary' text='Yes' onClick={handleDelete} />
                     <Button type='secondary' text='No' onClick={handleCancel} />
