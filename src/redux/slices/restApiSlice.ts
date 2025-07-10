@@ -33,11 +33,14 @@ const environmentData: EnvironmentData[] = [
         variables: [{ variable: '', initialValue: '', currentValue: '' }],
         secrets: [{ variable: '', initialValue: '', currentValue: '' }]
     }
-]
+];
+
+const selectedEnvironment: string = 'Global'
 
 const initialState = {
     methodData,
-    environmentData
+    environmentData,
+    selectedEnvironment
 }
 
 
@@ -67,15 +70,26 @@ const restApiSlice = createSlice({
                     variables: [...payload.variables],
                     secrets: [...payload.secrets]
                 });
+                state.selectedEnvironment = payload.label
             }
 
             console.log("Updated environmentData:", state.environmentData);
+        },
+        onSelectEnvironmentLabel(state, action: PayloadAction<string>) {
+            state.selectedEnvironment = action.payload
+        },
+        onDeleteEnvironment(state, action: PayloadAction<string>) {
+            let remainingEnv = state.environmentData?.filter((x) => x.label !== action.payload);
+            state.environmentData = remainingEnv;
+            console.log(remainingEnv)
         }
     }
 });
 
 export const {
-    onSaveEnvironmentVariablesAndSecrets
+    onSaveEnvironmentVariablesAndSecrets,
+    onSelectEnvironmentLabel,
+    onDeleteEnvironment
 } = restApiSlice.actions;
 
 export default restApiSlice.reducer;

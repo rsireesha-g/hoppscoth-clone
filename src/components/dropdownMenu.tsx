@@ -15,7 +15,7 @@ type DropdownMenuProps = {
     button: React.ReactNode;
     items?: DropdownItem[];
     position?: DropdownPosition;
-    children?: ReactNode;
+    children?: any;
     childrenPosition?: 'top' | 'bottom',
     extraClass?: string
 };
@@ -59,14 +59,17 @@ const DropdownMenu = ({ button, items, position, extraClass = '', children, chil
                         ${getPositionClasses(position)} 
                         ${extraClass}`}
                 >
-                    {childrenPosition === 'top' && children}
+                    {childrenPosition === 'top' &&
+                        typeof children === 'function'
+                        ? children({ closeDropdown: () => setIsOpen(false) })
+                        : children}
 
                     {items?.map((item, index) => (
                         <div
                             key={index}
                             onClick={() => {
-                                item.onClick?.();
                                 setIsOpen(false);
+                                setTimeout(() => { item.onClick?.(); }, 10)
                             }}
                             className="flex items-center text-xs gap-2 px-4 py-1 text-secondary hover:bg-primaryDark  hover:text-secondaryDark cursor-pointer"
                         >
@@ -75,7 +78,10 @@ const DropdownMenu = ({ button, items, position, extraClass = '', children, chil
                             {item?.kbd && <kbd className='kbd'>{item?.kbd}</kbd>}
                         </div>
                     ))}
-                    {childrenPosition === 'bottom' && children}
+                    {childrenPosition === 'bottom' &&
+                        typeof children === 'function'
+                        ? children({ closeDropdown: () => setIsOpen(false) })
+                        : children}
                 </div>
             )}
         </div>

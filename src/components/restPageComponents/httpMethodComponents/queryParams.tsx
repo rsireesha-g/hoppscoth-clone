@@ -3,7 +3,7 @@ import { Tooltip } from '../../tooltip'
 import { CiCircleQuestion } from 'react-icons/ci'
 import { MdOutlineDeleteForever, MdOutlineDeleteOutline, MdOutlineWrapText } from 'react-icons/md'
 import { FaRegEdit } from 'react-icons/fa'
-import { IoIosAdd } from 'react-icons/io'
+import { IoIosAdd, IoMdCheckmarkCircleOutline } from 'react-icons/io'
 import { TiTickOutline } from 'react-icons/ti'
 import { KeyValueDescription } from '../../../interfaces/restApiInterface'
 import { Link } from 'react-router'
@@ -109,7 +109,7 @@ export const QueryParams = ({ data, setData, initialState }: queryParamProps) =>
                                 </div>
                                 <div className="p-3 w-fit border-r border-r-dividerDark">
                                     <Tooltip position='top-right' text='Turn'>
-                                        <TiTickOutline className='text-green-500 cursor-pointer' size={16} />
+                                        <IoMdCheckmarkCircleOutline className='text-green-500 cursor-pointer' size={16} />
                                     </Tooltip>
                                 </div>
                                 <div className="p-3 w-fit ">

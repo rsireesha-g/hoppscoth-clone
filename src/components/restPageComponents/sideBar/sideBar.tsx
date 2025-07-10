@@ -16,6 +16,8 @@ export const RestPageSideBar = () => {
 
     const renderTabs = () => {
         switch (selectedTab) {
+            case 'Shared Requests':
+            case 'Generate Code':
             case 'Environments':
                 return <Environment />
             case 'History':

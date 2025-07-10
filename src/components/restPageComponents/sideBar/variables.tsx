@@ -65,9 +65,7 @@ export const Variables = ({ data, setData, initialState, secrets, setSecrets, la
         } else {
             selectedTab === 'variables' ? setData(remainingRows) : setSecrets(remainingRows);
         }
-        console.log(remainingRows)
     };
-    console.log(secrets, data)
 
     const handleReplaceInitialWithCurr = () => {
         let x = selectedTab === 'variables' ? [...data] : [...secrets];

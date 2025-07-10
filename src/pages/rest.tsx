@@ -1,27 +1,34 @@
 import React, { useState } from 'react'
 import { Layout } from '../components/layout'
 import { BsChevronDown } from 'react-icons/bs'
-import { IoIosAdd } from 'react-icons/io'
+import { IoIosAdd, IoMdCheckmark, IoMdCheckmarkCircleOutline } from 'react-icons/io'
 import { FaCode, FaFileCode, FaRegEdit, FaRegEye } from 'react-icons/fa'
 import { TiTickOutline } from "react-icons/ti";
 import DropdownMenu from '../components/dropdownMenu'
 import { Button } from '../components/button';
 import { AiOutlineFolderAdd, AiOutlineReload, AiOutlineSave } from "react-icons/ai";
-import { IoLayersOutline, IoShareSocialOutline } from 'react-icons/io5'
+import { IoLayersOutline, IoSearch, IoShareSocialOutline } from 'react-icons/io5'
 import { useSelector } from 'react-redux'
-import { RootState } from '../redux/store'
+import { AppDispatch, RootState } from '../redux/store'
 import { QueryParams } from '../components/restPageComponents/httpMethodComponents/queryParams'
 import { AuthorizationTab } from '../components/restPageComponents/httpMethodComponents/authorizationTab'
 import { RequestScriptTab } from '../components/restPageComponents/httpMethodComponents/requestScript'
 import { KeyValueDescription, VariablesObj } from '../interfaces/restApiInterface';
 import { Variables } from '../components/restPageComponents/httpMethodComponents/variables'
+import emptyImg from "../assests/images/environment.png"
+import { EmptyDataComponent } from '../components/common/emptyDataComponent'
+import { onSelectEnvironmentLabel } from '../redux/slices/restApiSlice'
+import { useDispatch } from 'react-redux'
+import { EditEnvironmentModal } from '../components/restPageComponents/sideBar/editEnvironmentModal'
+import { env } from 'process'
 
 const paramsInitialState: Array<KeyValueDescription> = [{ key: '', value: '', description: '' }];
 const variablesInitialState: Array<VariablesObj> = [{ variable: '', value: '' }]
 
 export const Rest = () => {
-    const { environments } = useSelector((state: RootState) => state.statesStatus)
+    const { environmentData, selectedEnvironment } = useSelector((state: RootState) => state.restApi);
     const [selectedTab, setSelectedTab] = useState('parameters')
+    const dispatch = useDispatch<AppDispatch>();
 
     const [selectedAuthMethod, setSelectedAuthMethod] = useState('Inherit');
     const handleHttpMethodSelect = (label: string) => {
@@ -43,6 +50,17 @@ export const Rest = () => {
     const [parameters, setParameters] = useState<Array<KeyValueDescription>>(paramsInitialState);
     const [headers, setHeaders] = useState<Array<KeyValueDescription>>(paramsInitialState);
     const [variables, setVariables] = useState<Array<VariablesObj>>(variablesInitialState);
+    const [search, setSearch] = useState('');
+    const [searchedResults, setSearchResults] = useState<Array<string>>([]);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const environment = environmentData?.filter((env) => env.label === selectedEnvironment);
+    const globalEnv = environmentData?.filter((env) => env.label === 'Global');
+
+    const handleSearch = (val: string) => {
+        setSearch(val);
+        let data = environmentData?.filter((x) => x.label?.includes(val))?.map((y) => y.label);
+        setSearchResults(data);
+    }
 
     const renderByTab = () => {
         switch (selectedTab) {
@@ -77,7 +95,7 @@ export const Rest = () => {
                     <DropdownMenu position='bottom-right' extraClass='!min-w-[350px] overflow-x-hidden'
                         button={
                             <Button type='secondary' extraClass='!flex-row border-0'
-                                text='Select environment'
+                                text={`${(selectedEnvironment && selectedEnvironment !== 'Global') ? selectedEnvironment : 'Select environment'}`}
                                 chevronExists={true}
                             >
                                 <IoLayersOutline size={16} />
@@ -85,48 +103,104 @@ export const Rest = () => {
                         }
                     >
                         <input type='text' placeholder='Search'
+                            value={search}
+                            onChange={(el) => handleSearch(el.target.value)}
                             className=' border border-dividerDark p-2 text-secondaryDark bg-transparent'
+
                         />
                         <div className="flex flex-col justify-between w-full">
                             <div className="flex justify-between p-2">
                                 <p>No environment</p>
-                                <TiTickOutline className='text-accentDark' size={16} />
+                                <IoMdCheckmarkCircleOutline className='text-accentDark' size={16} />
                             </div>
                             <div className="flex justify-between w-full bg-primary text-secondaryLight">
                                 <div className='cursor-pointer min-w-fit  p-2 border-b-2 border-b-accentDark text-secondaryDark'>Personal Environments</div>
                                 <div className='cursor-not-allowed min-w-fit  p-2'>Workspace Environments</div>
                             </div>
                             <div className="flex justify-center p-2">
-                                {environments ? 'Exists' : 'Empty'}
+                                {search === '' ?
+                                    environmentData?.length === 0 ?
+                                        <EmptyDataComponent imageUrl={emptyImg} mainText='Environments are empty' />
+                                        :
+                                        environmentData?.filter((x) => x.label !== 'Global')?.map((item) => (
+                                            <div className='flex gap-2 justify-start w-full align-middle'
+                                                onClick={() => {
+                                                    dispatch(onSelectEnvironmentLabel(item?.label));
+
+                                                }}>
+                                                <IoLayersOutline size={16} />
+                                                <p className='flex-grow'>{item?.label}</p>
+                                                <IoMdCheckmark size={16} />
+                                            </div>
+                                        ))
+                                    :
+                                    searchedResults?.length === 0 &&
+                                    <div className='flex flex-col gap-2 align-middle items-center'>
+                                        <IoSearch size={16} />
+                                        <p className="text-[10px]">No matching environment found for "`{search}`"</p>
+                                    </div>
+                                }
                             </div>
                         </div>
 
                     </DropdownMenu>
                     <DropdownMenu position='bottom-right' extraClass='!min-w-[350px] overflow-x-hidden'
                         button={<FaRegEye size={16} />}
-                    >
-                        <Button type='secondary'
-                            text='Global variables'
-                            extraClass='w-full  justify-between'
-                        >
-                            <FaRegEdit size={16} />
-                        </Button>
-                        <div className="flex flex-col justify-between w-full">
-                            <div className="flex gap-2 justify-between p-2 text-[10px]">
-                                <p className='flex-grow'>No environment</p>
-                                <p>Initial value</p>
-                                <p>Current value</p>
-                            </div>
-                            <p className='p-2 pb-4'>No variables</p>
-                            <Button type='secondary' extraClass='cursor-not-allowed w-full justify-between bg-primary'
-                                text='Environment variables'
+                    >{({ closeDropdown }: any) => (
+                        <>
+                            <Button type='secondary'
+                                text='Global variables'
+                                extraClass='w-full  justify-between'
                             >
-                                <FaRegEdit size={16} />
+                                <FaRegEdit size={16} onClick={() => {
+                                    closeDropdown();
+                                    setTimeout(() => setIsEditModalOpen(true), 10);
+                                }} />
                             </Button>
-                            <div className="flex justify-center p-2">
-                                {environments ? 'Exists' : 'Empty'}
+                            <div className="flex flex-col justify-between w-full">
+                                <div className="flex gap-2 justify-between p-2 text-[10px]">
+                                    <p className='flex-grow'>Name</p>
+                                    <p>Initial value</p>
+                                    <p>Current value</p>
+                                </div>
+                                {globalEnv?.length === 0
+                                    ? <p className='p-2 pb-4'>No variables</p>
+                                    :
+                                    globalEnv?.[0]?.variables.map((env) => (
+                                        <div className="flex gap-2 justify-between p-2 text-[10px]">
+                                            <p className='flex-grow'>{env?.variable}</p>
+                                            <p>{env.initialValue}</p>
+                                            <p>{env.currentValue}</p>
+                                        </div>
+                                    ))
+                                }
+
+                                <Button type='secondary' extraClass='cursor-not-allowed w-full justify-between bg-primary'
+                                    text='Environment variables'
+                                >
+                                    <FaRegEdit size={16} className={`${environment?.length !== 0 ? 'cursor-pointer' : 'cursor-not-allowed'}`} onClick={() => environment?.length !== 0 && setIsEditModalOpen(true)} />
+                                </Button>
+                                {environment?.length === 0
+                                    ? <p className='p-2 pb-4'>No active environment</p>
+                                    :
+                                    <><div className="flex gap-2 justify-between p-2 text-[10px]">
+                                        <p className='flex-grow'>Name</p>
+                                        <p>Initial value</p>
+                                        <p>Current value</p>
+                                    </div>
+
+                                        {environment?.[0]?.variables.map((env) => (
+                                            <div className="flex gap-2 justify-between p-2 text-[10px]">
+                                                <p className='flex-grow'>{env?.variable}</p>
+                                                <p>{env.initialValue}</p>
+                                                <p>{env.currentValue}</p>
+                                            </div>
+                                        ))}
+                                    </>
+                                }
                             </div>
-                        </div>
+                        </>
+                    )}
                     </DropdownMenu>
                 </div>
             </div>
@@ -210,6 +284,8 @@ export const Rest = () => {
                 </div>
                 {renderByTab()}
             </div>
+            {isEditModalOpen && <EditEnvironmentModal handleModal={() => setIsEditModalOpen(false)} label={selectedEnvironment} setLabel={(x: string) => { }} />}
+
         </Layout >
     )
 }
