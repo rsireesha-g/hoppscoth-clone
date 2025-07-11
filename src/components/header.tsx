@@ -22,11 +22,14 @@ import { BsPerson, BsPersonAdd } from 'react-icons/bs';
 import emptyImage from "../assests/images/workspace.png"
 import { CreateWorkspace } from './common/createWorkspace';
 import { Support } from './common/support';
+import profileImg from "../assests/images/profile.png";
+
 
 export const Header = () => {
     const dispatch = useDispatch<AppDispatch>();
     const [createNewWorkspace, setCreateNewWorkspace] = useState(false);
     const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
+    const [isInviteClick, setIsInviteclick] = useState(false);
     const { isLoggedIn, isLoginModalOpen, isSearchModalOpen, email } = useSelector(
         (state: RootState) => state.statesStatus
     );
@@ -104,7 +107,8 @@ export const Header = () => {
                         :
                         <div className={`flex items-center gap-2 space-x-2`}>
                             <Tooltip text='Invite' position='bottom'>
-                                <BsPersonAdd size={30} className='cursor-pointer border rounded-md border-getColor text-getColor p-1' />
+                                <BsPersonAdd size={30} className='cursor-pointer border rounded-md border-getColor text-getColor p-1'
+                                    onClick={() => { setIsInviteclick(true); setCreateNewWorkspace(true) }} />
                             </Tooltip>
                             <DropdownMenu
                                 position='bottom-right'
@@ -143,7 +147,7 @@ export const Header = () => {
 
                             <DropdownMenu
                                 button={
-                                    <CgProfile size={20} />
+                                    <img src={profileImg} alt='profile' width={24} height={24} />
                                 }
                                 items={profileItems}
                                 position='header-right'
@@ -161,7 +165,7 @@ export const Header = () => {
             </div>
             {isSearchModalOpen && <SearchComponent />}
             {isLoginModalOpen ? !isLoggedIn && <Login /> : ''}
-            {createNewWorkspace && <CreateWorkspace handleClose={() => setCreateNewWorkspace(false)} />}
+            {createNewWorkspace && <CreateWorkspace handleClose={() => setCreateNewWorkspace(false)} isInviteClick={isInviteClick} />}
             {isSupportModalOpen && <Support handleClose={() => setIsSupportModalOpen(false)} />}
         </>
     )

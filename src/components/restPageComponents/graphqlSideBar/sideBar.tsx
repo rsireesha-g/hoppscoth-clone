@@ -8,6 +8,9 @@ import { History } from './history'
 import { Tooltip } from '../../tooltip'
 import { IoMdBook } from 'react-icons/io'
 import { HiOutlineCube } from 'react-icons/hi'
+import { EmptyDataComponent } from '../../common/emptyDataComponent'
+import schemaEmptyImg from "../../../assests/images/environment.png";
+import docEmptyImg from "../../../assests/images/collection.png"
 
 
 
@@ -22,8 +25,9 @@ export const GraphQlPageSideBar = () => {
             case 'History':
                 return <History />
             case 'Schema':
+                return <EmptyDataComponent mainText='Connect to a graphql environment to view a schema' imageUrl={schemaEmptyImg} />
             default:
-                return <History />
+                return <EmptyDataComponent mainText='Connect to a graphql environment to view a schema' imageUrl={docEmptyImg} />
         }
     }
     return (

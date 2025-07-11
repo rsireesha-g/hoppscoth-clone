@@ -4,9 +4,10 @@ import { Button } from '../button'
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { EmptyDataComponent } from './emptyDataComponent';
-import emptyImage from "../../assests/images/workspace.png"
+import emptyImage from "../../assests/images/workspace.png";
+import profileImg from "../../assests/images/profile.png";
 
-export const CreateWorkspace = ({ handleClose }: any) => {
+export const CreateWorkspace = ({ handleClose, isInviteClick }: any) => {
     const [label, setLabel] = useState('');
     const [createNew, setCreateNew] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
@@ -50,11 +51,19 @@ export const CreateWorkspace = ({ handleClose }: any) => {
                                 className='cursor-pointer' />
                         </div >
 
+
                         <div className='flex flex-col gap-2 justify-center items-start w-full text-secondary  py-4 border-t border-t-dividerDark '>
                             <Button type='secondary' text='+ Create new workspace' onClick={() => setCreateNew(true)} />
-                            <div className='m-auto'>
-                                <EmptyDataComponent imageUrl={emptyImage} mainText='You do not belong to any organization' />
-                            </div>
+                            {!isInviteClick
+                                ? <div className='m-auto'>
+                                    <EmptyDataComponent imageUrl={emptyImage} mainText='You do not belong to any organization' />
+
+                                </div>
+                                :
+                                <div >
+                                    <img src={profileImg} alt='workspace' width={70} height={70} />
+                                </div>
+                            }
                         </div>
                     </>
                 }

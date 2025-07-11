@@ -43,9 +43,9 @@ export const GraphQL = () => {
                     <input type="text" className='w-full flex-grow bg-primaryDark p-2' value='https://echo.hoppscotch.io/graphql' />
                     <Button type='primary' text={`${isConnected === 0 ? 'Disconnect' : 'Connect'}`} onClick={() => setIsConnected(isConnected === -1 ? 0 : isConnected === 0 ? 1 : 0)} />
                 </div>
-                <div className='flex align-middle justify-start items-center my-2'>
+                <div className='flex align-middle justify-start items-center my-2 overflow-y-auto'>
                     {tabs.map((tab: string, index: number) => (
-                        <div className="flex justify-start align-middle items-center max-w-[90%]" style={{ width: `calc(90%/${tabs?.length})` }}>
+                        <div className="flex justify-start align-middle items-center w-44" >
                             <input type='text' placeholder='Untitled' value={tab}
                                 className='max-w-[90%]'
                                 onChange={(e) => {
@@ -65,6 +65,7 @@ export const GraphQL = () => {
                     ))}
                     <div className='bg-secondaryLight flex-grow p-2'>
                         <IoIosAdd size={20} className='cursor-pointer' onClick={() => {
+
                             setTabs([...tabs, 'Untitled'])
                         }
                         } />
