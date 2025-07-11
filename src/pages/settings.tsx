@@ -167,7 +167,9 @@ export const Settings = () => {
                                 ?.map((color: string) => (
                                     <div className={`w-4 h-4 border rounded-full flex justify-center align-middle`} style={{ borderColor: `${color}` }}
                                         onClick={() => setColor(color)}>
-                                        {activeColor === color && <div className='w-1 h-1 text-center rounded-full' style={{ backgroundColor: `${color}` }}></div>}
+                                        {activeColor === color &&
+                                            <div className='w-1 h-1 text-center rounded-full' style={{ backgroundColor: `${color}` }}></div>
+                                        }
                                     </div>
                                 ))}
                         </div>

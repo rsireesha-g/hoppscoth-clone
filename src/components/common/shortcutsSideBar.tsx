@@ -82,7 +82,7 @@ export const ShortcutsSideBar = () => {
 
     return (
         <Modal onClose={() => dispatch(onShortCutsModalClick(false))} isOpen={isShortCutsModalOpen} >
-            <div ref={modalRef} className="absolute z-30 right-0 top-0 bg-primary border-l border-dividerDark w-96 h-full flex flex-col gap-2 overflow-scroll" >
+            <div ref={modalRef} className="absolute z-30 right-0 top-0 bg-primary border-l border-dividerDark w-96 h-full flex flex-col gap-2 overflow-auto" >
                 <div className="flex items-center justify-between p-2 border-b border-dividerDark ">
                     <h3 className="ml-4 heading">Shortcuts</h3>
                     <MdOutlineClose onClick={() => dispatch(onShortCutsModalClick(false))} className='w-4 h-4 cursor-pointer' />

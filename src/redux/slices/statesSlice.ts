@@ -7,7 +7,8 @@ interface statesSliceProps {
     isLoginModalOpen: boolean,
     email: string | null,
     environments: any,
-    isChatBotModalOpen: boolean
+    isChatBotModalOpen: boolean,
+    isInviteModalOpen: boolean
 }
 
 const initialState: statesSliceProps = {
@@ -17,7 +18,8 @@ const initialState: statesSliceProps = {
     isLoginModalOpen: false,
     email: localStorage.getItem("email"),
     environments: null,
-    isChatBotModalOpen: false
+    isChatBotModalOpen: false,
+    isInviteModalOpen: false,
 }
 
 const statesSlice = createSlice({
@@ -55,6 +57,9 @@ const statesSlice = createSlice({
         },
         onChartBotModalClick(state, action: PayloadAction<boolean>) {
             state.isChatBotModalOpen = action.payload
+        },
+        onInviteModalClick(state, action: PayloadAction<boolean>) {
+            state.isInviteModalOpen = action.payload
         }
     }
 });
@@ -66,6 +71,7 @@ export const {
     onLogout,
     onLogin,
     isAuth,
-    onChartBotModalClick
+    onChartBotModalClick,
+    onInviteModalClick
 } = statesSlice.actions;
 export default statesSlice.reducer;

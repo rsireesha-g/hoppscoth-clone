@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BsChat, BsChevronRight, BsPersonAdd } from 'react-icons/bs'
 import { FaDiscord } from 'react-icons/fa'
 import { LuGithub, LuTwitter } from 'react-icons/lu'
@@ -10,8 +10,9 @@ import { useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { ShortcutsSideBar } from './shortcutsSideBar';
 import { useDispatch } from 'react-redux';
-import { onChartBotModalClick, onShortCutsModalClick } from '../../redux/slices/statesSlice';
+import { onChartBotModalClick, onInviteModalClick, onShortCutsModalClick } from '../../redux/slices/statesSlice';
 import { Link } from 'react-router'
+import { InviteModal } from './inviteModal'
 
 type dataObj = {
     label: string,
@@ -38,7 +39,7 @@ const Card = (item: dataObj) => {
 }
 
 export const Support = ({ handleClose }: any) => {
-    const isShortCutsModalOpen = useSelector((state: RootState) => state.statesStatus.isShortCutsModalOpen);
+    const { isShortCutsModalOpen, isInviteModalOpen } = useSelector((state: RootState) => state.statesStatus);
     const dispatch = useDispatch<AppDispatch>();
 
     const data: Array<dataObj> = [
@@ -51,7 +52,7 @@ export const Support = ({ handleClose }: any) => {
         {
             label: 'Github', description: 'Follow us on Github', icon: <LuGithub size={14} />, url: 'https://hoppscotch.io / github'
         },
-        { label: 'Invite', description: 'Invite people to Hoppscotch', icon: <BsPersonAdd size={14} />, onClick: () => ('') },
+        { label: 'Invite', description: 'Invite people to Hoppscotch', icon: <BsPersonAdd size={14} />, onClick: () => dispatch(onInviteModalClick(true)) },
         {
             label: 'Join our Discord community', description: 'Join our Discord community', icon: <FaDiscord size={14} />, url: 'https://hoppscotch.io / discord'
         },
@@ -89,7 +90,6 @@ export const Support = ({ handleClose }: any) => {
 
                 </div>
             </div>
-            {/* {isShortCutsModalOpen && <ShortcutsSideBar />} */}
         </>
     )
 }

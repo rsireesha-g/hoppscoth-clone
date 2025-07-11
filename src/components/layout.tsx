@@ -12,21 +12,22 @@ import { AppDispatch, RootState } from '../redux/store';
 import { ShortcutsSideBar } from './common/shortcutsSideBar';
 import { ChatBot } from './common/chatBot';
 import { MdOutlineClose } from 'react-icons/md';
-import { onChartBotModalClick } from '../redux/slices/statesSlice';
+import { onChartBotModalClick, onInviteModalClick } from '../redux/slices/statesSlice';
 import { GraphQlPageSideBar } from './restPageComponents/graphqlSideBar/sideBar';
+import { InviteModal } from './common/inviteModal';
 
 export const Layout = ({ children, page, showShortCuts = true }: { children: ReactNode, page: string, showShortCuts?: boolean }) => {
     const [theme, setTheme] = useState('dark');
     const [isCollapse, setIsCollapse] = useState<boolean>(false);
     const [isHorizontalCollapsed, setIsHorizontalCollapsed] = useState<boolean>(false);
     const [isRightSideBarCollapsed, setIsRightSideBarCollapsed] = useState<boolean>(false);
-    const { isShortCutsModalOpen, isChatBotModalOpen } = useSelector((state: RootState) => state.statesStatus);
+    const { isShortCutsModalOpen, isChatBotModalOpen, isInviteModalOpen } = useSelector((state: RootState) => state.statesStatus);
     const dispatch = useDispatch<AppDispatch>();
 
     return (
         <div className={`w-screen h-screen text-xs font-semibold  ${theme === 'dark' ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}>
             <Header />
-            <div className="w-full flex h-[88vh] overflow-visible relative z-0">
+            <div className="w-full flex h-[88vh] overflow-auto relative z-0">
                 <SideBar {...{ isCollapse, page }} />
 
                 <PanelGroup direction="horizontal" className="flex-1">
@@ -35,7 +36,7 @@ export const Layout = ({ children, page, showShortCuts = true }: { children: Rea
                             <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1">
                                 <Panel defaultSize={60} minSize={50}>
                                     <div
-                                        className={`border border-yellow-500 h-full w-full overflow-visible relative ${page === 'settings' ? 'overflow-y-scroll' : ''
+                                        className={` h-full w-full overflow-auto relative ${page === 'settings' ? 'overflow-y-auto' : ''
                                             }`}
                                     >
                                         {children}
@@ -45,10 +46,10 @@ export const Layout = ({ children, page, showShortCuts = true }: { children: Rea
                                     <>
                                         <PanelResizeHandle
                                             className={`${isHorizontalCollapsed ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize'
-                                                } bg-gray-600 hover:bg-gray-500`}
+                                                } bg-primaryDark hover:bg-primaryDark`}
                                         />
 
-                                        <Panel defaultSize={40} minSize={30}>
+                                        <Panel defaultSize={30} minSize={20}>
                                             <ShortcutsComponent {...{ isHorizontalCollapsed }} />
                                         </Panel>
                                     </>
@@ -60,7 +61,7 @@ export const Layout = ({ children, page, showShortCuts = true }: { children: Rea
 
                     {!isRightSideBarCollapsed && (page === "home" || page === 'graphql') &&
                         <>
-                            <PanelResizeHandle className="w-1 bg-gray-600 md:visible hover:bg-gray-500 cursor-col-resize" />
+                            <PanelResizeHandle className="w-1 bg-primaryDark hover:bg-primaryDark md:visible  cursor-col-resize" />
                             <Panel defaultSize={30} minSize={20}>
                                 {page === 'home' && <RestPageSideBar />}
                                 {page === 'graphql' && <GraphQlPageSideBar />}
@@ -81,6 +82,8 @@ export const Layout = ({ children, page, showShortCuts = true }: { children: Rea
                 }}
             />
             {isShortCutsModalOpen && <ShortcutsSideBar />}
+            {isInviteModalOpen && <InviteModal handleClose={() => dispatch(onInviteModalClick(false))} />}
+
             {
                 isChatBotModalOpen &&
                 <div className="modal">

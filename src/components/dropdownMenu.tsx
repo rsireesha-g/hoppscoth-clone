@@ -55,8 +55,8 @@ const DropdownMenu = ({ button, items = [], position, extraClass = '', children,
 
             {isOpen && (
                 <div
-                    className={`py-4 px-2 visible absolute z-[9999]  flex flex-col gap-2 w-56 bg-popoverColor !max-w-[45vw] border text-secondary
-                        border-dividerDark rounded-md shadow-lg max-h-[60vh] overflow-y-scroll 
+                    className={`py-4 px-2 visible absolute z-[9999]  flex flex-col gap-2 wi-fit bg-popoverColor !max-w-[45vw] border text-secondary
+                        border-dividerDark rounded-md shadow-lg max-h-[60vh] overflow-y-auto 
                         ${getPositionClasses(position)} 
                         ${extraClass}`}
                 >

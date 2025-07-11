@@ -23,11 +23,11 @@ export const GraphQlPageSideBar = () => {
                 return <History />
             case 'Schema':
             default:
-                return <></>
+                return <History />
         }
     }
     return (
-        <div className="w-full h-full border border-red-500 flex gap-2">
+        <div className="w-full h-full border border-dividerDark">
             <div className='w-14 h-full flex flex-col gap-4 mt-2 border-r border-r-dividerDark'>
                 <Tooltip position='side-left' text='Documentation'>
                     <IoMdBook size={18} className={`cursor-pointer ${selectedTab === 'Documentation' ? 'text-accentDark' : 'text-secondary'}`}

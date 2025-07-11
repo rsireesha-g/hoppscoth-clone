@@ -73,7 +73,7 @@ export const RequestScriptTab = ({ selectedTab }: any) => {
                         className='w-full h-full bg-transparent p-2 text-accentDark break-normal'
                     />
                 </div>
-                <div className="w-[40%] p-2 flex gap-4 flex-col justify-start h-[200px] overflow-y-scroll ">
+                <div className="w-[40%] p-2 flex gap-4 flex-col justify-start h-[200px] overflow-y-auto ">
                     <p className='text-secondary'>
                         {selectedTab === 'pre-request script' ?
                             'Pre-request scrips are written in JavaScript, and are run before the request is sent.'

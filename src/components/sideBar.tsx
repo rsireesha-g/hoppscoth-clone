@@ -15,7 +15,7 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
     return (
         <div
             className={`${!isCollapse ? 'w-12' : 'w-20'} 
-        border border-red-400
+        border border-dividerDark
         flex flex-col text-[10px]
         `}>
             <Link to="/"

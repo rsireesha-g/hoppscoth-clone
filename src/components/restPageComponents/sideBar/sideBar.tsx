@@ -31,7 +31,7 @@ export const RestPageSideBar = () => {
         }
     }
     return (
-        <div className="w-full h-full border border-red-500 flex gap-2">
+        <div className="w-full h-full border border-dividerDark flex gap-2">
             <div className='w-14 h-full flex flex-col gap-4 mt-2 border-r border-r-dividerDark'>
                 <Tooltip position='side-left' text='Collections'>
                     <CiFolderOn size={18} className={`cursor-pointer ${selectedTab === 'Collections' ? 'text-accentDark' : 'text-secondary'}`}

@@ -126,7 +126,7 @@ export const Rest = () => {
                             }} />
                         </div>
                     ))}
-                    <IoIosAdd size={20} className='w-10 h-10 cursor-pointer flex-grow' onClick={handleAddNewTab} />
+                    <IoIosAdd size={16} className='w-4 h-4 cursor-pointer flex-grow' onClick={handleAddNewTab} />
                 </div>
                 <div className="flex gap-2 align-middle items-center">
                     <DropdownMenu position='bottom-right' extraClass='!min-w-[350px] overflow-x-hidden'
@@ -244,7 +244,7 @@ export const Rest = () => {
             {/* mapping and editing data */}
             <>
                 <div className="flex justify-between gap-2 p-2">
-                    <div className="overflow-visible relative border border-dividerDark w-full flex gap-2 justify-start align-middle">
+                    <div className="overflow-auto relative border border-dividerDark w-full flex gap-2 justify-start align-middle">
                         <DropdownMenu position='bottom-left' button={
                             <Button type='secondary' text={selectedHttpMethod?.label} chevronExists={true}
                                 extraClass={`!flex-row border-0`} textColor={selectedHttpMethod?.color} />

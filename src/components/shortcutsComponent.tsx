@@ -13,7 +13,7 @@ export const ShortcutsComponent = ({
 
     return (
         <div className={`${isHorizontalCollapsed ? 'flex-grow w-full h-full' : 'h-full w-full'} 
-        border border-blue-700  p-4`}>
+         p-4`}>
             <div className=' grid grid-cols-1 gap-2 text-secondaryLight w-fit m-auto'>
                 <div className='flex gap-2 align-middle justify-end hover:text-secondaryLight'>
                     <p className=''>Send Request</p>
