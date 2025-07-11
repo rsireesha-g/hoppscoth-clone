@@ -14,14 +14,18 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
 
     return (
         <div
-            className={`${!isCollapse ? 'w-12' : 'w-20'} 
+            className={`${!isCollapse ? 'w-full  md:w-12' : 'w-full md:w-20'} 
         border border-dividerDark
-        flex flex-col text-[10px]
+        grid md:flex flex-row text-[10px]
+        grid-cols-4
+        md:flex-col
+        justify-between md:justify-start
         `}>
             <Link to="/"
                 className={`
-            ${page === 'home' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondary flex gap-2 flex-col
+            ${page === 'home' && 'md:border-l-2 md:border-accent !text-secondaryDark !bg-primaryDark'}
+             cursor-pointer items-center p-2 md:p-4  hover:bg-primaryDark hover:text-secondaryDark 
+             text-secondary flex gap-2 flex-col
             `}>
 
                 {!isCollapse ?
@@ -39,8 +43,8 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             </Link>
             <Link to="/graphql"
                 className={`
-            ${page === 'graphql' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondary flex gap-2 flex-col
+            ${page === 'graphql' && 'md:border-l-2 md:border-accent !text-secondaryDark !bg-primaryDark'}
+             cursor-pointer items-center p-2 md:p-4  hover:bg-primaryDark hover:text-secondaryDark text-secondary flex gap-2 flex-col
             `}>
 
                 {!isCollapse ?
@@ -59,8 +63,8 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             </Link>
             <Link to="/realtime/websocket"
                 className={`
-            ${page === 'realtime' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondary flex gap-2 flex-col
+            ${page === 'realtime' && 'md:border-l-2 md:border-accent !text-secondaryDark !bg-primaryDark'}
+             cursor-pointer items-center p-2 md:p-4  hover:bg-primaryDark hover:text-secondaryDark text-secondary flex gap-2 flex-col
             `}>
                 {!isCollapse ?
                     <Tooltip position='side-right' text='Realtime'>
@@ -76,8 +80,8 @@ export const SideBar = ({ isCollapse, page }: sideBarProps) => {
             </Link>
             <Link to="/settings"
                 className={`
-            ${page === 'settings' && 'border-l-2 border-accent !text-secondaryDark !bg-primaryDark'}
-             cursor-pointer items-center p-4 hover:bg-primaryDark hover:text-secondaryDark text-secondary flex gap-2 flex-col
+            ${page === 'settings' && 'md:border-l-2 md:border-accent !text-secondaryDark !bg-primaryDark'}
+             cursor-pointer items-center p-2 md:p-4  hover:bg-primaryDark hover:text-secondaryDark text-secondary flex gap-2 flex-col
             `}>
                 {!isCollapse ?
                     <Tooltip position='side-right' text='Settings'>

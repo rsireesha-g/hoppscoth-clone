@@ -75,7 +75,7 @@ export const Footer = ({
 
     return (
         <>
-            <div className='flex justify-between p-2 border-t border-t-dividerDark'>
+            <div className='hidden md:flex justify-between p-2 border-t border-t-dividerDark'>
                 <div className='flex gap-2'>
                     <Tooltip text='Collapse sidebar' position='top-left' extraClassName='-mb-0 left-1/2 -bottom-1'>
                         <VscBrowser

@@ -21,6 +21,7 @@ import { useDispatch } from 'react-redux'
 import { EditEnvironmentModal } from '../components/restPageComponents/sideBar/editEnvironmentModal'
 import { BodyComponent } from '../components/restPageComponents/httpMethodComponents/bodyComponent'
 import { MdOutlineClose } from 'react-icons/md'
+import { authMethods } from '../contanst'
 
 const paramsInitialState: Array<KeyValueDescription> = [{ key: '', value: '', description: '' }];
 const variablesInitialState: Array<VariablesObj> = [{ variable: '', value: '' }];
@@ -244,7 +245,7 @@ export const Rest = () => {
             {/* mapping and editing data */}
             <>
                 <div className="flex justify-between gap-2 p-2">
-                    <div className="overflow-auto relative border border-dividerDark w-full flex gap-2 justify-start align-middle">
+                    <div className=" relative border border-dividerDark w-full flex gap-2 justify-start align-middle">
                         <DropdownMenu position='bottom-left' button={
                             <Button type='secondary' text={selectedHttpMethod?.label} chevronExists={true}
                                 extraClass={`!flex-row border-0`} textColor={selectedHttpMethod?.color} />

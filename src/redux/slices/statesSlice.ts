@@ -8,7 +8,7 @@ interface statesSliceProps {
     email: string | null,
     environments: any,
     isChatBotModalOpen: boolean,
-    isInviteModalOpen: boolean
+    isInviteModalOpen: boolean,
 }
 
 const initialState: statesSliceProps = {

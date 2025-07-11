@@ -36,48 +36,75 @@ export const Layout = ({ children, page, showShortCuts = true, showLeftSideBar =
     return (
         <div className={`w-screen h-screen text-xs font-semibold  ${theme === 'dark' ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}>
             <Header />
-            <div className="w-full flex h-[88vh] overflow-auto relative z-0">
+            <div className="w-full flex flex-grow h-[calc(100%-50px)] md:h-[88vh] overflow-hidden relative z-0 md:flex-row flex-col-reverse">
                 <SideBar {...{ isCollapse, page }} />
+                <div className='hidden md:flex w-full'>
+                    <PanelGroup direction="horizontal" className="flex-1">
+                        <Panel defaultSize={70} minSize={60}>
+                            <div className={`w-full h-full overflow-x-hidden overflow-y-auto flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
+                                <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1 overflow-y-auto">
+                                    <Panel defaultSize={60} minSize={50} className='!overflow-visible'>
+                                        <div
+                                            className={` h-full w-full overflow-visible relative ${page === 'settings' ? 'overflow-y-auto' : ''
+                                                }`}
+                                        >
+                                            {children}
+                                        </div>
+                                    </Panel>
 
-                <PanelGroup direction="horizontal" className="flex-1">
-                    <Panel defaultSize={70} minSize={60}>
-                        <div className={`w-full h-full flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
-                            <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1">
-                                <Panel defaultSize={60} minSize={50}>
-                                    <div
-                                        className={` h-full w-full overflow-hidden relative ${page === 'settings' ? 'overflow-y-auto' : ''
-                                            }`}
-                                    >
-                                        {children}
-                                    </div>
+                                    {showShortCuts &&
+                                        <>
+                                            <PanelResizeHandle
+                                                className={`${isHorizontalCollapsed ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize'
+                                                    } bg-primaryDark hover:bg-primaryDark z-10 flex`}
+                                            />
+
+                                            <Panel defaultSize={30} minSize={20}>
+                                                <ShortcutsComponent {...{ isHorizontalCollapsed }} />
+                                            </Panel>
+                                        </>
+                                    }
+                                </PanelGroup>
+                            </div>
+                        </Panel>
+
+
+                        {!isRightSideBarCollapsed && showRightSideBar &&
+                            <>
+                                <PanelResizeHandle className="w-1 bg-primaryDark hover:bg-primaryDark md:visible  cursor-col-resize" />
+                                <Panel defaultSize={30} minSize={20}>
+                                    {page === 'home' && <RestPageSideBar />}
+                                    {page === 'graphql' && <GraphQlPageSideBar />}
                                 </Panel>
-                                {showShortCuts &&
-                                    <>
-                                        <PanelResizeHandle
-                                            className={`${isHorizontalCollapsed ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize'
-                                                } bg-primaryDark hover:bg-primaryDark`}
-                                        />
+                            </>
+                        }
+                    </PanelGroup>
+                </div>
+                <div className={`md:hidden w-full h-full overflow-x-hidden overflow-y-scroll flex flex-col ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
+                    <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1 !overflow-y-scroll">
+                        <Panel defaultSize={60} minSize={50} className='!overflow-visible'>
+                            <div
+                                className={` h-full w-full overflow-visible relative ${page === 'settings' ? 'overflow-y-auto' : ''
+                                    }`}
+                            >
+                                {children}
+                            </div>
+                        </Panel>
 
-                                        <Panel defaultSize={30} minSize={20}>
-                                            <ShortcutsComponent {...{ isHorizontalCollapsed }} />
-                                        </Panel>
-                                    </>
-                                }
-                            </PanelGroup>
-                        </div>
-                    </Panel>
+                        {showShortCuts &&
+                            <>
+                                <PanelResizeHandle
+                                    className={`${isHorizontalCollapsed ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize'
+                                        } bg-primaryDark hover:bg-primaryDark z-10 flex`}
+                                />
 
-
-                    {!isRightSideBarCollapsed && showRightSideBar &&
-                        <>
-                            <PanelResizeHandle className="w-1 bg-primaryDark hover:bg-primaryDark md:visible  cursor-col-resize" />
-                            <Panel defaultSize={30} minSize={20}>
-                                {page === 'home' && <RestPageSideBar />}
-                                {page === 'graphql' && <GraphQlPageSideBar />}
-                            </Panel>
-                        </>
-                    }
-                </PanelGroup>
+                                <Panel defaultSize={30} minSize={20}>
+                                    <ShortcutsComponent {...{ isHorizontalCollapsed }} />
+                                </Panel>
+                            </>
+                        }
+                    </PanelGroup>
+                </div>
             </div>
 
             <Footer

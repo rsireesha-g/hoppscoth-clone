@@ -41,6 +41,7 @@ const Card = (item: dataObj) => {
 export const Support = ({ handleClose }: any) => {
     const { isShortCutsModalOpen, isInviteModalOpen } = useSelector((state: RootState) => state.statesStatus);
     const dispatch = useDispatch<AppDispatch>();
+    const [isCollapse, setIsCollapse] = useState(false);
 
     const data: Array<dataObj> = [
         { label: 'Chat with us', description: 'Questions? Chat with us!', icon: <BsChat size={14} className='rotate-180' />, onClick: () => dispatch(onChartBotModalClick(true)) },
@@ -60,17 +61,44 @@ export const Support = ({ handleClose }: any) => {
             label: 'Twitter', description: 'Follow us on Twitter', icon: <LuTwitter size={14} />, url: 'https://hoppscotch.io / twitter'
         }
     ];
+    const layoutData: Array<dataObj> = [
+        {
+            label: 'Expand sidebar',
+            description: 'Collapse or Expand the sidebar',
+            icon: <VscBrowser className={`w-4 h-4 cursor-pointer ${isCollapse ? '-rotate-90' : 'rotate-90'}`} />,
+            onClick: () => setIsCollapse(true)
+        },
+        {
+            label: 'Expand Collection Panel',
+            description: 'Collapse or Expand Collections',
+            icon: <VscBrowser className={`w-4 h-4 cursor-pointer ${isCollapse ? '-rotate-90' : 'rotate-90'}`} />,
+            onClick: () => setIsCollapse(true)
+        },
+    ]
     return (
         <>
             <div className="modal">
-                <div className="innerModal top-12 left-[35%]" >
-                    <div className="flex items-center justify-between p-2 ">
-                        <h3 className="ml-4 heading text-center flex-grow">New workspace</h3>
+                <div className="innerModal pt-0 bottom-0 md:top-12 left-[35%]" >
+                    <div className="flex items-center justify-between p-2 pt-4 sticky w-full z-[1] top-0 left-0 bg-popoverColor">
+                        <h3 className="ml-4 heading text-center flex-grow">Support</h3>
                         <MdOutlineClose
                             size={20}
                             onClick={handleClose}
                             className='cursor-pointer' />
                     </div>
+                    <div className='flex flex-col gap-4 md:hidden'>
+                        <p className="text-secondary ">Support</p>
+                        {layoutData?.map((item: dataObj) => (
+                            <div onClick={() => {
+                                item?.onClick?.();
+                                handleClose();
+                            }}
+                                className='w-full'>
+                                <Card {...item} />
+                            </div>
+                        ))}
+                    </div>
+                    <p className="text-secondary visible md:hidden">Support</p>
                     <div className="flex flex-col gap-2 p-2">
                         {data?.map((item: dataObj) => (
                             item?.url ?
