@@ -7,6 +7,7 @@ import { Collections } from './collections'
 import { BiChevronRight } from 'react-icons/bi'
 import { History } from './history'
 import { Environment } from './environment'
+import { Share } from './share'
 
 
 
@@ -17,6 +18,7 @@ export const RestPageSideBar = () => {
     const renderTabs = () => {
         switch (selectedTab) {
             case 'Shared Requests':
+                return <Share />
             case 'Generate Code':
             case 'Environments':
                 return <Environment />

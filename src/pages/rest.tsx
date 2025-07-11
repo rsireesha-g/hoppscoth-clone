@@ -107,6 +107,7 @@ export const Rest = () => {
                 <div className="flex-grow my-2  max-w-1/2 flex align-middle items-center w-[76%] max-w-[76%]">
                     {tabsData?.map((tab: MethodData, ind: number) => (
                         <div className="flex align-middle items-center" style={{ width: (tabIndex === ind) ? '300px' : `calc(76%/${tabsData?.length})` }}
+                            key={ind}
                         >
                             <Button type='secondary' extraClass='border-0 w-20 flex overflow-x-clip'
                                 text={tab?.method}
