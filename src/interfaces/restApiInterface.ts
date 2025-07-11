@@ -9,6 +9,10 @@ export type VariablesObj = {
     value: string
 }
 
+export type VariablesObj2 = {
+    value: string
+}
+
 export type MethodData = {
     method: string;
     index: number;

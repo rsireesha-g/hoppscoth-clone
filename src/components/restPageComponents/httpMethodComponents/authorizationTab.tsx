@@ -26,15 +26,15 @@ export const AuthorizationTab = ({
                             <BiChevronDown size={16} className='cursor-pointer' />
                         </p>
                     }>
-                        {/* {({ closeDropdown }: any) => (
-                        <> */}
-                        {items?.map((method: string) => (
-                            // <div onClick={() => closeDropdown()}>
-                            <RadioButton text={method} selected={selectedAuthMethod} setSelected={setSelectedAuthMethod} />
-                            // </div>
-                        ))}
-                        {/* </>
-                    )} */}
+                        {({ closeDropdown }: any) => (
+                            <>
+                                {items?.map((method: string) => (
+                                    <div onClick={() => setTimeout(() => closeDropdown(), 20)}>
+                                        <RadioButton text={method} selected={selectedAuthMethod} setSelected={setSelectedAuthMethod} />
+                                    </div>
+                                ))}
+                            </>
+                        )}
                     </DropdownMenu>
                 </div>
                 <div className="flex gap-2 align-middle text-[#e1e0e0]">
