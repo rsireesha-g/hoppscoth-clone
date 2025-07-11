@@ -10,3 +10,4 @@ export const authMethods = [
     "HAWK",
     "JWT"
 ];
+

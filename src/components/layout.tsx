@@ -14,7 +14,7 @@ import { ChatBot } from './common/chatBot';
 import { MdOutlineClose } from 'react-icons/md';
 import { onChartBotModalClick } from '../redux/slices/statesSlice';
 
-export const Layout = ({ children, page }: { children: ReactNode, page: string }) => {
+export const Layout = ({ children, page, showShortCuts = true }: { children: ReactNode, page: string, showShortCuts?: boolean }) => {
     const [theme, setTheme] = useState('dark');
     const [isCollapse, setIsCollapse] = useState<boolean>(false);
     const [isHorizontalCollapsed, setIsHorizontalCollapsed] = useState<boolean>(false);
@@ -40,14 +40,17 @@ export const Layout = ({ children, page }: { children: ReactNode, page: string }
                                         {children}
                                     </div>
                                 </Panel>
-                                <PanelResizeHandle
-                                    className={`${isHorizontalCollapsed ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize'
-                                        } bg-gray-600 hover:bg-gray-500`}
-                                />
-                                {page !== 'settings' &&
-                                    <Panel defaultSize={40} minSize={30}>
-                                        <ShortcutsComponent {...{ isHorizontalCollapsed }} />
-                                    </Panel>
+                                {page !== 'settings' && showShortCuts !== false &&
+                                    <>
+                                        <PanelResizeHandle
+                                            className={`${isHorizontalCollapsed ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize'
+                                                } bg-gray-600 hover:bg-gray-500`}
+                                        />
+
+                                        <Panel defaultSize={40} minSize={30}>
+                                            <ShortcutsComponent {...{ isHorizontalCollapsed }} />
+                                        </Panel>
+                                    </>
                                 }
                             </PanelGroup>
                         </div>

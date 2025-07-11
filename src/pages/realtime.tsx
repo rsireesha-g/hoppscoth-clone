@@ -25,7 +25,7 @@ export const Realtime = () => {
             <div className="w-full p-4 ">
                 <div className="flex gap-2 justify-between">
                     <input type="text" className='w-full flex-grow bg-primaryDark p-2' value='wss://echo-websocket.hoppscotch.io' />
-                    <Button type='primary' text='Connect' onClick={() => setIsConnected(isConnected === -1 ? 0 : isConnected === 0 ? 1 : 0)} />
+                    <Button type='primary' text={`${isConnected === 0 ? 'Disconnect' : 'Connect'}`} onClick={() => setIsConnected(isConnected === -1 ? 0 : isConnected === 0 ? 1 : 0)} />
                 </div>
 
                 <div className=''>

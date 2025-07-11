@@ -13,7 +13,8 @@ import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
 
 export const AuthorizationTab = ({
     selectedAuthMethod,
-    setSelectedAuthMethod
+    setSelectedAuthMethod,
+    items = authMethods
 }: any) => {
     return (
         <div>
@@ -27,7 +28,7 @@ export const AuthorizationTab = ({
                     }>
                         {/* {({ closeDropdown }: any) => (
                         <> */}
-                        {authMethods?.map((method: string) => (
+                        {items?.map((method: string) => (
                             // <div onClick={() => closeDropdown()}>
                             <RadioButton text={method} selected={selectedAuthMethod} setSelected={setSelectedAuthMethod} />
                             // </div>
