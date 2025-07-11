@@ -9,7 +9,7 @@ export type DropdownItem = {
     color?: string
 };
 
-type DropdownPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'header' | 'header-right';
+type DropdownPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'header' | 'header-right' | 'middle';
 
 type DropdownMenuProps = {
     button: React.ReactNode;
@@ -39,6 +39,7 @@ const DropdownMenu = ({ button, items = [], position, extraClass = '', children,
                 return 'top-full mt-2 -left-1/2 w-fit';
             case 'header-right':
                 return 'top-full right-1 mt-2 w-fit';
+
             default:
                 return 'top-full right-0 mt-2';
         }

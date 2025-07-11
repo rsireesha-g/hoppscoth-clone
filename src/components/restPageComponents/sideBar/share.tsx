@@ -16,8 +16,6 @@ export const Share = () => {
                 <div className="p-2 text-stone-400 border-b border-b-dividerDark flex justify-between align-middle items-center">
                     <div className="flex gap-2" onClick={() => {
                         setIsShareModalOpen(true);
-                        // setLabel('');
-                        // setIsEditModalOpen(!isEditModalOpen);
                     }}>
                         <IoAdd size={16} className='cursor-pointer' />
                         <div className="">New</div>

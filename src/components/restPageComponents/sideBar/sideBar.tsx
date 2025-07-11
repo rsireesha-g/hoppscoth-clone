@@ -8,6 +8,7 @@ import { BiChevronRight } from 'react-icons/bi'
 import { History } from './history'
 import { Environment } from './environment'
 import { Share } from './share'
+import { CodeSnippet } from './codeSnippet'
 
 
 
@@ -20,6 +21,7 @@ export const RestPageSideBar = () => {
             case 'Shared Requests':
                 return <Share />
             case 'Generate Code':
+                return <CodeSnippet />
             case 'Environments':
                 return <Environment />
             case 'History':
@@ -55,9 +57,9 @@ export const RestPageSideBar = () => {
             </div>
             <div className='w-full h-full flex flex-col gap-1 '>
                 <div className="flex p-2 gap-1 justify-start align-middle text-secondary border-b border-b-dividerDark">
-                    <p className="text-[10px]">Personal Workspace</p>
+                    <p className="text-[10px]">{selectedTab === 'Generate Code' ? 'Request' : 'Personal Workspace'}</p>
                     <BiChevronRight size={16} />
-                    <p className="text-[10px]">{selectedTab}</p>
+                    <p className="text-[10px]">{selectedTab === 'Generate Code' ? 'Code snippet' : selectedTab}</p>
                 </div>
                 {renderTabs()}
             </div>
