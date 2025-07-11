@@ -2,40 +2,21 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { EnvironmentData, MethodData } from "../../interfaces/restApiInterface";
 
 
-const methodData: MethodData[] = [
-    {
-        method: '',
-        title: '',
-        parameters: [{ key: '', value: '', description: '' }],
-        headers: [{ key: '', value: '', description: '' }],
-        body: '',
-        authorization: '',
-        preRequestScript: '',
-        postRequestScript: '',
-        variables: [{ variable: '', value: '' }],
-        index: -1
-    }
-];
+export const methodTabsData: MethodData[] = []
 
 
 
-const environmentData: EnvironmentData[] = [
-    {
-        label: '',
-        variables: [{ variable: '', initialValue: '', currentValue: '' }],
-        secrets: [{ variable: '', initialValue: '', currentValue: '' }]
-    }
-];
+const environmentData: EnvironmentData[] = []
 
 const selectedEnvironment: string = 'Global';
 
 type collectionType = {
     label: string, tabIndexes: number[]
 }[]
-const collections: collectionType = [{ label: '', tabIndexes: [] }]
+const collections: collectionType = []
 
 const initialState = {
-    methodData,
+    methodTabsData,
     environmentData,
     selectedEnvironment,
     collections

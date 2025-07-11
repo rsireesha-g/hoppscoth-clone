@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout } from '../components/layout'
 import { BsChevronDown } from 'react-icons/bs'
 import { IoIosAdd, IoMdCheckmark, IoMdCheckmarkCircleOutline } from 'react-icons/io'
@@ -12,7 +12,7 @@ import { AppDispatch, RootState } from '../redux/store'
 import { QueryParams } from '../components/restPageComponents/httpMethodComponents/queryParams'
 import { AuthorizationTab } from '../components/restPageComponents/httpMethodComponents/authorizationTab'
 import { RequestScriptTab } from '../components/restPageComponents/httpMethodComponents/requestScript'
-import { KeyValueDescription, VariablesObj } from '../interfaces/restApiInterface';
+import { KeyValueDescription, MethodData, VariablesObj } from '../interfaces/restApiInterface';
 import { Variables } from '../components/restPageComponents/httpMethodComponents/variables'
 import emptyImg from "../assests/images/environment.png"
 import { EmptyDataComponent } from '../components/common/emptyDataComponent'
@@ -20,14 +20,30 @@ import { onSelectEnvironmentLabel } from '../redux/slices/restApiSlice'
 import { useDispatch } from 'react-redux'
 import { EditEnvironmentModal } from '../components/restPageComponents/sideBar/editEnvironmentModal'
 import { BodyComponent } from '../components/restPageComponents/httpMethodComponents/bodyComponent'
+import { MdOutlineClose } from 'react-icons/md'
 
 const paramsInitialState: Array<KeyValueDescription> = [{ key: '', value: '', description: '' }];
-const variablesInitialState: Array<VariablesObj> = [{ variable: '', value: '' }]
+const variablesInitialState: Array<VariablesObj> = [{ variable: '', value: '' }];
+
 
 export const Rest = () => {
-    const { environmentData, selectedEnvironment } = useSelector((state: RootState) => state.restApi);
+    const { environmentData, selectedEnvironment, methodTabsData } = useSelector((state: RootState) => state.restApi);
     const [selectedTab, setSelectedTab] = useState('parameters')
     const dispatch = useDispatch<AppDispatch>();
+    const newTabData: MethodData = {
+        method: 'GET',
+        title: '',
+        parameters: [{ key: '', value: '', description: '' }],
+        headers: [{ key: '', value: '', description: '' }],
+        body: '',
+        authorization: '',
+        preRequestScript: '',
+        postRequestScript: '',
+        variables: [{ variable: '', value: '' }],
+        index: methodTabsData?.length
+    };
+    const [tabsData, setTabsData] = useState<Array<MethodData>>([newTabData]);
+    const [tabIndex, setTabIndex] = useState(0);
 
     const [selectedAuthMethod, setSelectedAuthMethod] = useState('Inherit');
     const handleHttpMethodSelect = (label: string) => {
@@ -54,6 +70,7 @@ export const Rest = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const environment = environmentData?.filter((env) => env.label === selectedEnvironment);
     const globalEnv = environmentData?.filter((env) => env.label === 'Global');
+    const [selectedMethodTab, setSelectedMethodTab] = useState<MethodData>(methodTabsData?.[0]);
 
     const handleSearch = (val: string) => {
         setSearch(val);
@@ -76,19 +93,39 @@ export const Rest = () => {
                 return <QueryParams {...{ data: headers, setData: setHeaders, initialState: paramsInitialState }} />;
         }
     };
+
+    const handleAddNewTab = () => {
+        let tab = { ...newTabData, index: tabsData?.length }
+        setTabsData([...tabsData, tab])
+    }
+    useEffect(() => {
+        setSelectedMethodTab(tabsData?.[tabIndex])
+    }, [tabIndex])
     return (
         <Layout page='home'>
             <div className='flex gap-2 justify-between align-middle p-2'>
-                <div className="flex-grow my-2 flex align-middle items-center">
-                    <div className="flex">
-                        <Button type='secondary' extraClass='border-0'
-                            text={selectedHttpMethod?.label}
-                            textColor={selectedHttpMethod?.color}
+                <div className="flex-grow my-2  max-w-1/2 flex align-middle items-center w-[76%] max-w-[76%]">
+                    {tabsData?.map((tab: MethodData, ind: number) => (
+                        <div className="flex align-middle items-center" style={{ width: (tabIndex === ind) ? '300px' : `calc(76%/${tabsData?.length})` }}
                         >
-                            <p>Untitled</p>
-                        </Button>
-                    </div>
-                    <IoIosAdd size={20} className='cursor-pointer' />
+                            <Button type='secondary' extraClass='border-0 w-20 flex overflow-x-clip'
+                                text={tab?.method}
+                                textColor={selectedHttpMethod?.color}
+                                onClick={() => setTabIndex(ind)}
+                            >
+                                <input type='text' placeholder='Untitled' value={''} className='max-w-[80%]' />
+                            </Button>
+                            <MdOutlineClose size={14} className='cursor-pointer' onClick={() => {
+                                let data = tabsData?.filter((_, i: number) => i !== ind);
+                                setTabsData(data);
+                                if (data?.length === 0) {
+                                    setTabsData([newTabData]);
+                                    setTabIndex(0)
+                                }
+                            }} />
+                        </div>
+                    ))}
+                    <IoIosAdd size={20} className='w-10 h-10 cursor-pointer flex-grow' onClick={handleAddNewTab} />
                 </div>
                 <div className="flex gap-2 align-middle items-center">
                     <DropdownMenu position='bottom-right' extraClass='!min-w-[350px] overflow-x-hidden'
@@ -203,88 +240,200 @@ export const Rest = () => {
                     </DropdownMenu>
                 </div>
             </div>
-            <div className="flex justify-between gap-2 p-2">
-                <div className="overflow-visible relative border border-dividerDark w-full flex gap-2 justify-start align-middle">
-                    <DropdownMenu position='bottom-left' button={
-                        <Button type='secondary' text={selectedHttpMethod?.label} chevronExists={true}
-                            extraClass={`!flex-row border-0`} textColor={selectedHttpMethod?.color} />
-                    }
-                        items={httpMethods}
-                    ></DropdownMenu>
-                    <input type='text' placeholder='Untitled'
-                        defaultValue={'https://echo.hoppscotch.io'}
-                        className='p-2 text-secondaryDark bg-transparent flex-grow' />
-
-                </div>
-                <div className='flex justify-center gap-4'>
-                    <div className='flex justify-center gap-0'>
-                        <Button type='primary' text='Send' extraClass='border-r-0 rounded-tr-none rounded-br-none' />
-                        <DropdownMenu button={
-                            <Button type='primary' text='' extraClass='!min-w-fit border-l-0 rounded-tl-none rounded-bl-none !px-2'>
-                                <BsChevronDown size={12} />
-                            </Button>
+            {/* mapping and editing data */}
+            <>
+                <div className="flex justify-between gap-2 p-2">
+                    <div className="overflow-visible relative border border-dividerDark w-full flex gap-2 justify-start align-middle">
+                        <DropdownMenu position='bottom-left' button={
+                            <Button type='secondary' text={selectedHttpMethod?.label} chevronExists={true}
+                                extraClass={`!flex-row border-0`} textColor={selectedHttpMethod?.color} />
                         }
-                            position='header'
-                            items={[
-                                { label: 'Import CURL', icon: <FaFileCode size={16} />, kbd: 'C,' },
-                                { label: 'Show Code', icon: <FaCode size={16} />, kbd: 'S,' },
-                                { label: 'Clear All', icon: <AiOutlineReload size={16} className='rotate-180' />, kbd: 'x,' }
-                            ]}
+                            items={httpMethods}
+                        ></DropdownMenu>
+                        <input type='text' placeholder='Untitled'
+                            defaultValue={'https://echo.hoppscotch.io'}
+                            className='p-2 text-secondaryDark bg-transparent flex-grow'
                         />
+
                     </div>
-                    <div className='flex justify-center gap-0'>
-                        <Button type='secondary' text='Save' extraClass='!flex-row border-r-0 rounded-tr-none rounded-br-none' >
-                            <AiOutlineSave size={16} />
-                        </Button>
-                        <DropdownMenu
-                            position='bottom-right'
-                            button={
-                                <Button type='secondary' chevronExists={true} text='' extraClass='!min-w-fit border-l-0 rounded-tl-none rounded-bl-none !px-2'>
+                    <div className='flex justify-center gap-4'>
+                        <div className='flex justify-center gap-0'>
+                            <Button type='primary' text='Send' extraClass='border-r-0 rounded-tr-none rounded-br-none' />
+                            <DropdownMenu button={
+                                <Button type='primary' text='' extraClass='!min-w-fit border-l-0 rounded-tl-none rounded-bl-none !px-2'>
+                                    <BsChevronDown size={12} />
                                 </Button>
                             }
-                        >
-                            <input type='text' placeholder='Untitled'
-                                defaultValue={'Untitled'}
-                                className=' border border-dividerDark p-2 text-secondaryDark bg-transparent' />
-                            <div
-                                // onClick={() => {
-                                //     item.onClick?.();
-                                //     setIsOpen(false);
-                                // }}
-                                className=" border-b border-b-dividerDark flex items-center text-xs gap-2 px-4 py-1 text-secondary hover:bg-primaryDark  hover:text-secondaryDark cursor-pointer"
+                                position='header'
+                                items={[
+                                    { label: 'Import CURL', icon: <FaFileCode size={16} />, kbd: 'C,' },
+                                    { label: 'Show Code', icon: <FaCode size={16} />, kbd: 'S,' },
+                                    { label: 'Clear All', icon: <AiOutlineReload size={16} className='rotate-180' />, kbd: 'x,' }
+                                ]}
+                            />
+                        </div>
+                        <div className='flex justify-center gap-0'>
+                            <Button type='secondary' text='Save' extraClass='!flex-row border-r-0 rounded-tr-none rounded-br-none' >
+                                <AiOutlineSave size={16} />
+                            </Button>
+                            <DropdownMenu
+                                position='bottom-right'
+                                button={
+                                    <Button type='secondary' chevronExists={true} text='' extraClass='!min-w-fit border-l-0 rounded-tl-none rounded-bl-none !px-2'>
+                                    </Button>
+                                }
                             >
-                                <AiOutlineFolderAdd size={16} />
-                                <span className='flex-grow truncate max-w-[16rem]'>Save as</span>
-                            </div>
-                            <div
-                                // onClick={() => {
-                                //     item.onClick?.();
-                                //     setIsOpen(false);
-                                // }}
-                                className="flex items-center text-xs gap-2 px-4 py-1 text-secondary hover:bg-primaryDark  hover:text-secondaryDark cursor-pointer"
-                            >
-                                <IoShareSocialOutline size={16} />
-                                <span className='flex-grow truncate max-w-[16rem]'>Share Request</span>
-                            </div>
-                        </DropdownMenu>
+                                <input type='text' placeholder='Untitled'
+                                    defaultValue={'Untitled'}
+                                    className=' border border-dividerDark p-2 text-secondaryDark bg-transparent'
+                                />
+                                <div
+                                    // onClick={() => {
+                                    //     item.onClick?.();
+                                    //     setIsOpen(false);
+                                    // }}
+                                    className=" border-b border-b-dividerDark flex items-center text-xs gap-2 px-4 py-1 text-secondary hover:bg-primaryDark  hover:text-secondaryDark cursor-pointer"
+                                >
+                                    <AiOutlineFolderAdd size={16} />
+                                    <span className='flex-grow truncate max-w-[16rem]'>Save as</span>
+                                </div>
+                                <div
+                                    // onClick={() => {
+                                    //     item.onClick?.();
+                                    //     setIsOpen(false);
+                                    // }}
+                                    className="flex items-center text-xs gap-2 px-4 py-1 text-secondary hover:bg-primaryDark  hover:text-secondaryDark cursor-pointer"
+                                >
+                                    <IoShareSocialOutline size={16} />
+                                    <span className='flex-grow truncate max-w-[16rem]'>Share Request</span>
+                                </div>
+                            </DropdownMenu>
+                        </div>
                     </div>
-                </div>
 
-            </div >
-            <div>
-                <div className="flex gap-2 overflow-x-auto" >
-                    {["parameters", "body", "headers", "authorization", "pre-request script", "post-request script", "variables"]?.map((title: string) => (
-                        <div key={title}
-                            className={`min-w-fit cursor-pointer text-center capitalize text-secondary hover:text-secondaryDark p-2 
+                </div >
+                <div>
+                    <div className="flex gap-2 overflow-x-auto" >
+                        {["parameters", "body", "headers", "authorization", "pre-request script", "post-request script", "variables"]?.map((title: string) => (
+                            <div key={title}
+                                className={`min-w-fit cursor-pointer text-center capitalize text-secondary hover:text-secondaryDark p-2 
                             ${selectedTab === title ? 'border-b-2 border-b-accent !text-secondaryDark' : ''}`}
-                            onClick={() => setSelectedTab(title)}
-                        >{title}</div>
-                    ))}
+                                onClick={() => setSelectedTab(title)}
+                            >{title}</div>
+                        ))}
+                    </div>
+                    {renderByTab()}
                 </div>
-                {renderByTab()}
-            </div>
+            </>
             {isEditModalOpen && <EditEnvironmentModal handleModal={() => setIsEditModalOpen(false)} label={selectedEnvironment} setLabel={(x: string) => { }} />}
 
         </Layout >
     )
 }
+
+// export const MethodTab = ({
+//     selectedHttpMethod,
+//     httpMethods,
+//     selectedTab,
+//     setSelectedTab,
+// }: any) => {
+//     const renderByTab = () => {
+//         switch (selectedTab) {
+//             case 'variables':
+//                 return <Variables {...{ data: variables, setData: setVariables, initialState: variablesInitialState }} />;
+//             case 'body':
+//                 return <BodyComponent {...{ onOverRide: setSelectedTab }} />;
+//             case 'authorization':
+//                 return <AuthorizationTab {...{ selectedAuthMethod, setSelectedAuthMethod }} />;
+//             case 'pre-request script':
+//             case 'post-request script':
+//                 return <RequestScriptTab {...{ selectedTab }} />;
+//             default:
+//                 return <QueryParams {...{ data: headers, setData: setHeaders, initialState: paramsInitialState }} />;
+//         }
+//     };
+//     return (
+//         <>
+//             <div className="flex justify-between gap-2 p-2">
+//                 <div className="overflow-visible relative border border-dividerDark w-full flex gap-2 justify-start align-middle">
+//                     <DropdownMenu position='bottom-left' button={
+//                         <Button type='secondary' text={selectedHttpMethod?.label} chevronExists={true}
+//                             extraClass={`!flex-row border-0`} textColor={selectedHttpMethod?.color} />
+//                     }
+//                         items={httpMethods}
+//                     ></DropdownMenu>
+//                     <input type='text' placeholder='Untitled'
+//                         defaultValue={'https://echo.hoppscotch.io'}
+//                         className='p-2 text-secondaryDark bg-transparent flex-grow' />
+
+//                 </div>
+//                 <div className='flex justify-center gap-4'>
+//                     <div className='flex justify-center gap-0'>
+//                         <Button type='primary' text='Send' extraClass='border-r-0 rounded-tr-none rounded-br-none' />
+//                         <DropdownMenu button={
+//                             <Button type='primary' text='' extraClass='!min-w-fit border-l-0 rounded-tl-none rounded-bl-none !px-2'>
+//                                 <BsChevronDown size={12} />
+//                             </Button>
+//                         }
+//                             position='header'
+//                             items={[
+//                                 { label: 'Import CURL', icon: <FaFileCode size={16} />, kbd: 'C,' },
+//                                 { label: 'Show Code', icon: <FaCode size={16} />, kbd: 'S,' },
+//                                 { label: 'Clear All', icon: <AiOutlineReload size={16} className='rotate-180' />, kbd: 'x,' }
+//                             ]}
+//                         />
+//                     </div>
+//                     <div className='flex justify-center gap-0'>
+//                         <Button type='secondary' text='Save' extraClass='!flex-row border-r-0 rounded-tr-none rounded-br-none' >
+//                             <AiOutlineSave size={16} />
+//                         </Button>
+//                         <DropdownMenu
+//                             position='bottom-right'
+//                             button={
+//                                 <Button type='secondary' chevronExists={true} text='' extraClass='!min-w-fit border-l-0 rounded-tl-none rounded-bl-none !px-2'>
+//                                 </Button>
+//                             }
+//                         >
+//                             <input type='text' placeholder='Untitled'
+//                                 defaultValue={'Untitled'}
+//                                 className=' border border-dividerDark p-2 text-secondaryDark bg-transparent' />
+//                             <div
+//                                 // onClick={() => {
+//                                 //     item.onClick?.();
+//                                 //     setIsOpen(false);
+//                                 // }}
+//                                 className=" border-b border-b-dividerDark flex items-center text-xs gap-2 px-4 py-1 text-secondary hover:bg-primaryDark  hover:text-secondaryDark cursor-pointer"
+//                             >
+//                                 <AiOutlineFolderAdd size={16} />
+//                                 <span className='flex-grow truncate max-w-[16rem]'>Save as</span>
+//                             </div>
+//                             <div
+//                                 // onClick={() => {
+//                                 //     item.onClick?.();
+//                                 //     setIsOpen(false);
+//                                 // }}
+//                                 className="flex items-center text-xs gap-2 px-4 py-1 text-secondary hover:bg-primaryDark  hover:text-secondaryDark cursor-pointer"
+//                             >
+//                                 <IoShareSocialOutline size={16} />
+//                                 <span className='flex-grow truncate max-w-[16rem]'>Share Request</span>
+//                             </div>
+//                         </DropdownMenu>
+//                     </div>
+//                 </div>
+
+//             </div >
+//             <div>
+//                 <div className="flex gap-2 overflow-x-auto" >
+//                     {["parameters", "body", "headers", "authorization", "pre-request script", "post-request script", "variables"]?.map((title: string) => (
+//                         <div key={title}
+//                             className={`min-w-fit cursor-pointer text-center capitalize text-secondary hover:text-secondaryDark p-2
+//                             ${selectedTab === title ? 'border-b-2 border-b-accent !text-secondaryDark' : ''}`}
+//                             onClick={() => setSelectedTab(title)}
+//                         >{title}</div>
+//                     ))}
+//                 </div>
+//                 {renderByTab()}
+//             </div>
+//         </>
+//     )
+// }

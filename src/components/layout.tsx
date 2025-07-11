@@ -13,6 +13,7 @@ import { ShortcutsSideBar } from './common/shortcutsSideBar';
 import { ChatBot } from './common/chatBot';
 import { MdOutlineClose } from 'react-icons/md';
 import { onChartBotModalClick } from '../redux/slices/statesSlice';
+import { GraphQlPageSideBar } from './restPageComponents/graphqlSideBar/sideBar';
 
 export const Layout = ({ children, page, showShortCuts = true }: { children: ReactNode, page: string, showShortCuts?: boolean }) => {
     const [theme, setTheme] = useState('dark');
@@ -62,7 +63,7 @@ export const Layout = ({ children, page, showShortCuts = true }: { children: Rea
                             <PanelResizeHandle className="w-1 bg-gray-600 md:visible hover:bg-gray-500 cursor-col-resize" />
                             <Panel defaultSize={30} minSize={20}>
                                 {page === 'home' && <RestPageSideBar />}
-                                {page === 'graphql' && 'home'}
+                                {page === 'graphql' && <GraphQlPageSideBar />}
                             </Panel>
                         </>
                     }
@@ -80,7 +81,8 @@ export const Layout = ({ children, page, showShortCuts = true }: { children: Rea
                 }}
             />
             {isShortCutsModalOpen && <ShortcutsSideBar />}
-            {isChatBotModalOpen &&
+            {
+                isChatBotModalOpen &&
                 <div className="modal">
                     <div className="w-64 innerModal bottom-10 right-2 bg-secondaryDark text-primaryDark">
                         <div className='flex justify-between'>
@@ -95,6 +97,6 @@ export const Layout = ({ children, page, showShortCuts = true }: { children: Rea
                     </div>
                 </div>
             }
-        </div>
+        </div >
     );
 };
