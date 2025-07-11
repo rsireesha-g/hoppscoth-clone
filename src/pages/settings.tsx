@@ -70,7 +70,7 @@ export const Settings = () => {
     }
 
     return (
-        <Layout page='settings'>
+        <Layout page='settings' showRightSideBar={false} showShortCuts={false}>
             <div className="md:grid md:grid-cols-3 md:gap-4">
                 <div className="md:col-span-1 p-8">
                     <h3 className="font-[700] text-[1.125rem] text-secondaryDark " style={{ lineHeight: '1.75rem' }}>General</h3>

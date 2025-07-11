@@ -16,7 +16,16 @@ import { onChartBotModalClick, onInviteModalClick } from '../redux/slices/states
 import { GraphQlPageSideBar } from './restPageComponents/graphqlSideBar/sideBar';
 import { InviteModal } from './common/inviteModal';
 
-export const Layout = ({ children, page, showShortCuts = true }: { children: ReactNode, page: string, showShortCuts?: boolean }) => {
+type layoutProps = {
+    children: ReactNode,
+    page: string,
+    showShortCuts?: boolean,
+    showRightSideBar?: boolean,
+    showLeftSideBar?: boolean
+}
+
+
+export const Layout = ({ children, page, showShortCuts = true, showLeftSideBar = true, showRightSideBar = true }: layoutProps) => {
     const [theme, setTheme] = useState('dark');
     const [isCollapse, setIsCollapse] = useState<boolean>(false);
     const [isHorizontalCollapsed, setIsHorizontalCollapsed] = useState<boolean>(false);
@@ -36,13 +45,13 @@ export const Layout = ({ children, page, showShortCuts = true }: { children: Rea
                             <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1">
                                 <Panel defaultSize={60} minSize={50}>
                                     <div
-                                        className={` h-full w-full overflow-auto relative ${page === 'settings' ? 'overflow-y-auto' : ''
+                                        className={` h-full w-full overflow-hidden relative ${page === 'settings' ? 'overflow-y-auto' : ''
                                             }`}
                                     >
                                         {children}
                                     </div>
                                 </Panel>
-                                {page !== 'settings' && showShortCuts !== false &&
+                                {showShortCuts &&
                                     <>
                                         <PanelResizeHandle
                                             className={`${isHorizontalCollapsed ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize'
@@ -59,7 +68,7 @@ export const Layout = ({ children, page, showShortCuts = true }: { children: Rea
                     </Panel>
 
 
-                    {!isRightSideBarCollapsed && (page === "home" || page === 'graphql') &&
+                    {!isRightSideBarCollapsed && showRightSideBar &&
                         <>
                             <PanelResizeHandle className="w-1 bg-primaryDark hover:bg-primaryDark md:visible  cursor-col-resize" />
                             <Panel defaultSize={30} minSize={20}>

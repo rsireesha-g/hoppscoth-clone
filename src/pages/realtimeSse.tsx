@@ -9,7 +9,7 @@ export const RealtimeSse = () => {
     const [urlInput, setUrlInput] = useState('wss://echo-websocket.hoppscotch.io')
     const [eventType, setEventType] = useState('data');
     return (
-        <Layout page='realtime'>
+        <Layout page='realtime' showRightSideBar={false} showShortCuts={false}>
             <TopNavigation currPage='sse' />
             <div className="w-full p-4 ">
                 <div className="flex gap-2 justify-between w-full ">

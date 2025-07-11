@@ -27,7 +27,7 @@ export const RealtimeMqtt = () => {
     }
 
     return (
-        <Layout page='realtime'>
+        <Layout page='realtime' showShortCuts={false}>
             <TopNavigation currPage='mqtt' />
             <div className="w-full p-4 ">
                 <div className="flex gap-2 justify-between w-full ">

@@ -28,7 +28,7 @@ export const RealtimeSocketio = () => {
     const [authType, setAuthType] = useState('None');
 
     return (
-        <Layout page='realtime' showShortCuts={isConnected === -1}>
+        <Layout page='realtime' showShortCuts={isConnected === -1} showRightSideBar={false}>
             <TopNavigation currPage='socket' />
             <div className="w-full p-4 ">
                 <div className="flex gap-2 justify-between w-full ">

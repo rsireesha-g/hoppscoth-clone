@@ -17,7 +17,7 @@ export const History = () => {
 
     return (
         <div className='w-full h-full flex flex-col gap-1 '>
-            <div className="text-stone-400 border-y border-y-dividerDark flex justify-between align-middle items-center">
+            <div className="text-stone-400 border-b border-b-dividerDark flex justify-between align-middle items-center">
                 <input type='search' placeholder='Search'
                     className='w-full'
                     value={search}
@@ -29,7 +29,6 @@ export const History = () => {
                             <CiCircleQuestion size={16} className='cursor-pointer' />
                         </Link>
                     </Tooltip>
-
                     <DropdownMenu position='bottom-left' button={
                         <Tooltip text='Export / Import' position='top-right'>
                             <IoFilterCircleOutline size={16} className='cursor-pointer' />

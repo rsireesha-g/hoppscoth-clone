@@ -102,7 +102,7 @@ export const Rest = () => {
         setSelectedMethodTab(tabsData?.[tabIndex])
     }, [tabIndex])
     return (
-        <Layout page='home'>
+        <Layout page='home' >
             <div className='flex gap-2 justify-between align-middle p-2'>
                 <div className="flex-grow my-2  max-w-1/2 flex align-middle items-center w-[76%] max-w-[76%]">
                     {tabsData?.map((tab: MethodData, ind: number) => (

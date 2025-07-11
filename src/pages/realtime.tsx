@@ -20,7 +20,7 @@ export const Realtime = () => {
     const [messageType, setMessageType] = useState('JSON');
 
     return (
-        <Layout page='realtime'>
+        <Layout page='realtime' showRightSideBar={false} showShortCuts={false}>
             <TopNavigation currPage='web' />
             <div className="w-full p-4 ">
                 <div className="flex gap-2 justify-between">
