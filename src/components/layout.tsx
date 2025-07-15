@@ -17,7 +17,7 @@ import { GraphQlPageSideBar } from './restPageComponents/graphqlSideBar/sideBar'
 import { InviteModal } from './common/inviteModal';
 
 type layoutProps = {
-    children: ReactNode,
+    children: any,
     page: string,
     showShortCuts?: boolean,
     showRightSideBar?: boolean,

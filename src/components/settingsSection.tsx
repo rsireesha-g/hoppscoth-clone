@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { Link } from 'react-router'
 
 interface settingSectionProps {
-    children?: ReactNode,
+    children?: any,
     description?: string,
     heading: string,
     linkTo?: string,

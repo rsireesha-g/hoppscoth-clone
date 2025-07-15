@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { useClickOutside } from '../hooks/modalHooks';
 
 interface ModalProps {
-    children: React.ReactNode;
+    children: any;
     onClose: () => void;
     className?: string;
     isOpen: boolean

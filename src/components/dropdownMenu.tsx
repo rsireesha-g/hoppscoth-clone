@@ -3,7 +3,7 @@ import { useClickOutside } from '../hooks/modalHooks';
 
 export type DropdownItem = {
     label: string;
-    icon?: React.ReactNode;
+    icon?: any;
     kbd?: string;
     onClick?: (x?: string) => void;
     color?: string
@@ -12,7 +12,7 @@ export type DropdownItem = {
 type DropdownPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'header' | 'header-right' | 'middle';
 
 type DropdownMenuProps = {
-    button: React.ReactNode;
+    button: any;
     items?: DropdownItem[];
     position?: DropdownPosition;
     children?: any;

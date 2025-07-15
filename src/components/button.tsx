@@ -1,12 +1,13 @@
 import { ReactNode } from "react"
 import { IconType } from "react-icons"
 import { BsChevronDown } from "react-icons/bs"
+import { FaAngleDown } from "react-icons/fa"
 import { Link } from "react-router"
 
 interface buttonProp {
     type: 'primary' | 'bordered' | 'link' | 'secondary',
     text: string,
-    children?: ReactNode,
+    children?: any,
     nextLink?: string,
     extraClass?: string,
     onClick?: () => void,
@@ -46,7 +47,7 @@ export const Button = ({ type, text, children, nextLink, extraClass, chevronExis
                     onClick={handleClick}>
                     {children}
                     <p>{text}</p>
-                    {chevronExists && <BsChevronDown size={12} />}
+                    {chevronExists && <FaAngleDown size={12} />}
 
                 </Link>
             }
@@ -57,7 +58,7 @@ export const Button = ({ type, text, children, nextLink, extraClass, chevronExis
                     onClick={handleClick}>
                     {children}
                     <p style={{ color: `${textColor ? `${textColor}!important` : ''}` }}>{text}</p>
-                    {chevronExists && <BsChevronDown size={12} />}
+                    {chevronExists && <FaAngleDown size={12} />}
 
                 </button>
             }
