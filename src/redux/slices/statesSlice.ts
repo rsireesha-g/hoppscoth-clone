@@ -9,6 +9,7 @@ interface statesSliceProps {
     environments: any,
     isChatBotModalOpen: boolean,
     isInviteModalOpen: boolean,
+    showShortCutsPanel: boolean
 }
 
 const initialState: statesSliceProps = {
@@ -20,6 +21,7 @@ const initialState: statesSliceProps = {
     environments: null,
     isChatBotModalOpen: false,
     isInviteModalOpen: false,
+    showShortCutsPanel: true
 }
 
 const statesSlice = createSlice({
@@ -60,6 +62,9 @@ const statesSlice = createSlice({
         },
         onInviteModalClick(state, action: PayloadAction<boolean>) {
             state.isInviteModalOpen = action.payload
+        },
+        onShowShortCutsPanelClick(state, action: PayloadAction<boolean>) {
+            state.showShortCutsPanel = action.payload
         }
     }
 });
@@ -72,6 +77,8 @@ export const {
     onLogin,
     isAuth,
     onChartBotModalClick,
-    onInviteModalClick
+    onInviteModalClick,
+    onShowShortCutsPanelClick
 } = statesSlice.actions;
+
 export default statesSlice.reducer;

@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { EnvironmentData, MethodData } from "../../interfaces/restApiInterface";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { EnvironmentData, historyStateType, MethodData } from "../../interfaces/restApiInterface";
+import axios from "axios";
 
 
 export const methodTabsData: MethodData[] = []
@@ -13,15 +14,27 @@ const selectedEnvironment: string = 'Global';
 type collectionType = {
     label: string, tabIndexes: number[]
 }[]
-const collections: collectionType = []
+const collections: collectionType = [];
+
+const historyData: historyStateType = {
+    loading: false,
+    error: false,
+    data: []
+}
 
 const initialState = {
     methodTabsData,
     environmentData,
     selectedEnvironment,
-    collections
+    collections,
+    historyData
 }
 
+
+export const getHistoryData = createAsyncThunk('rest/historyData', async () => {
+    const res = await axios.get('http://localhost:5000/rest/historyData');
+    return res?.data;
+})
 
 const restApiSlice = createSlice({
     name: 'restApiSlice',
@@ -74,6 +87,22 @@ const restApiSlice = createSlice({
                 })
             }
         }
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(getHistoryData.pending, state => {
+                state.historyData.loading = true;
+                state.historyData.error = false;
+            })
+            .addCase(getHistoryData.fulfilled, (state, action: any) => {
+                state.historyData.loading = false;
+                state.historyData.error = false;
+                state.historyData.data = action.payload
+            })
+            .addCase(getHistoryData.rejected, state => {
+                state.historyData.loading = false;
+                state.historyData.error = true;
+            })
     }
 });
 

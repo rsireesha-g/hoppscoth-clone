@@ -66,7 +66,7 @@ export const QueryParams = ({ data, setData, initialState }: queryParamProps) =>
     return (
         <div>
             {/* top */}
-            <div className="flex gap-2  justify-between p-2 border-y border-y-dividerDark px-4">
+            <div className="w-full flex gap-2  justify-between p-2 border-y border-y-dividerDark px-4">
                 <div className="text-secondary">Query data</div>
                 <div className="flex gap-2 align-middle text-[#e1e0e0]">
                     <Tooltip position='top-left' text='Wiki'>
@@ -91,7 +91,7 @@ export const QueryParams = ({ data, setData, initialState }: queryParamProps) =>
                 </div>
             </div>
             {/* grid */}
-            <>{
+            <div className='overflow-y-auto h-28 max-h-28'>{
                 !isBulkEdit ?
                     <>
                         {data?.map((param: KeyValueDescription, ind: number) => (
@@ -142,7 +142,7 @@ export const QueryParams = ({ data, setData, initialState }: queryParamProps) =>
                         ))}
                     </div>
             }
-            </>
+            </div>
         </div >
     )
 }

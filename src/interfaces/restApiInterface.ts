@@ -23,7 +23,8 @@ export type MethodData = {
     authorization: string,
     preRequestScript: string,
     postRequestScript: string,
-    variables: VariablesObj[]
+    variables: VariablesObj[],
+    url: string
 };
 
 export type EnvVariablesObj = {
@@ -38,3 +39,18 @@ export type EnvironmentData = {
     secrets: EnvVariablesObj[]
 };
 
+export type historyDataType = {
+    id: number,
+    requested_at: string,
+    url: string,
+    method: string
+}[]
+
+export type historyStateType = {
+    loading: boolean,
+    error: boolean,
+    data: {
+        url: string,
+        requests: historyDataType
+    }[]
+}

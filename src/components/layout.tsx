@@ -30,8 +30,9 @@ export const Layout = ({ children, page, showShortCuts = true, showLeftSideBar =
     const [isCollapse, setIsCollapse] = useState<boolean>(false);
     const [isHorizontalCollapsed, setIsHorizontalCollapsed] = useState<boolean>(false);
     const [isRightSideBarCollapsed, setIsRightSideBarCollapsed] = useState<boolean>(false);
-    const { isShortCutsModalOpen, isChatBotModalOpen, isInviteModalOpen } = useSelector((state: RootState) => state.statesStatus);
+    const { isShortCutsModalOpen, isChatBotModalOpen, isInviteModalOpen, showShortCutsPanel } = useSelector((state: RootState) => state.statesStatus);
     const dispatch = useDispatch<AppDispatch>();
+
 
     return (
         <div className={`w-screen h-screen text-xs font-semibold  ${theme === 'dark' ? 'bg-primary text-secondary' : 'bg-secondary text-primary'}`}>
@@ -52,7 +53,7 @@ export const Layout = ({ children, page, showShortCuts = true, showLeftSideBar =
                                         </div>
                                     </Panel>
 
-                                    {showShortCuts &&
+                                    {showShortCuts && showShortCutsPanel &&
                                         <>
                                             <PanelResizeHandle
                                                 className={`${isHorizontalCollapsed ? 'w-1 cursor-col-resize' : 'h-1 cursor-row-resize'
