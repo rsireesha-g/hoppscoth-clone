@@ -59,6 +59,11 @@ export const restoreHistoryData = createAsyncThunk('rest/historyData/:requested_
     return res?.data;
 })
 
+export const clearAllHistoryData = createAsyncThunk('rest/historyData/deleteAll', async () => {
+    const res = await axios.delete(`http://localhost:5000/rest/historyData`);
+    return res?.data;
+})
+
 const restApiSlice = createSlice({
     name: 'restApiSlice',
     initialState,
@@ -137,9 +142,23 @@ const restApiSlice = createSlice({
             .addCase(restoreHistoryData.fulfilled, (state, action: any) => {
                 state.loading = false;
                 state.error = false;
-                state.selectedHistoryRequest = action.payload?.[0]
+                state.selectedHistoryRequest = action.payload?.[0];
             })
             .addCase(restoreHistoryData.rejected, state => {
+                state.loading = false;
+                state.error = true;
+            })
+            .addCase(clearAllHistoryData.pending, state => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(clearAllHistoryData.fulfilled, (state, action: any) => {
+                state.loading = false;
+                state.error = false;
+                state.historyData.data = []
+
+            })
+            .addCase(clearAllHistoryData.rejected, state => {
                 state.loading = false;
                 state.error = true;
             })

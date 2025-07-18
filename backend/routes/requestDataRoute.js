@@ -6,5 +6,6 @@ router.get("/", requestDataController.getAll);
 router.post("/responseData", requestDataController.sendRequest);
 router.get("/historyData", requestDataController.getHistory);
 router.get("/historyData/:requested_at", requestDataController.restoreHistory);
+router.delete("/historyData", requestDataController.clearAllHistoryData);
 
 module.exports = router;

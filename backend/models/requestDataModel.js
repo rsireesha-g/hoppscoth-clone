@@ -20,6 +20,10 @@ const requestData = {
         // const date = new Date(requested_at).toISOString().slice(0, 19).replace('T', ' ');
         const sql = `SELECT * FROM HistoryData WHERE requested_at='${requested_at}'`;
         db.query(sql, callback);
+    },
+    clearAllHistory: (callback) => {
+        const sql = 'DELETE FROM HistoryData WHERE id>0;';
+        db.query(sql, callback);
     }
 };
 

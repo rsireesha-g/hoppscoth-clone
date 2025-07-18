@@ -41,7 +41,7 @@ export const Layout = ({ children, page, showShortCuts = true, showLeftSideBar =
                 <SideBar {...{ isCollapse, page }} />
                 <div className='hidden md:flex w-full'>
                     <PanelGroup direction="horizontal" className="flex-1">
-                        <Panel defaultSize={70} minSize={60}>
+                        <Panel defaultSize={65} minSize={60}>
                             <div className={`w-full h-full overflow-y-auto flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
                                 <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1 overflow-y-auto overflow-x-auto">
                                     <Panel defaultSize={60} minSize={50} className='!overflow-visible'>
@@ -73,7 +73,7 @@ export const Layout = ({ children, page, showShortCuts = true, showLeftSideBar =
                         {!isRightSideBarCollapsed && showRightSideBar &&
                             <>
                                 <PanelResizeHandle className="w-1 bg-primaryDark hover:bg-primaryDark md:visible overflow-auto cursor-col-resize" />
-                                <Panel defaultSize={30} minSize={20} style={{ overflow: 'auto !important' }}>
+                                <Panel defaultSize={35} minSize={30} style={{ overflow: 'auto !important' }}>
                                     {page === 'home' && <RestPageSideBar />}
                                     {page === 'graphql' && <GraphQlPageSideBar />}
                                 </Panel>

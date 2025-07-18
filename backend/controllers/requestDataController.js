@@ -112,3 +112,11 @@ exports.restoreHistory = async (req, res) => {
     })
 }
 
+exports.clearAllHistoryData = async (req, res) => {
+    requestData.clearAllHistory((err, result) => {
+        console.log(err, 'history err')
+        if (err) return res.status(500).send(err);
+
+        return res.send(result);
+    })
+}
