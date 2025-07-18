@@ -1,5 +1,6 @@
 const { default: axios } = require("axios");
-const requestData = require("../models/requestDataModel")
+const requestData = require("../models/requestDataModel");
+const { getTimeAgo } = require("../utils/time");
 
 exports.getAll = (req, res) => {
     requestData.getAll((err, data) => {
@@ -11,20 +12,37 @@ exports.getAll = (req, res) => {
 };
 
 exports.getHistory = (req, res) => {
-    requestData.getHistory((err, result) => {
+    const { groupBy } = req.query;
+    requestData.getHistory(groupBy, (err, result) => {
         if (err) return res.status(500).send(err);
         else {
-            const grouped = result.reduce((acc, row) => {
-                if (!acc[row.url]) acc[row.url] = [];
-                acc[row.url].push({
-                    id: row.id,
-                    method: row.method,
-                    requested_at: row.requested_at
-                });
-                return acc;
-            }, {});
+            let grouped = [];
+            if (groupBy === 'url') {
+                grouped = result.reduce((acc, row) => {
+                    if (!acc[row.url]) acc[row.url] = [];
+                    acc[row.url].push({
+                        id: row.id,
+                        method: row.method,
+                        requested_at: row.requested_at,
+                        url: row.url
+                    });
+                    return acc;
+                }, {});
+            } else {
+                grouped = result.reduce((acc, row) => {
+                    const timeAgo = getTimeAgo(row.requested_at);
+                    if (!acc[timeAgo]) acc[timeAgo] = [];
+                    acc[timeAgo].push({
+                        id: row.id,
+                        method: row.method,
+                        requested_at: row.requested_at,
+                        url: row.url
+                    });
+                    return acc;
+                }, {});
+            }
 
-            // Convert to array of { url, requests }
+
             const groupedArray = Object.entries(grouped).map(([url, requests]) => ({
                 url,
                 requests
@@ -32,7 +50,6 @@ exports.getHistory = (req, res) => {
 
             res.json(groupedArray);
         }
-        // else return res.status(200).send(result);
     })
 }
 
@@ -46,8 +63,6 @@ exports.sendRequest = async (req, res) => {
         const axiosConfig = {
             method: method.toLowerCase(),
             url,
-            headers,
-            data: body,
             validateStatus: () => true
         }
         const end = Date.now();
@@ -85,5 +100,15 @@ exports.sendRequest = async (req, res) => {
         console.log(err, 'fetch error')
     }
 
+}
+
+exports.restoreHistory = async (req, res) => {
+    const { requested_at } = req.params;
+    requestData.restoreHistory(requested_at, (err, result) => {
+        console.log(err, 'history err')
+        if (err) return res.status(500).send(err);
+
+        return res.send(result);
+    })
 }
 

@@ -1,4 +1,9 @@
 import React, { useState } from 'react'
+import { Tooltip } from '../tooltip';
+import { MdOutlineWrapText } from 'react-icons/md';
+import { IoFilterCircleOutline } from 'react-icons/io5';
+import { LuDownload } from 'react-icons/lu';
+import { BsCopy, BsSave, BsThreeDots } from 'react-icons/bs';
 
 export const ResponseDisplayComponent = (response: any) => {
     const [tab, setTab] = useState<string>("JSON");
@@ -32,8 +37,25 @@ export const ResponseDisplayComponent = (response: any) => {
             </div>
             <div className='flex justify-between gap-2 align-middle w-full p-2  border-y border-y-dividerDark'>
                 <div>Response Body</div>
-                <div>
-
+                <div className='flex gap-2'>
+                    <Tooltip position='top-left' text='Wrap Lines'>
+                        <MdOutlineWrapText size={16} className='cursor-pointer' />
+                    </Tooltip>
+                    <Tooltip text='Filter' position='top-right'>
+                        <IoFilterCircleOutline size={16} className='cursor-pointer' />
+                    </Tooltip>
+                    <Tooltip text='Download File' position='top-right'>
+                        <LuDownload size={16} className='cursor-pointer' />
+                    </Tooltip>
+                    <Tooltip position='top-left' text='Copy'>
+                        <BsCopy size={14} className='cursor-pointer' />
+                    </Tooltip>
+                    <Tooltip position='top-right' text='Save the request'>
+                        <BsSave size={14} className='cursor-pointer' />
+                    </Tooltip>
+                    <Tooltip position='top-right' text='more'>
+                        <BsThreeDots size={16} className='cursor-pointer' />
+                    </Tooltip>
                 </div>
             </div>
             <div className='p-2 text-[14px] overflow-y-auto h-[62%] max-h-[62%]'>

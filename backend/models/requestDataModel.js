@@ -12,8 +12,14 @@ const requestData = {
         const sql = `INSERT INTO HistoryData (method,url,request_id, requested_at) VALUES(?,?,?,?)`;
         db.query(sql, [method, url, request_id, requested_at], callback);
     },
-    getHistory: (callback) => {
-        db.query('SELECT * FROM HistoryData ORDER BY url', callback)
+    getHistory: (groupBy, callback) => {
+        const sql = groupBy === 'url' ? 'SELECT * FROM HistoryData ORDER BY url' : 'SELECT * FROM HistoryData ORDER BY requested_at DESC'
+        db.query(sql, callback)
+    },
+    restoreHistory: (requested_at, callback) => {
+        // const date = new Date(requested_at).toISOString().slice(0, 19).replace('T', ' ');
+        const sql = `SELECT * FROM HistoryData WHERE requested_at='${requested_at}'`;
+        db.query(sql, callback);
     }
 };
 

@@ -21,18 +21,41 @@ const historyData: historyStateType = {
     error: false,
     data: []
 }
+const selectedHistoryRequest: MethodData = {
+    method: 'GET',
+    title: '',
+    parameters: [{ key: '', value: '', description: '' }],
+    headers: [{ key: '', value: '', description: '' }],
+    body: '',
+    authorization: '',
+    preRequestScript: '',
+    postRequestScript: '',
+    variables: [{ variable: '', value: '' }],
+    index: methodTabsData?.length,
+    url: 'https://echo.hoppscotch.io'
+};
+
+
 
 const initialState = {
     methodTabsData,
     environmentData,
     selectedEnvironment,
     collections,
-    historyData
+    historyData,
+    selectedHistoryRequest,
+    loading: false,
+    error: false
 }
 
 
-export const getHistoryData = createAsyncThunk('rest/historyData', async () => {
-    const res = await axios.get('http://localhost:5000/rest/historyData');
+export const getHistoryData = createAsyncThunk('rest/historyData', async ({ selectedFilterGroup }: { selectedFilterGroup?: string }) => {
+    const res = await axios.get(`http://localhost:5000/rest/historyData?groupBy=${selectedFilterGroup?.toLocaleLowerCase()}`);
+    return res?.data;
+})
+
+export const restoreHistoryData = createAsyncThunk('rest/historyData/:requested_at', async ({ requested_at }: { requested_at: string }) => {
+    const res = await axios.get(`http://localhost:5000/rest/historyData/${requested_at}`);
     return res?.data;
 })
 
@@ -86,11 +109,15 @@ const restApiSlice = createSlice({
                     tabIndexes: []
                 })
             }
+        },
+        onHistoryRestore: (state, action: PayloadAction<MethodData>) => {
+            state.selectedHistoryRequest = action.payload
         }
     },
     extraReducers: builder => {
         builder
             .addCase(getHistoryData.pending, state => {
+
                 state.historyData.loading = true;
                 state.historyData.error = false;
             })
@@ -103,6 +130,19 @@ const restApiSlice = createSlice({
                 state.historyData.loading = false;
                 state.historyData.error = true;
             })
+            .addCase(restoreHistoryData.pending, state => {
+                state.loading = true;
+                state.error = false;
+            })
+            .addCase(restoreHistoryData.fulfilled, (state, action: any) => {
+                state.loading = false;
+                state.error = false;
+                state.selectedHistoryRequest = action.payload?.[0]
+            })
+            .addCase(restoreHistoryData.rejected, state => {
+                state.loading = false;
+                state.error = true;
+            })
     }
 });
 
@@ -110,7 +150,8 @@ export const {
     onSaveEnvironmentVariablesAndSecrets,
     onSelectEnvironmentLabel,
     onDeleteEnvironment,
-    onCreateCollection
+    onCreateCollection,
+    onHistoryRestore
 } = restApiSlice.actions;
 
 export default restApiSlice.reducer;

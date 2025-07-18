@@ -218,7 +218,7 @@ export const Variables = ({ data, setData, initialState, secrets, setSecrets, la
                 )
                 :
                 <div className='flex flex-col gap-2 align-middle items-center text-sec'>
-                    <img alt='empty collections ' width={70} height={70} src={emptyImg} />
+                    <img loading="lazy" alt='empty collections ' width={70} height={70} src={emptyImg} />
                     <p className="text-[10px]">Environments are empty</p>
                     <Button type='secondary' text='Add new' extraClass='!flex-row' onClick={() => {
                         setIsAddNew(true);

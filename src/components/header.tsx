@@ -16,7 +16,6 @@ import { SearchComponent } from './searchComponent';
 import { Login } from './login';
 import { Tooltip } from './tooltip';
 import { CgProfile } from "react-icons/cg";
-import { MdOutlineAccountCircle } from 'react-icons/md';
 import { FaArrowRightFromBracket } from 'react-icons/fa6';
 import { BsPerson, BsPersonAdd } from 'react-icons/bs';
 import emptyImage from "../assests/images/workspace.png"
@@ -136,7 +135,7 @@ export const Header = () => {
                                         <FaCheck className='text-accentDark' size={16} />
                                     </div>
                                     <div className="flex text-secondary hover:text-secondaryDark border-y border-y-dividerDark flex-col gap-2 justify-center align-middle items-center p-4">
-                                        <img src={emptyImage} width={70} height={70} alt="no workspace" />
+                                        <img loading="lazy" src={emptyImage} width={70} height={70} alt="no workspace" />
                                         <p className="text-[10px] font-normal">You don't belong to any workspaces</p>
                                         <Button type='secondary' text='+ Create new workspace' extraClass='!flex-row'
                                             onClick={() => setCreateNewWorkspace(true)} />
@@ -147,7 +146,7 @@ export const Header = () => {
 
                             <DropdownMenu
                                 button={
-                                    <img src={profileImg} alt='profile' width={24} height={24} />
+                                    <img loading="lazy" src={profileImg} alt='profile' width={24} height={24} />
                                 }
                                 items={profileItems}
                                 position='header-right'

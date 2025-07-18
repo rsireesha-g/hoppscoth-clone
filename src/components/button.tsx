@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import { IconType } from "react-icons"
 import { BsChevronDown } from "react-icons/bs"
 import { FaAngleDown } from "react-icons/fa"
 import { Link } from "react-router"

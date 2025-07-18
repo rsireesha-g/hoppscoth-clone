@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { IoCode, IoDocument, IoLayersOutline, IoShareSocialOutline } from 'react-icons/io5'
 import { CiFolderOn } from 'react-icons/ci'
 import { FaRegClock } from 'react-icons/fa'
 import { Collections } from './collections'

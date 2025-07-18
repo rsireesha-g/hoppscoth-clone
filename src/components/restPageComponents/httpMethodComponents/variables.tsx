@@ -4,7 +4,6 @@ import { CiCircleQuestion } from 'react-icons/ci'
 import { MdOutlineDeleteForever, MdOutlineDeleteOutline, MdOutlineWrapText } from 'react-icons/md'
 import { FaRegEdit } from 'react-icons/fa'
 import { IoIosAdd, IoMdCheckmarkCircleOutline } from 'react-icons/io'
-import { TiTickOutline } from 'react-icons/ti'
 import { VariablesObj } from '../../../interfaces/restApiInterface'
 import { Link } from 'react-router'
 

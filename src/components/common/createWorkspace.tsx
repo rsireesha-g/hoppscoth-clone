@@ -61,7 +61,7 @@ export const CreateWorkspace = ({ handleClose, isInviteClick }: any) => {
                                 </div>
                                 :
                                 <div >
-                                    <img src={profileImg} alt='workspace' width={70} height={70} />
+                                    <img loading="lazy" src={profileImg} alt='workspace' width={70} height={70} />
                                 </div>
                             }
                         </div>

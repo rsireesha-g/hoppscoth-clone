@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Layout } from '../components/layout'
 import { RadioButton } from '../components/radioButton'
-import { Link } from 'react-router'
 import { SlideButton } from '../components/slideButton';
 import { Button } from '../components/button';
 import { SettingsSection } from '../components/settingsSection';
@@ -9,7 +8,6 @@ import DropdownMenu from '../components/dropdownMenu';
 import { LuLanguages } from "react-icons/lu";
 import { IoIosDesktop } from 'react-icons/io';
 import { CiCloud, CiDark, CiLight } from 'react-icons/ci';
-import { MdDarkMode } from 'react-icons/md';
 
 export type ExperimentKey = 'Telemetry' | 'Expand navigation' | 'Sidebar on left' | 'AI Experiments' | 'Experimental scripting sandbox' | 'Verify Host' | 'Verify Peer' | 'Proxy';
 

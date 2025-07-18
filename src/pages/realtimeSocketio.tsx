@@ -10,10 +10,8 @@ import { CiCircleQuestion } from 'react-icons/ci';
 import { MdOutlineDeleteForever, MdOutlineWrapText, MdSend } from 'react-icons/md';
 import { PiMagicWand } from 'react-icons/pi';
 import { BiChevronDown, BiSolidFileImport } from 'react-icons/bi';
-import { IoAdd } from 'react-icons/io5';
 import emptyImage from "../assests/images/environment.png"
 import { BsCheck, BsWifi } from 'react-icons/bs';
-import { AuthorizationTab } from '../components/restPageComponents/httpMethodComponents/authorizationTab';
 import { RadioButton } from '../components/radioButton';
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6';
 
@@ -158,7 +156,7 @@ export const RealtimeSocketio = () => {
                             </div>
                             {authType === 'None' ?
                                 <div className="flex gap-2 align-middle items-center min-h-30 flex-col ">
-                                    <img src={emptyImage} alt="no protocols" width={100} height={100} />
+                                    <img loading="lazy" src={emptyImage} alt="no protocols" width={100} height={100} />
                                     <p className='text-[10px] text-secondaryLight'>This SocketIO connection does not use any authentication</p>
                                 </div>
                                 :

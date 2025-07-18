@@ -44,7 +44,7 @@ export const Footer = ({
 
     const menuItems = [
         { label: 'Documentation', icon: <VscBrowser size={14} className='rotate-180' />, kbd: 'D' },
-        { label: 'Keyboard Shortcuts', icon: <img src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' onClick={() => dispatch(onShortCutsModalClick(true))} />, kbd: 'S' },
+        { label: 'Keyboard Shortcuts', icon: <img loading="lazy" src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' onClick={() => dispatch(onShortCutsModalClick(true))} />, kbd: 'S' },
         { label: 'Chat with us', icon: <IoChatbubbleOutline size={16} /> },
         { label: "What's new?", icon: <CiGift size={16} /> },
         { label: 'Status', icon: <TbActivityHeartbeat size={16} /> },
@@ -89,7 +89,7 @@ export const Footer = ({
                         <DropdownMenu
                             position='top-left'
                             button={
-                                <img src={secureImg} alt='interceptor' className='w-4 h-4 cursor-pointer ' />
+                                <img loading="lazy" src={secureImg} alt='interceptor' className='w-4 h-4 cursor-pointer ' />
                             }
                         >
                             <SettingsSection
@@ -117,7 +117,7 @@ export const Footer = ({
                         items={menuItems}
                     />
                     <Tooltip position='top-left' text='Shortcuts' kbd={['Ctrl', '/']} extraClassName=' -ml-2 bg-red-500'>
-                        <img src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' onClick={() => dispatch(onShortCutsModalClick(true))} />
+                        <img loading="lazy" src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' onClick={() => dispatch(onShortCutsModalClick(true))} />
                     </Tooltip>
                     <Tooltip position='top-right' text='share'>
                         <IoShareSocialOutline className='w-4 h-4 cursor-pointer text-secondaryDark' />

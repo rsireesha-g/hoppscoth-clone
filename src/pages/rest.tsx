@@ -31,7 +31,7 @@ const variablesInitialState: Array<VariablesObj> = [{ variable: '', value: '' }]
 
 
 export const Rest = () => {
-    const { environmentData, selectedEnvironment, methodTabsData } = useSelector((state: RootState) => state.restApi);
+    const { environmentData, selectedEnvironment, methodTabsData, selectedHistoryRequest } = useSelector((state: RootState) => state.restApi);
     const [selectedTab, setSelectedTab] = useState('parameters')
     const dispatch = useDispatch<AppDispatch>();
     const newTabData: MethodData = {
@@ -47,7 +47,7 @@ export const Rest = () => {
         index: methodTabsData?.length,
         url: 'https://echo.hoppscotch.io'
     };
-    const [tabsData, setTabsData] = useState<Array<MethodData>>([newTabData]);
+    const [tabsData, setTabsData] = useState<Array<MethodData>>([]);
     const [tabIndex, setTabIndex] = useState(0);
 
     const [selectedAuthMethod, setSelectedAuthMethod] = useState('Inherit');
@@ -67,7 +67,6 @@ export const Rest = () => {
         { label: 'CUSTOM', color: 'var(--method-default-color)', onClick: () => handleHttpMethodSelect('CUSTOM') }
     ];
     const [selectedHttpMethod, setSelectedHttpMethod] = useState({ label: 'GET', color: 'var(--method-get-color)' });
-    const [parameters, setParameters] = useState<Array<KeyValueDescription>>(paramsInitialState);
     const [headers, setHeaders] = useState<Array<KeyValueDescription>>(paramsInitialState);
     const [variables, setVariables] = useState<Array<VariablesObj>>(variablesInitialState);
     const [search, setSearch] = useState('');
@@ -77,7 +76,6 @@ export const Rest = () => {
     const globalEnv = environmentData?.filter((env) => env.label === 'Global');
     const [selectedMethodTab, setSelectedMethodTab] = useState<MethodData>(methodTabsData?.[0]);
     const [response, setResponse] = useState(null);
-    const [historyData, setHistoryData] = useState([]);
 
     const handleSearch = (val: string) => {
         setSearch(val);
@@ -111,35 +109,62 @@ export const Rest = () => {
         try {
             let res = await axios.post('http://localhost:5000/rest/responseData', {
                 method: selectedMethodTab?.method,
-                url: `${selectedMethodTab?.url}`
+                url: `${selectedMethodTab?.url}`,
+                headers,
+                variables
             });
             console.log(res, 'axios response');
             setResponse(res?.data);
-
+            dispatch(getHistoryData({ selectedFilterGroup: 'time' }))
             dispatch(onShowShortCutsPanelClick(false));
         } catch (err) {
             console.log(err)
         }
     }
 
-    // const getHistoryData = async () => {
-    //     try {
-    //         let res = await axios.get('http://localhost:5000/rest/historyData');
-    //         console.log('get history response', res)
-    //     } catch (err) {
-    //         console.log('get history error', err)
-    //     }
-    // }
+    const handleSelectedTab = (index?: number) => {
+        if (index) {
+            setSelectedMethodTab(tabsData?.[index])
+        }
+    }
 
-    useEffect(() => {
-        setSelectedMethodTab(tabsData?.[tabIndex])
-    }, [tabIndex]);
 
 
     useEffect(() => {
-        dispatch(getHistoryData())
-    }, [dispatch])
+        if (selectedHistoryRequest) {
+            const restoredTab: MethodData = {
+                ...newTabData,
+                method: selectedHistoryRequest.method || 'GET',
+                url: selectedHistoryRequest.url || 'https://echo.hoppscotch.io',
+                headers: selectedHistoryRequest.headers || [],
+                parameters: selectedHistoryRequest.parameters || [],
+                body: selectedHistoryRequest.body || '',
+                authorization: selectedHistoryRequest.authorization || '',
+                preRequestScript: selectedHistoryRequest.preRequestScript || '',
+                postRequestScript: selectedHistoryRequest.postRequestScript || '',
+                variables: selectedHistoryRequest.variables || [],
+                index: 0,
+                title: selectedHistoryRequest.title || ''
+            };
 
+            setTabsData([...tabsData, restoredTab]);
+            setTabIndex(tabsData?.length - 1);
+            setTimeout(() => handleSelectedTab(), 100);
+            setSelectedHttpMethod(
+                httpMethods.find((x) => x.label === (selectedHistoryRequest.method || 'GET')) || httpMethods[0]
+            );
+        }
+        setTimeout(() => handleSelectedTab(), 100);
+        console.log('first')
+
+
+    }, [selectedHistoryRequest]);
+
+    useEffect(() => {
+        setSelectedMethodTab(tabsData?.[tabsData?.length - 1])
+    }, [tabsData]);
+
+    console.log(tabsData)
     return (
         <Layout page='home'>
             <div className='w-full h-full justify-start align-top overflow-visible'>
@@ -147,13 +172,13 @@ export const Rest = () => {
                     <div className='flex max-w-[76%] align-middle items-center'>
                         <div className="flex-grow my-2 max-w-1/2 flex align-middle items-center overflow-y-auto">
                             {tabsData?.map((tab: MethodData, ind: number) => (
-                                <div className="flex align-middle items-center justify-start w-58 relative"
+                                <div className={`flex align-middle items-center justify-start w-58 relative `}
                                     key={ind}
                                 >
                                     <Button type='secondary' extraClass='border-0 w-fit flex overflow-x-clip'
                                         text={tab?.method}
                                         textColor={selectedHttpMethod?.color}
-                                        onClick={() => setTabIndex(ind)}
+                                        onClick={() => handleSelectedTab(ind)}
                                     >
                                         <input type='text' placeholder='Untitled' readOnly className='w-fit' />
                                     </Button>
@@ -297,8 +322,7 @@ export const Rest = () => {
                                 items={httpMethods}
                             ></DropdownMenu>
                             <input type='text' placeholder='Untitled'
-                                defaultValue={'https://echo.hoppscotch.io'}
-                                value={selectedMethodTab?.url}
+                                value={selectedMethodTab?.url ?? ''}
                                 onChange={(e) => setSelectedMethodTab({ ...selectedMethodTab, 'url': e.target.value })}
                                 className='p-2 text-secondaryDark bg-transparent flex-grow'
                             />
@@ -333,23 +357,16 @@ export const Rest = () => {
                                 >
                                     <input type='text' placeholder='Untitled'
                                         defaultValue={'Untitled'}
+                                        readOnly
                                         className=' border border-dividerDark p-2 text-secondaryDark bg-transparent'
                                     />
                                     <div
-                                        // onClick={() => {
-                                        //     item.onClick?.();
-                                        //     setIsOpen(false);
-                                        // }}
                                         className=" border-b border-b-dividerDark flex items-center text-xs gap-2 px-4 py-1 text-secondary hover:bg-primaryDark  hover:text-secondaryDark cursor-pointer"
                                     >
                                         <AiOutlineFolderAdd size={16} />
                                         <span className='flex-grow truncate max-w-[16rem]'>Save as</span>
                                     </div>
                                     <div
-                                        // onClick={() => {
-                                        //     item.onClick?.();
-                                        //     setIsOpen(false);
-                                        // }}
                                         className="flex items-center text-xs gap-2 px-4 py-1 text-secondary hover:bg-primaryDark  hover:text-secondaryDark cursor-pointer"
                                     >
                                         <IoShareSocialOutline size={16} />

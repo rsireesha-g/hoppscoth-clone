@@ -8,11 +8,9 @@ import { VscBrowser } from 'react-icons/vsc'
 import { CiGift } from 'react-icons/ci'
 import { useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
-import { ShortcutsSideBar } from './shortcutsSideBar';
 import { useDispatch } from 'react-redux';
 import { onChartBotModalClick, onInviteModalClick, onShortCutsModalClick } from '../../redux/slices/statesSlice';
 import { Link } from 'react-router'
-import { InviteModal } from './inviteModal'
 
 type dataObj = {
     label: string,
@@ -46,7 +44,7 @@ export const Support = ({ handleClose }: any) => {
     const data: Array<dataObj> = [
         { label: 'Chat with us', description: 'Questions? Chat with us!', icon: <BsChat size={14} className='rotate-180' />, onClick: () => dispatch(onChartBotModalClick(true)) },
         { label: 'Documentation', description: 'Read more about Hoppscotch', icon: <VscBrowser size={14} className='rotate-180' />, url: 'https://docs.hoppscotch.io/' },
-        { label: 'Keyboard shortcuts', description: 'Browse app faster', icon: <img src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' />, onClick: () => dispatch(onShortCutsModalClick(true)) },
+        { label: 'Keyboard shortcuts', description: 'Browse app faster', icon: <img loading="lazy" src={shortcutKeyIcon} alt='interceptor' className='w-4 h-4 cursor-pointer' />, onClick: () => dispatch(onShortCutsModalClick(true)) },
         {
             label: 'Whats new', description: 'Read more about latest releases', icon: <CiGift size={14} />, url: 'https://docs.hoppscotch.io / documentation / changelog'
         },

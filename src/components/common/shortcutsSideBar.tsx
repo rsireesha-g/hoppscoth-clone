@@ -6,7 +6,6 @@ import { MdOutlineClose } from "react-icons/md";
 import { LuChevronDown } from "react-icons/lu";
 import { Modal } from '../modal';
 import { useSelector } from 'react-redux';
-import { useClickOutside } from '../../hooks/modalHooks';
 
 const shortCutsData = [
     {

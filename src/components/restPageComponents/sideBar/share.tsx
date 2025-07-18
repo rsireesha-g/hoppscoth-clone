@@ -31,7 +31,7 @@ export const Share = () => {
                 <div className="p-2 text-secondary">
                     {requests?.length === 0 ?
                         <div className='flex flex-col gap-2 align-middle items-center'>
-                            <img alt='empty collections ' width={70} height={70} src={emptyImg} />
+                            <img loading="lazy" alt='empty collections ' width={70} height={70} src={emptyImg} />
                             <p className="text-[10px] text-secondaryLight">Shared requests are empty</p>
                         </div>
                         :

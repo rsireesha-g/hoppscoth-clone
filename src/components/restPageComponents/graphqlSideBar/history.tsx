@@ -50,7 +50,7 @@ export const History = () => {
             <div className="p-2 text-secondary">
                 {search === '' ?
                     <div className='flex flex-col gap-2 align-middle items-center'>
-                        <img alt='empty collections ' width={70} height={70} src={emptyImg} />
+                        <img loading="lazy" alt='empty collections ' width={70} height={70} src={emptyImg} />
                         <p className="text-[10px]">History is empty</p>
                     </div>
                     :

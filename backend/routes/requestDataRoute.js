@@ -5,5 +5,6 @@ const requestDataController = require('../controllers/requestDataController')
 router.get("/", requestDataController.getAll);
 router.post("/responseData", requestDataController.sendRequest);
 router.get("/historyData", requestDataController.getHistory);
+router.get("/historyData/:requested_at", requestDataController.restoreHistory);
 
 module.exports = router;

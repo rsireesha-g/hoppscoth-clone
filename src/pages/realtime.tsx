@@ -109,7 +109,7 @@ export const Realtime = () => {
                                 </div>
                             </div>
                             <div className="flex gap-2 align-middle items-center min-h-30 flex-col ">
-                                <img src={emptyImage} alt="no protocols" width={100} height={100} />
+                                <img loading="lazy" src={emptyImage} alt="no protocols" width={100} height={100} />
                                 <p className='text-[10px] text-secondaryLight'>Protocols are empty</p>
                             </div>
                         </>

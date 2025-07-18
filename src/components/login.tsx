@@ -41,20 +41,20 @@ export const Login = () => {
                             </div>
                             <div className="flex gap-3 p-2 align-middle justify-start hover:bg-secondaryLight hover:text-secondaryDark cursor-not-allowed">
                                 <div className='w-4 h-4 flex align-middle justify-center bg-white'>
-                                    <img src={googleSvg} width={12} height={12} alt='google' />
+                                    <img loading="lazy" src={googleSvg} width={12} height={12} alt='google' />
                                 </div>
                                 <p>Continue with Google</p>
                             </div>
                             <div className="flex gap-3 p-2 align-middle justify-start hover:bg-primary hover:text-secondaryDark cursor-not-allowed">
                                 <div className='w-4 h-4 flex align-middle justify-center bg-white'>
-                                    <img src={microsoftsvg} width={12} height={12} alt='google' />
+                                    <img loading="lazy" src={microsoftsvg} width={12} height={12} alt='google' />
                                 </div>
                                 <p>Continue with Microsoft</p>
                             </div>
                             <div className="flex gap-3 p-2 align-middle justify-start hover:bg-primary hover:text-secondaryDark cursor-pointer"
                                 onClick={() => setStep(2)}>
                                 <div className='w-4 h-4 flex align-middle justify-center bg-[#258872]'>
-                                    <img src={emailsvg} width={12} height={12} alt='google' className='text-white' />
+                                    <img loading="lazy" src={emailsvg} width={12} height={12} alt='google' className='text-white' />
                                 </div>
                                 <p>Continue with email</p>
                             </div>

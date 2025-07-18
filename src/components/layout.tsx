@@ -42,8 +42,8 @@ export const Layout = ({ children, page, showShortCuts = true, showLeftSideBar =
                 <div className='hidden md:flex w-full'>
                     <PanelGroup direction="horizontal" className="flex-1">
                         <Panel defaultSize={70} minSize={60}>
-                            <div className={`w-full h-full overflow-x-hidden overflow-y-auto flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
-                                <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1 overflow-y-auto">
+                            <div className={`w-full h-full overflow-y-auto flex ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
+                                <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1 overflow-y-auto overflow-x-auto">
                                     <Panel defaultSize={60} minSize={50} className='!overflow-visible'>
                                         <div
                                             className={` h-full w-full overflow-visible relative ${page === 'settings' ? 'overflow-y-auto' : ''
@@ -60,7 +60,7 @@ export const Layout = ({ children, page, showShortCuts = true, showLeftSideBar =
                                                     } bg-primaryDark hover:bg-primaryDark z-10 flex`}
                                             />
 
-                                            <Panel defaultSize={30} minSize={20}>
+                                            <Panel defaultSize={40} minSize={20}>
                                                 <ShortcutsComponent {...{ isHorizontalCollapsed }} />
                                             </Panel>
                                         </>
@@ -72,8 +72,8 @@ export const Layout = ({ children, page, showShortCuts = true, showLeftSideBar =
 
                         {!isRightSideBarCollapsed && showRightSideBar &&
                             <>
-                                <PanelResizeHandle className="w-1 bg-primaryDark hover:bg-primaryDark md:visible  cursor-col-resize" />
-                                <Panel defaultSize={30} minSize={20}>
+                                <PanelResizeHandle className="w-1 bg-primaryDark hover:bg-primaryDark md:visible overflow-auto cursor-col-resize" />
+                                <Panel defaultSize={30} minSize={20} style={{ overflow: 'auto !important' }}>
                                     {page === 'home' && <RestPageSideBar />}
                                     {page === 'graphql' && <GraphQlPageSideBar />}
                                 </Panel>
@@ -81,7 +81,7 @@ export const Layout = ({ children, page, showShortCuts = true, showLeftSideBar =
                         }
                     </PanelGroup>
                 </div>
-                <div className={`md:hidden w-full h-full overflow-x-hidden overflow-y-scroll flex flex-col ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
+                <div className={`md:hidden w-full h-full !overflow-auto overflow-y-scroll flex flex-col ${isHorizontalCollapsed ? 'flex-col' : 'flex-row'}`}>
                     <PanelGroup direction={isHorizontalCollapsed ? 'horizontal' : 'vertical'} className="flex-1 !overflow-y-scroll">
                         <Panel defaultSize={60} minSize={50} className='!overflow-visible'>
                             <div
@@ -99,7 +99,7 @@ export const Layout = ({ children, page, showShortCuts = true, showLeftSideBar =
                                         } bg-primaryDark hover:bg-primaryDark z-10 flex`}
                                 />
 
-                                <Panel defaultSize={30} minSize={20}>
+                                <Panel defaultSize={40} minSize={20}>
                                     <ShortcutsComponent {...{ isHorizontalCollapsed }} />
                                 </Panel>
                             </>

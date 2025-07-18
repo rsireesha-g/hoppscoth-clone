@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { CiCircleQuestion } from 'react-icons/ci'
-import { BiChevronRight } from 'react-icons/bi'
 import { HiFolderDownload } from 'react-icons/hi'
 import { Link } from 'react-router'
 import { IoAdd, IoSearch } from 'react-icons/io5'
@@ -58,7 +57,7 @@ export const Collections = () => {
                         collections?.length === 0 ?
 
                             <div className='flex flex-col gap-2 align-middle items-center'>
-                                <img alt='empty collections ' width={70} height={70} src={collectionImg} />
+                                <img loading="lazy" alt='empty collections ' width={70} height={70} src={collectionImg} />
                                 <p className="text-[10px]">Collections are empty</p>
                                 <p className="text-xs">Import or create a collection</p>
                                 <Button type='primary' text='Import' extraClass='flex-row-reverse'>
